@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>装备介绍 - 王者荣耀</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+
+        .equipment-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: rgba(26, 35, 50, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: #ffd700;
+            color: #0f1419;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .equipment-card {
+            background: rgba(26, 35, 50, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .equipment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .equipment-card:hover::before {
+            left: 100%;
+        }
+
+        .equipment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .equipment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin-right: 1rem;
+            object-fit: cover;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .equipment-info {
+            flex: 1;
+        }
+
+        .equipment-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.3rem;
+        }
+
+        .equipment-price {
+            color: #ff6b35;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .equipment-stats {
+            margin-bottom: 1rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+        }
+
+        .stat-value {
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        .equipment-description {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .equipment-passive {
+            background: rgba(15, 20, 25, 0.5);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border-left: 3px solid #ff6b35;
+        }
+
+        .passive-title {
+            color: #ff6b35;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .passive-description {
+            color: #e0e0e0;
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .recommended-builds {
+            background: rgba(26, 35, 50, 0.5);
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            border-radius: 20px;
+        }
+
+        .builds-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 2rem;
+        }
+
+        .builds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .build-card {
+            background: rgba(15, 20, 25, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .build-hero {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .hero-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .build-items {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .build-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .build-description {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 35, 50, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ffd700;
+        }
+
+        .comparison-section {
+            margin-top: 2rem;
+        }
+
+        .comparison-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .comparison-item {
+            background: rgba(15, 20, 25, 0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .comparison-item.winner {
+            border: 1px solid #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .equipment-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .builds-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .build-items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i>
+                王者荣耀
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="heroes.html">英雄介绍</a></li>
+                <li><a href="equipment.html" class="active">装备介绍</a></li>
+                <li><a href="maps.html">地图介绍</a></li>
+                <li><a href="world.html">世界观</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">装备介绍</h1>
+            <p class="page-subtitle">了解每件装备的属性和效果，打造最强战斗配置</p>
+        </div>
+
+        <div class="equipment-tabs">
+            <button class="tab-btn active" data-category="attack">攻击装备</button>
+            <button class="tab-btn" data-category="defense">防御装备</button>
+            <button class="tab-btn" data-category="magic">法术装备</button>
+            <button class="tab-btn" data-category="boots">移动装备</button>
+            <button class="tab-btn" data-category="jungle">打野装备</button>
+            <button class="tab-btn" data-category="support">辅助装备</button>
+        </div>
+
+        <div class="equipment-grid" id="equipmentGrid">
+            <!-- 装备卡片将通过JavaScript动态生成 -->
+        </div>
+
+        <div class="recommended-builds">
+            <h2 class="builds-title">推荐出装</h2>
+            <div class="builds-grid" id="buildsGrid">
+                <!-- 推荐出装将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <!-- 装备详情模态框 -->
+    <div class="modal" id="equipmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">装备详情</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- 装备详情内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 装备数据
+        const equipmentData = {
+            attack: [
+                {
+                    id: 1,
+                    name: '无尽战刃',
+                    price: 2140,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
+                    stats: {
+                        '物理攻击': 110,
+                        '暴击率': 25
+                    },
+                    description: '提供大量物理攻击和暴击率，是物理输出英雄的核心装备',
+                    passive: '唯一被动：+40%暴击效果'
+                },
+                {
+                    id: 2,
+                    name: '破军',
+                    price: 2950,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                    stats: {
+                        '物理攻击': 180
+                    },
+                    description: '提供极高的物理攻击力，适合后期输出英雄',
+                    passive: '唯一被动：对生命值低于50%的敌人造成额外30%伤害'
+                },
+                {
+                    id: 3,
+                    name: '宗师之力',
+                    price: 2100,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
+                    stats: {
+                        '物理攻击': 60,
+                        '暴击率': 20,
+                        '生命值': 400,
+                        '法力值': 400
+                    },
+                    description: '综合性攻击装备，提供攻击、暴击和生存能力',
+                    passive: '唯一被动：使用技能后下次普攻造成额外100%物理加成的物理伤害'
+                }
+            ],
+            defense: [
+                {
+                    id: 4,
+                    name: '不祥征兆',
+                    price: 2180,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                    stats: {
+                        '物理防御': 270,
+                        '生命值': 1200
+                    },
+                    description: '提供高额物理防御和生命值，对抗物理输出英雄的核心装备',
+                    passive: '唯一被动：受到攻击时减少攻击者30%攻击速度和15%移动速度'
+                },
+                {
+                    id: 5,
+                    name: '魔女斗篷',
+                    price: 2120,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
+                    stats: {
+                        '法术防御': 300,
+                        '生命值': 1000
+                    },
+                    description: '提供高额法术防御和生命值，对抗法师英雄的核心装备',
+                    passive: '唯一被动：脱战3秒后获得一个吸收法术伤害的护盾'
+                }
+            ],
+            magic: [
+                {
+                    id: 6,
+                    name: '回响之杖',
+                    price: 2100,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
+                    stats: {
+                        '法术攻击': 240,
+                        '移动速度': 7
+                    },
+                    description: '提供高额法术攻击和移动速度，法师的核心输出装备',
+                    passive: '唯一被动：技能命中会触发小范围爆炸，造成额外法术伤害'
+                }
+            ],
+            boots: [
+                {
+                    id: 7,
+                    name: '抵抗之靴',
+                    price: 710,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                    stats: {
+                        '移动速度': 60
+                    },
+                    description: '提供移动速度和韧性，减少控制时间',
+                    passive: '唯一被动：+35%韧性'
+                }
+            ],
+            jungle: [
+                {
+                    id: 8,
+                    name: '贪婪之噬',
+                    price: 2160,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b567a6e62cf1c57e96befed03a144d6996c30f88.jpg',
+                    stats: {
+                        '物理攻击': 60,
+                        '攻击速度': 15
+                    },
+                    description: '打野专用装备，提供攻击力和攻击速度',
+                    passive: '唯一被动：对野怪造成额外伤害，击杀野怪获得额外金币'
+                }
+            ],
+            support: [
+                {
+                    id: 9,
+                    name: '近卫荣耀',
+                    price: 2010,
+                    icon: 'https://kimi-web-img.moonshot.cn/img/img3.eventwang.com.cn/153c108eca1e4bfe9ee45b76f675b4315a7a536e.jpg',
+                    stats: {
+                        '生命值': 1000,
+                        '移动速度': 10
+                    },
+                    description: '辅助专用装备，提供生命值和团队增益',
+                    passive: '唯一被动：周围友军获得物理攻击和法术攻击加成'
+                }
+            ]
+        };
+
+        // 推荐出装数据
+        const recommendedBuilds = [
+            {
+                hero: '露娜',
+                heroAvatar: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
+                items: [
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
+                    'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'
+                ],
+                description: '暴击流出装，高额爆发伤害，适合快速击杀敌方后排'
+            },
+            {
+                hero: '貂蝉',
+                heroAvatar: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
+                items: [
+                    'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
+                    'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png'
+                ],
+                description: '法术穿透出装，高额法术伤害，适合持续输出和团战'
+            }
+        ];
+
+        let currentCategory = 'attack';
+
+        // 渲染装备列表
+        function renderEquipment(category) {
+            const equipment = equipmentData[category] || [];
+            const grid = document.getElementById('equipmentGrid');
+            
+            grid.innerHTML = equipment.map(item => `
+                <div class="equipment-card" data-equipment-id="${item.id}">
+                    <div class="equipment-header">
+                        <img src="${item.icon}" alt="${item.name}" class="equipment-icon">
+                        <div class="equipment-info">
+                            <div class="equipment-name">${item.name}</div>
+                            <div class="equipment-price">${item.price} 金币</div>
+                        </div>
+                    </div>
+                    <div class="equipment-stats">
+                        ${Object.entries(item.stats).map(([key, value]) => `
+                            <div class="stat-row">
+                                <span class="stat-label">${key}</span>
+                                <span class="stat-value">+${value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="equipment-description">${item.description}</div>
+                    <div class="equipment-passive">
+                        <div class="passive-title">被动效果</div>
+                        <div class="passive-description">${item.passive}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 添加点击事件
+            document.querySelectorAll('.equipment-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const equipmentId = parseInt(card.dataset.equipmentId);
+                    showEquipmentDetail(equipmentId);
+                });
+            });
+        }
+
+        // 渲染推荐出装
+        function renderBuilds() {
+            const grid = document.getElementById('buildsGrid');
+            
+            grid.innerHTML = recommendedBuilds.map(build => `
+                <div class="build-card">
+                    <div class="build-hero">
+                        <img src="${build.heroAvatar}" alt="${build.hero}" class="hero-avatar">
+                        <div class="hero-name">${build.hero}</div>
+                    </div>
+                    <div class="build-items">
+                        ${build.items.map(item => `
+                            <img src="${item}" alt="装备" class="build-item">
+                        `).join('')}
+                    </div>
+                    <div class="build-description">${build.description}</div>
+                </div>
+            `).join('');
+        }
+
+        // 显示装备详情
+        function showEquipmentDetail(equipmentId) {
+            // 查找装备
+            let equipment = null;
+            for (const category in equipmentData) {
+                equipment = equipmentData[category].find(item => item.id === equipmentId);
+                if (equipment) break;
+            }
+            
+            if (!equipment) return;
+
+            document.getElementById('modalTitle').textContent = equipment.name;
+            
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="equipment-header">
+                    <img src="${equipment.icon}" alt="${equipment.name}" class="equipment-icon">
+                    <div class="equipment-info">
+                        <div class="equipment-name">${equipment.name}</div>
+                        <div class="equipment-price">价格: ${equipment.price} 金币</div>
+                    </div>
+                </div>
+                <div class="equipment-stats">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">装备属性</h3>
+                    ${Object.entries(equipment.stats).map(([key, value]) => `
+                        <div class="stat-row">
+                            <span class="stat-label">${key}</span>
+                            <span class="stat-value">+${value}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="equipment-description" style="margin: 1rem 0;">
+                    <h4 style="color: #ffd700; margin-bottom: 0.5rem;">装备描述</h4>
+                    ${equipment.description}
+                </div>
+                <div class="equipment-passive">
+                    <div class="passive-title">被动效果</div>
+                    <div class="passive-description">${equipment.passive}</div>
+                </div>
+            `;
+
+            // 显示模态框
+            document.getElementById('equipmentModal').style.display = 'block';
+        }
+
+        // 事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始渲染
+            renderEquipment(currentCategory);
+            renderBuilds();
+
+            // 标签切换
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 更新按钮状态
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // 切换分类
+                    currentCategory = btn.dataset.category;
+                    renderEquipment(currentCategory);
+                });
+            });
+
+            // 模态框关闭
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('equipmentModal').style.display = 'none';
+            });
+
+            // 点击模态框外部关闭
+            document.getElementById('equipmentModal').addEventListener('click', (e) => {
+                if (e.target.id === 'equipmentModal') {
+                    document.getElementById('equipmentModal').style.display = 'none';
+                }
+            });
+
+            // 添加滚动动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // 观察装备卡片
+            const observeEquipmentCards = () => {
+                document.querySelectorAll('.equipment-card, .build-card').forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.6s ease';
+                    observer.observe(card);
+                });
+            };
+            
+            observeEquipmentCards();
+
+            // 重新观察新渲染的卡片
+            const originalRenderEquipment = renderEquipment;
+            renderEquipment = function(category) {
+                originalRenderEquipment(category);
+                setTimeout(observeEquipmentCards, 100);
+            };
+        });
+    </script>
+</body>
+</html>
