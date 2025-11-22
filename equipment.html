@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* 样式保持不变 */
         * {
             margin: 0;
             padding: 0;
@@ -42,13 +43,9 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd700;
-            text-decoration: none;
             display: flex;
+            justify-content: flex-start;
             align-items: center;
-            gap: 0.5rem;
         }
 
         .nav-links {
@@ -325,7 +322,6 @@
         }
 
         .modal {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -439,388 +435,377 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-crown"></i>
-                王者荣耀
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="heroes.html">英雄介绍</a></li>
-                <li><a href="equipment.html" class="active">装备介绍</a></li>
-                <li><a href="maps.html">地图介绍</a></li>
-                <li><a href="world.html">世界观</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">装备介绍</h1>
-            <p class="page-subtitle">了解每件装备的属性和效果，打造最强战斗配置</p>
-        </div>
-
-        <div class="equipment-tabs">
-            <button class="tab-btn active" data-category="attack">攻击装备</button>
-            <button class="tab-btn" data-category="defense">防御装备</button>
-            <button class="tab-btn" data-category="magic">法术装备</button>
-            <button class="tab-btn" data-category="boots">移动装备</button>
-            <button class="tab-btn" data-category="jungle">打野装备</button>
-            <button class="tab-btn" data-category="support">辅助装备</button>
-        </div>
-
-        <div class="equipment-grid" id="equipmentGrid">
-            <!-- 装备卡片将通过JavaScript动态生成 -->
-        </div>
-
-        <div class="recommended-builds">
-            <h2 class="builds-title">推荐出装</h2>
-            <div class="builds-grid" id="buildsGrid">
-                <!-- 推荐出装将通过JavaScript动态生成 -->
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <img src="imgs\index\logo.webp" alt="">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="heroes.html">英雄介绍</a></li>
+                    <li><a href="equipment.html" class="active">装备介绍</a></li>
+                    <li><a href="maps.html">地图介绍</a></li>
+                    <li><a href="world.html">世界观</a></li>
+                </ul>
             </div>
-        </div>
-    </main>
+        </nav>
 
-    <!-- 装备详情模态框 -->
-    <div class="modal" id="equipmentModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">装备详情</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">装备介绍</h1>
+                <p class="page-subtitle">了解每件装备的属性和效果，打造最强战斗配置</p>
             </div>
-            <div id="modalContent">
-                <!-- 装备详情内容将通过JavaScript动态生成 -->
+
+            <div class="equipment-tabs">
+                <button 
+                    v-for="category in categories" 
+                    :key="category.key"
+                    class="tab-btn" 
+                    :class="{ active: currentCategory === category.key }"
+                    @click="changeCategory(category.key)"
+                >
+                    {{ category.name }}
+                </button>
+            </div>
+
+            <div class="equipment-grid">
+                <div 
+                    v-for="equipment in filteredEquipment" 
+                    :key="equipment.id"
+                    class="equipment-card" 
+                    @click="showEquipmentDetail(equipment)"
+                >
+                    <div class="equipment-header">
+                        <img :src="equipment.icon" :alt="equipment.name" class="equipment-icon">
+                        <div class="equipment-info">
+                            <div class="equipment-name">{{ equipment.name }}</div>
+                            <div class="equipment-price">{{ equipment.price }} 金币</div>
+                        </div>
+                    </div>
+                    <div class="equipment-stats">
+                        <div 
+                            v-for="(value, key) in equipment.stats" 
+                            :key="key"
+                            class="stat-row"
+                        >
+                            <span class="stat-label">{{ key }}</span>
+                            <span class="stat-value">+{{ value }}</span>
+                        </div>
+                    </div>
+                    <div class="equipment-description">{{ equipment.description }}</div>
+                    <div class="equipment-passive">
+                        <div class="passive-title">被动效果</div>
+                        <div class="passive-description">{{ equipment.passive }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommended-builds">
+                <h2 class="builds-title">推荐出装</h2>
+                <div class="builds-grid">
+                    <div 
+                        v-for="build in recommendedBuilds" 
+                        :key="build.hero"
+                        class="build-card"
+                    >
+                        <div class="build-hero">
+                            <img :src="build.heroAvatar" :alt="build.hero" class="hero-avatar">
+                            <div class="hero-name">{{ build.hero }}</div>
+                        </div>
+                        <div class="build-items">
+                            <img 
+                                v-for="(item, index) in build.items" 
+                                :key="index"
+                                :src="item" 
+                                alt="装备" 
+                                class="build-item"
+                            >
+                        </div>
+                        <div class="build-description">{{ build.description }}</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 装备详情模态框 -->
+        <div class="modal" v-if="showModal" @click.self="closeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">{{ selectedEquipment.name }}</h2>
+                    <button class="close-btn" @click="closeModal">&times;</button>
+                </div>
+                <div v-if="selectedEquipment">
+                    <div class="equipment-header">
+                        <img :src="selectedEquipment.icon" :alt="selectedEquipment.name" class="equipment-icon">
+                        <div class="equipment-info">
+                            <div class="equipment-name">{{ selectedEquipment.name }}</div>
+                            <div class="equipment-price">价格: {{ selectedEquipment.price }} 金币</div>
+                        </div>
+                    </div>
+                    <div class="equipment-stats">
+                        <h3 style="color: #ffd700; margin-bottom: 1rem;">装备属性</h3>
+                        <div 
+                            v-for="(value, key) in selectedEquipment.stats" 
+                            :key="key"
+                            class="stat-row"
+                        >
+                            <span class="stat-label">{{ key }}</span>
+                            <span class="stat-value">+{{ value }}</span>
+                        </div>
+                    </div>
+                    <div class="equipment-description" style="margin: 1rem 0;">
+                        <h4 style="color: #ffd700; margin-bottom: 0.5rem;">装备描述</h4>
+                        {{ selectedEquipment.description }}
+                    </div>
+                    <div class="equipment-passive">
+                        <div class="passive-title">被动效果</div>
+                        <div class="passive-description">{{ selectedEquipment.passive }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 装备数据
-        const equipmentData = {
-            attack: [
-                {
-                    id: 1,
-                    name: '无尽战刃',
-                    price: 2140,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
-                    stats: {
-                        '物理攻击': 110,
-                        '暴击率': 25
-                    },
-                    description: '提供大量物理攻击和暴击率，是物理输出英雄的核心装备',
-                    passive: '唯一被动：+40%暴击效果'
-                },
-                {
-                    id: 2,
-                    name: '破军',
-                    price: 2950,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                    stats: {
-                        '物理攻击': 180
-                    },
-                    description: '提供极高的物理攻击力，适合后期输出英雄',
-                    passive: '唯一被动：对生命值低于50%的敌人造成额外30%伤害'
-                },
-                {
-                    id: 3,
-                    name: '宗师之力',
-                    price: 2100,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
-                    stats: {
-                        '物理攻击': 60,
-                        '暴击率': 20,
-                        '生命值': 400,
-                        '法力值': 400
-                    },
-                    description: '综合性攻击装备，提供攻击、暴击和生存能力',
-                    passive: '唯一被动：使用技能后下次普攻造成额外100%物理加成的物理伤害'
-                }
-            ],
-            defense: [
-                {
-                    id: 4,
-                    name: '不祥征兆',
-                    price: 2180,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                    stats: {
-                        '物理防御': 270,
-                        '生命值': 1200
-                    },
-                    description: '提供高额物理防御和生命值，对抗物理输出英雄的核心装备',
-                    passive: '唯一被动：受到攻击时减少攻击者30%攻击速度和15%移动速度'
-                },
-                {
-                    id: 5,
-                    name: '魔女斗篷',
-                    price: 2120,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
-                    stats: {
-                        '法术防御': 300,
-                        '生命值': 1000
-                    },
-                    description: '提供高额法术防御和生命值，对抗法师英雄的核心装备',
-                    passive: '唯一被动：脱战3秒后获得一个吸收法术伤害的护盾'
-                }
-            ],
-            magic: [
-                {
-                    id: 6,
-                    name: '回响之杖',
-                    price: 2100,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
-                    stats: {
-                        '法术攻击': 240,
-                        '移动速度': 7
-                    },
-                    description: '提供高额法术攻击和移动速度，法师的核心输出装备',
-                    passive: '唯一被动：技能命中会触发小范围爆炸，造成额外法术伤害'
-                }
-            ],
-            boots: [
-                {
-                    id: 7,
-                    name: '抵抗之靴',
-                    price: 710,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                    stats: {
-                        '移动速度': 60
-                    },
-                    description: '提供移动速度和韧性，减少控制时间',
-                    passive: '唯一被动：+35%韧性'
-                }
-            ],
-            jungle: [
-                {
-                    id: 8,
-                    name: '贪婪之噬',
-                    price: 2160,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b567a6e62cf1c57e96befed03a144d6996c30f88.jpg',
-                    stats: {
-                        '物理攻击': 60,
-                        '攻击速度': 15
-                    },
-                    description: '打野专用装备，提供攻击力和攻击速度',
-                    passive: '唯一被动：对野怪造成额外伤害，击杀野怪获得额外金币'
-                }
-            ],
-            support: [
-                {
-                    id: 9,
-                    name: '近卫荣耀',
-                    price: 2010,
-                    icon: 'https://kimi-web-img.moonshot.cn/img/img3.eventwang.com.cn/153c108eca1e4bfe9ee45b76f675b4315a7a536e.jpg',
-                    stats: {
-                        '生命值': 1000,
-                        '移动速度': 10
-                    },
-                    description: '辅助专用装备，提供生命值和团队增益',
-                    passive: '唯一被动：周围友军获得物理攻击和法术攻击加成'
-                }
-            ]
-        };
-
-        // 推荐出装数据
-        const recommendedBuilds = [
-            {
-                hero: '露娜',
-                heroAvatar: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
-                items: [
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
-                    'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'
-                ],
-                description: '暴击流出装，高额爆发伤害，适合快速击杀敌方后排'
-            },
-            {
-                hero: '貂蝉',
-                heroAvatar: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
-                items: [
-                    'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
-                    'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                    'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png'
-                ],
-                description: '法术穿透出装，高额法术伤害，适合持续输出和团战'
-            }
-        ];
-
-        let currentCategory = 'attack';
-
-        // 渲染装备列表
-        function renderEquipment(category) {
-            const equipment = equipmentData[category] || [];
-            const grid = document.getElementById('equipmentGrid');
-            
-            grid.innerHTML = equipment.map(item => `
-                <div class="equipment-card" data-equipment-id="${item.id}">
-                    <div class="equipment-header">
-                        <img src="${item.icon}" alt="${item.name}" class="equipment-icon">
-                        <div class="equipment-info">
-                            <div class="equipment-name">${item.name}</div>
-                            <div class="equipment-price">${item.price} 金币</div>
-                        </div>
-                    </div>
-                    <div class="equipment-stats">
-                        ${Object.entries(item.stats).map(([key, value]) => `
-                            <div class="stat-row">
-                                <span class="stat-label">${key}</span>
-                                <span class="stat-value">+${value}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="equipment-description">${item.description}</div>
-                    <div class="equipment-passive">
-                        <div class="passive-title">被动效果</div>
-                        <div class="passive-description">${item.passive}</div>
-                    </div>
-                </div>
-            `).join('');
-
-            // 添加点击事件
-            document.querySelectorAll('.equipment-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const equipmentId = parseInt(card.dataset.equipmentId);
-                    showEquipmentDetail(equipmentId);
+        const { createApp, ref, computed, onMounted } = Vue;
+        
+        createApp({
+            setup() {
+                // 响应式数据
+                const currentCategory = ref('attack');
+                const showModal = ref(false);
+                const selectedEquipment = ref(null);
+                
+                // 装备分类
+                const categories = ref([
+                    { key: 'attack', name: '攻击装备' },
+                    { key: 'defense', name: '防御装备' },
+                    { key: 'magic', name: '法术装备' },
+                    { key: 'boots', name: '移动装备' },
+                    { key: 'jungle', name: '打野装备' },
+                    { key: 'support', name: '辅助装备' }
+                ]);
+                
+                // 装备数据
+                const equipmentData = ref({
+                    attack: [
+                        {
+                            id: 1,
+                            name: '无尽战刃',
+                            price: 2140,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
+                            stats: {
+                                '物理攻击': 110,
+                                '暴击率': 25
+                            },
+                            description: '提供大量物理攻击和暴击率，是物理输出英雄的核心装备',
+                            passive: '唯一被动：+40%暴击效果'
+                        },
+                        {
+                            id: 2,
+                            name: '破军',
+                            price: 2950,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                            stats: {
+                                '物理攻击': 180
+                            },
+                            description: '提供极高的物理攻击力，适合后期输出英雄',
+                            passive: '唯一被动：对生命值低于50%的敌人造成额外30%伤害'
+                        },
+                        {
+                            id: 3,
+                            name: '宗师之力',
+                            price: 2100,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
+                            stats: {
+                                '物理攻击': 60,
+                                '暴击率': 20,
+                                '生命值': 400,
+                                '法力值': 400
+                            },
+                            description: '综合性攻击装备，提供攻击、暴击和生存能力',
+                            passive: '唯一被动：使用技能后下次普攻造成额外100%物理加成的物理伤害'
+                        }
+                    ],
+                    defense: [
+                        {
+                            id: 4,
+                            name: '不祥征兆',
+                            price: 2180,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                            stats: {
+                                '物理防御': 270,
+                                '生命值': 1200
+                            },
+                            description: '提供高额物理防御和生命值，对抗物理输出英雄的核心装备',
+                            passive: '唯一被动：受到攻击时减少攻击者30%攻击速度和15%移动速度'
+                        },
+                        {
+                            id: 5,
+                            name: '魔女斗篷',
+                            price: 2120,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
+                            stats: {
+                                '法术防御': 300,
+                                '生命值': 1000
+                            },
+                            description: '提供高额法术防御和生命值，对抗法师英雄的核心装备',
+                            passive: '唯一被动：脱战3秒后获得一个吸收法术伤害的护盾'
+                        }
+                    ],
+                    magic: [
+                        {
+                            id: 6,
+                            name: '回响之杖',
+                            price: 2100,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
+                            stats: {
+                                '法术攻击': 240,
+                                '移动速度': 7
+                            },
+                            description: '提供高额法术攻击和移动速度，法师的核心输出装备',
+                            passive: '唯一被动：技能命中会触发小范围爆炸，造成额外法术伤害'
+                        }
+                    ],
+                    boots: [
+                        {
+                            id: 7,
+                            name: '抵抗之靴',
+                            price: 710,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                            stats: {
+                                '移动速度': 60
+                            },
+                            description: '提供移动速度和韧性，减少控制时间',
+                            passive: '唯一被动：+35%韧性'
+                        }
+                    ],
+                    jungle: [
+                        {
+                            id: 8,
+                            name: '贪婪之噬',
+                            price: 2160,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b567a6e62cf1c57e96befed03a144d6996c30f88.jpg',
+                            stats: {
+                                '物理攻击': 60,
+                                '攻击速度': 15
+                            },
+                            description: '打野专用装备，提供攻击力和攻击速度',
+                            passive: '唯一被动：对野怪造成额外伤害，击杀野怪获得额外金币'
+                        }
+                    ],
+                    support: [
+                        {
+                            id: 9,
+                            name: '近卫荣耀',
+                            price: 2010,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/img3.eventwang.com.cn/153c108eca1e4bfe9ee45b76f675b4315a7a536e.jpg',
+                            stats: {
+                                '生命值': 1000,
+                                '移动速度': 10
+                            },
+                            description: '辅助专用装备，提供生命值和团队增益',
+                            passive: '唯一被动：周围友军获得物理攻击和法术攻击加成'
+                        }
+                    ]
                 });
-            });
-        }
-
-        // 渲染推荐出装
-        function renderBuilds() {
-            const grid = document.getElementById('buildsGrid');
-            
-            grid.innerHTML = recommendedBuilds.map(build => `
-                <div class="build-card">
-                    <div class="build-hero">
-                        <img src="${build.heroAvatar}" alt="${build.hero}" class="hero-avatar">
-                        <div class="hero-name">${build.hero}</div>
-                    </div>
-                    <div class="build-items">
-                        ${build.items.map(item => `
-                            <img src="${item}" alt="装备" class="build-item">
-                        `).join('')}
-                    </div>
-                    <div class="build-description">${build.description}</div>
-                </div>
-            `).join('');
-        }
-
-        // 显示装备详情
-        function showEquipmentDetail(equipmentId) {
-            // 查找装备
-            let equipment = null;
-            for (const category in equipmentData) {
-                equipment = equipmentData[category].find(item => item.id === equipmentId);
-                if (equipment) break;
-            }
-            
-            if (!equipment) return;
-
-            document.getElementById('modalTitle').textContent = equipment.name;
-            
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML = `
-                <div class="equipment-header">
-                    <img src="${equipment.icon}" alt="${equipment.name}" class="equipment-icon">
-                    <div class="equipment-info">
-                        <div class="equipment-name">${equipment.name}</div>
-                        <div class="equipment-price">价格: ${equipment.price} 金币</div>
-                    </div>
-                </div>
-                <div class="equipment-stats">
-                    <h3 style="color: #ffd700; margin-bottom: 1rem;">装备属性</h3>
-                    ${Object.entries(equipment.stats).map(([key, value]) => `
-                        <div class="stat-row">
-                            <span class="stat-label">${key}</span>
-                            <span class="stat-value">+${value}</span>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="equipment-description" style="margin: 1rem 0;">
-                    <h4 style="color: #ffd700; margin-bottom: 0.5rem;">装备描述</h4>
-                    ${equipment.description}
-                </div>
-                <div class="equipment-passive">
-                    <div class="passive-title">被动效果</div>
-                    <div class="passive-description">${equipment.passive}</div>
-                </div>
-            `;
-
-            // 显示模态框
-            document.getElementById('equipmentModal').style.display = 'block';
-        }
-
-        // 事件监听器
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始渲染
-            renderEquipment(currentCategory);
-            renderBuilds();
-
-            // 标签切换
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // 更新按钮状态
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    // 切换分类
-                    currentCategory = btn.dataset.category;
-                    renderEquipment(currentCategory);
-                });
-            });
-
-            // 模态框关闭
-            document.getElementById('closeModal').addEventListener('click', () => {
-                document.getElementById('equipmentModal').style.display = 'none';
-            });
-
-            // 点击模态框外部关闭
-            document.getElementById('equipmentModal').addEventListener('click', (e) => {
-                if (e.target.id === 'equipmentModal') {
-                    document.getElementById('equipmentModal').style.display = 'none';
-                }
-            });
-
-            // 添加滚动动画
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                
+                // 推荐出装数据
+                const recommendedBuilds = ref([
+                    {
+                        hero: '露娜',
+                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
+                        items: [
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
+                            'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'
+                        ],
+                        description: '暴击流出装，高额爆发伤害，适合快速击杀敌方后排'
+                    },
+                    {
+                        hero: '貂蝉',
+                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
+                        items: [
+                            'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
+                            'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png'
+                        ],
+                        description: '法术穿透出装，高额法术伤害，适合持续输出和团战'
                     }
+                ]);
+                
+                // 计算属性：根据当前分类过滤装备
+                const filteredEquipment = computed(() => {
+                    return equipmentData.value[currentCategory.value] || [];
                 });
-            }, observerOptions);
-            
-            // 观察装备卡片
-            const observeEquipmentCards = () => {
-                document.querySelectorAll('.equipment-card, .build-card').forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    card.style.transition = 'all 0.6s ease';
-                    observer.observe(card);
+                
+                // 方法：切换分类
+                const changeCategory = (category) => {
+                    currentCategory.value = category;
+                };
+                
+                // 方法：显示装备详情
+                const showEquipmentDetail = (equipment) => {
+                    selectedEquipment.value = equipment;
+                    showModal.value = true;
+                };
+                
+                // 方法：关闭模态框
+                const closeModal = () => {
+                    showModal.value = false;
+                };
+                
+                // 生命周期：组件挂载后
+                onMounted(() => {
+                    // 添加滚动动画
+                    const observerOptions = {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -50px 0px'
+                    };
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }
+                        });
+                    }, observerOptions);
+                    
+                    // 观察装备卡片
+                    const observeCards = () => {
+                        document.querySelectorAll('.equipment-card, .build-card').forEach(card => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(30px)';
+                            card.style.transition = 'all 0.6s ease';
+                            observer.observe(card);
+                        });
+                    };
+                    
+                    observeCards();
                 });
-            };
-            
-            observeEquipmentCards();
-
-            // 重新观察新渲染的卡片
-            const originalRenderEquipment = renderEquipment;
-            renderEquipment = function(category) {
-                originalRenderEquipment(category);
-                setTimeout(observeEquipmentCards, 100);
-            };
-        });
+                
+                // 返回模板中需要使用的数据和方法
+                return {
+                    currentCategory,
+                    categories,
+                    filteredEquipment,
+                    recommendedBuilds,
+                    showModal,
+                    selectedEquipment,
+                    changeCategory,
+                    showEquipmentDetail,
+                    closeModal
+                };
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>

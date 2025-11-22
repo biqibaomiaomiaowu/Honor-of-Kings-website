@@ -6,7 +6,6 @@
     <title>地图介绍 - 王者荣耀</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.3.2/dist/pixi.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -43,13 +42,9 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd700;
-            text-decoration: none;
             display: flex;
+            justify-content: flex-start;
             align-items: center;
-            gap: 0.5rem;
         }
 
         .nav-links {
@@ -174,6 +169,7 @@
             height: 100%;
             object-fit: cover;
             border-radius: 15px;
+            transition: opacity 0.5s ease;
         }
 
         .map-overlay {
@@ -380,7 +376,6 @@
         }
 
         .modal {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -432,6 +427,17 @@
             color: #ffd700;
         }
 
+        .light-effect {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 1;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -465,423 +471,417 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-crown"></i>
-                王者荣耀
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="heroes.html">英雄介绍</a></li>
-                <li><a href="equipment.html">装备介绍</a></li>
-                <li><a href="maps.html" class="active">地图介绍</a></li>
-                <li><a href="world.html">世界观</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <img src="imgs\index\logo.webp" alt="">
 
-    <main class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">地图介绍</h1>
-            <p class="page-subtitle">探索王者峡谷的每一个角落，掌握战场主动权</p>
-        </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="heroes.html">英雄介绍</a></li>
+                    <li><a href="equipment.html">装备介绍</a></li>
+                    <li><a href="maps.html" class="active">地图介绍</a></li>
+                    <li><a href="world.html">世界观</a></li>
+                </ul>
+            </div>
+        </nav>
 
-        <div class="map-selector">
-            <button class="map-btn active" data-map="summoners-rift">王者峡谷</button>
-            <button class="map-btn" data-map="aram">长平攻防战</button>
-            <button class="map-btn" data-map="abyss">深渊大乱斗</button>
-            <button class="map-btn" data-map="brawl">火焰山大战</button>
-        </div>
-
-        <div class="map-container">
-            <div class="map-viewer" id="mapViewer">
-                <img src="https://kimi-web-img.moonshot.cn/img/pic3.zhimg.com/2e69630d514dc40b1bee69812086103c5b7d06a1.jpg" alt="王者峡谷" class="map-image" id="mapImage">
-                <div class="map-overlay"></div>
-                <!-- 地图热点将通过JavaScript动态生成 -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">地图介绍</h1>
+                <p class="page-subtitle">探索王者峡谷的每一个角落，掌握战场主动权</p>
             </div>
 
-            <div class="map-info">
-                <div class="info-card">
-                    <h3 class="info-title">
-                        <i class="fas fa-chess-king"></i>
-                        基地与水晶
-                    </h3>
-                    <div class="info-content">
-                        <ul class="info-list">
-                            <li><i class="fas fa-shield-alt"></i>基地是胜利的关键，摧毁敌方基地即可获得胜利</li>
-                            <li><i class="fas fa-cog"></i>水晶会不断产生小兵推进战线</li>
-                            <li><i class="fas fa-home"></i>在基地范围内可以快速回复生命值和法力值</li>
-                            <li><i class="fas fa-shopping-cart"></i>商店位于基地内，可购买装备强化英雄</li>
-                        </ul>
+            <div class="map-selector">
+                <button 
+                    v-for="map in maps" 
+                    :key="map.id"
+                    class="map-btn" 
+                    :class="{ active: currentMap.id === map.id }"
+                    @click="switchMap(map)"
+                >
+                    {{ map.name }}
+                </button>
+            </div>
+
+            <div class="map-container">
+                <div class="map-viewer" 
+                     @mousemove="handleMapMouseMove"
+                     @mouseleave="removeLightEffect"
+                     ref="mapViewer"
+                >
+                    <img 
+                        :src="currentMap.image" 
+                        :alt="currentMap.name" 
+                        class="map-image"
+                    >
+                    <div class="map-overlay"></div>
+                    
+                    <!-- 地图热点 -->
+                    <div 
+                        v-for="hotspot in currentMap.hotspots" 
+                        :key="hotspot.id"
+                        class="map-hotspot" 
+                        :style="{
+                            left: `${hotspot.x}%`,
+                            top: `${hotspot.y}%`
+                        }"
+                        @click="showHotspotDetail(hotspot)"
+                    >
+                        <i :class="hotspot.icon"></i>
                     </div>
+                    
+                    <!-- 鼠标光效 -->
+                    <div 
+                        v-if="lightEffectVisible"
+                        class="light-effect"
+                        :style="lightEffectStyle"
+                    ></div>
                 </div>
 
-                <div class="info-card">
-                    <h3 class="info-title">
-                        <i class="fas fa-tower"></i>
-                        防御塔
-                    </h3>
-                    <div class="info-content">
-                        <ul class="info-list">
-                            <li><i class="fas fa-crosshairs"></i>每路有3座外塔，提供视野和防御</li>
-                            <li><i class="fas fa-bolt"></i>防御塔攻击会随时间增加伤害</li>
-                            <li><i class="fas fa-users"></i>防御塔优先攻击小兵和召唤物</li>
-                            <li><i class="fas fa-coins"></i>摧毁防御塔获得金币和经验奖励</li>
-                        </ul>
+                <div class="map-info">
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-chess-king"></i>
+                            基地与水晶
+                        </h3>
+                        <div class="info-content">
+                            <ul class="info-list">
+                                <li><i class="fas fa-shield-alt"></i>基地是胜利的关键，摧毁敌方基地即可获得胜利</li>
+                                <li><i class="fas fa-cog"></i>水晶会不断产生小兵推进战线</li>
+                                <li><i class="fas fa-home"></i>在基地范围内可以快速回复生命值和法力值</li>
+                                <li><i class="fas fa-shopping-cart"></i>商店位于基地内，可购买装备强化英雄</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                <div class="info-card">
-                    <h3 class="info-title">
-                        <i class="fas fa-tree"></i>
-                        野区资源
-                    </h3>
-                    <div class="info-content">
-                        <ul class="info-list">
-                            <li><i class="fas fa-dragon"></i>暴君：提供团队金币和经验</li>
-                            <li><i class="fas fa-crown"></i>主宰：提供主宰先锋推进</li>
-                            <li><i class="fas fa-ghost"></i>暗影暴君：提供强力BUFF效果</li>
-                            <li><i class="fas fa-fire"></i>红蓝BUFF：提供持续增益效果</li>
-                        </ul>
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-tower"></i>
+                            防御塔
+                        </h3>
+                        <div class="info-content">
+                            <ul class="info-list">
+                                <li><i class="fas fa-crosshairs"></i>每路有3座外塔，提供视野和防御</li>
+                                <li><i class="fas fa-bolt"></i>防御塔攻击会随时间增加伤害</li>
+                                <li><i class="fas fa-users"></i>防御塔优先攻击小兵和召唤物</li>
+                                <li><i class="fas fa-coins"></i>摧毁防御塔获得金币和经验奖励</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-tree"></i>
+                            野区资源
+                        </h3>
+                        <div class="info-content">
+                            <ul class="info-list">
+                                <li><i class="fas fa-dragon"></i>暴君：提供团队金币和经验</li>
+                                <li><i class="fas fa-crown"></i>主宰：提供主宰先锋推进</li>
+                                <li><i class="fas fa-ghost"></i>暗影暴君：提供强力BUFF效果</li>
+                                <li><i class="fas fa-fire"></i>红蓝BUFF：提供持续增益效果</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <section class="strategic-points">
-            <h2 class="points-title">战略要点</h2>
-            <div class="points-grid">
-                <div class="point-card">
-                    <div class="point-icon">
-                        <i class="fas fa-crosshairs"></i>
+            <section class="strategic-points">
+                <h2 class="points-title">战略要点</h2>
+                <div class="points-grid">
+                    <div class="point-card">
+                        <div class="point-icon">
+                            <i class="fas fa-crosshairs"></i>
+                        </div>
+                        <h3 class="point-name">河道控制</h3>
+                        <p class="point-description">
+                            河道是连接各路的重要通道，控制河道视野可以获得敌方动向信息，为团战和支援创造有利条件。
+                        </p>
                     </div>
-                    <h3 class="point-name">河道控制</h3>
-                    <p class="point-description">
-                        河道是连接各路的重要通道，控制河道视野可以获得敌方动向信息，为团战和支援创造有利条件。
-                    </p>
-                </div>
 
-                <div class="point-card">
-                    <div class="point-icon">
-                        <i class="fas fa-eye"></i>
+                    <div class="point-card">
+                        <div class="point-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="point-name">视野控制</h3>
+                        <p class="point-description">
+                            在关键位置布置守卫，掌握敌方英雄位置信息，避免被gank，同时为团队提供决策依据。
+                        </p>
                     </div>
-                    <h3 class="point-name">视野控制</h3>
-                    <p class="point-description">
-                        在关键位置布置守卫，掌握敌方英雄位置信息，避免被gank，同时为团队提供决策依据。
-                    </p>
-                </div>
 
-                <div class="point-card">
-                    <div class="point-icon">
-                        <i class="fas fa-users"></i>
+                    <div class="point-card">
+                        <div class="point-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="point-name">团战位置</h3>
+                        <p class="point-description">
+                            选择合适的团战位置，利用地形优势，发挥英雄特长，是取得团战胜利的关键因素。
+                        </p>
                     </div>
-                    <h3 class="point-name">团战位置</h3>
-                    <p class="point-description">
-                        选择合适的团战位置，利用地形优势，发挥英雄特长，是取得团战胜利的关键因素。
-                    </p>
-                </div>
 
-                <div class="point-card">
-                    <div class="point-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
-                    <h3 class="point-name">游走路线</h3>
-                    <p class="point-description">
-                        掌握各路之间的游走路线，快速支援队友，形成多打少的局面，建立优势。
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="game-modes">
-            <h2 class="modes-title">游戏模式</h2>
-            <div class="modes-grid">
-                <div class="mode-card">
-                    <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/50379ef853f2cede5a8016ec55c287c603da89bc" alt="5v5模式" class="mode-image">
-                    <div class="mode-info">
-                        <h3 class="mode-name">5v5王者峡谷</h3>
-                        <p class="mode-description">
-                            经典的MOBA对战模式，5v5团队作战，推塔、团战、策略并重，是最受欢迎的游戏模式。
+                    <div class="point-card">
+                        <div class="point-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3 class="point-name">游走路线</h3>
+                        <p class="point-description">
+                            掌握各路之间的游走路线，快速支援队友，形成多打少的局面，建立优势。
                         </p>
                     </div>
                 </div>
+            </section>
 
-                <div class="mode-card">
-                    <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/e44c7850ba84934d639a7776f088c67ada2c005c" alt="3v3模式" class="mode-image">
-                    <div class="mode-info">
-                        <h3 class="mode-name">3v3长平攻防战</h3>
-                        <p class="mode-description">
-                            快节奏的3v3对战，只有一条路，团战频繁，适合练习英雄技能和团战配合。
-                        </p>
+            <section class="game-modes">
+                <h2 class="modes-title">游戏模式</h2>
+                <div class="modes-grid">
+                    <div class="mode-card">
+                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/50379ef853f2cede5a8016ec55c287c603da89bc" alt="5v5模式" class="mode-image">
+                        <div class="mode-info">
+                            <h3 class="mode-name">5v5王者峡谷</h3>
+                            <p class="mode-description">
+                                经典的MOBA对战模式，5v5团队作战，推塔、团战、策略并重，是最受欢迎的游戏模式。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mode-card">
+                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/e44c7850ba84934d639a7776f088c67ada2c005c" alt="3v3模式" class="mode-image">
+                        <div class="mode-info">
+                            <h3 class="mode-name">3v3长平攻防战</h3>
+                            <p class="mode-description">
+                                快节奏的3v3对战，只有一条路，团战频繁，适合练习英雄技能和团战配合。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mode-card">
+                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/49cd1db58a0f179ae283c6ec5bb4e6106d037e0c" alt="1v1模式" class="mode-image">
+                        <div class="mode-info">
+                            <h3 class="mode-name">1v1墨家机关道</h3>
+                            <p class="mode-description">
+                                纯粹的单人对决，考验个人技术和英雄理解，是展示个人实力的最佳舞台。
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </section>
+        </main>
 
-                <div class="mode-card">
-                    <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/49cd1db58a0f179ae283c6ec5bb4e6106d037e0c" alt="1v1模式" class="mode-image">
-                    <div class="mode-info">
-                        <h3 class="mode-name">1v1墨家机关道</h3>
-                        <p class="mode-description">
-                            纯粹的单人对决，考验个人技术和英雄理解，是展示个人实力的最佳舞台。
-                        </p>
+        <!-- 热点详情模态框 -->
+        <div class="modal" v-if="showModal" @click.self="closeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">{{ selectedHotspot.title }}</h2>
+                    <button class="close-btn" @click="closeModal">&times;</button>
+                </div>
+                <div v-if="selectedHotspot">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <i :class="selectedHotspot.icon" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #ffd700; margin-bottom: 1rem;">{{ selectedHotspot.title }}</h3>
+                    </div>
+                    <div style="background: rgba(15, 20, 25, 0.5); padding: 1.5rem; border-radius: 10px;">
+                        <p style="color: #e0e0e0; line-height: 1.6; margin: 0;">{{ selectedHotspot.description }}</p>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: #ff6b35; margin-bottom: 1rem;">战略建议</h4>
+                        <ul style="color: #b0b0b0; line-height: 1.8;">
+                            <li>• 控制该区域可以获得视野优势</li>
+                            <li>• 团队配合是占领此处的关键</li>
+                            <li>• 注意敌方动向，避免被包抄</li>
+                            <li>• 合理利用地形进行战术部署</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 热点详情模态框 -->
-    <div class="modal" id="hotspotModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">战略要点</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div id="modalContent">
-                <!-- 热点详情内容将通过JavaScript动态生成 -->
             </div>
         </div>
     </div>
 
     <script>
-        // 地图热点数据
-        const hotspotData = {
-            'summoners-rift': [
-                {
-                    id: 1,
-                    x: 20,
-                    y: 80,
-                    title: '蓝方基地',
-                    description: '蓝方队伍的出生点和主要防御区域，包含水晶、商店和回复泉。',
-                    icon: 'fas fa-home'
-                },
-                {
-                    id: 2,
-                    x: 80,
-                    y: 20,
-                    title: '红方基地',
-                    description: '红方队伍的出生点和主要防御区域，是最终需要摧毁的目标。',
-                    icon: 'fas fa-home'
-                },
-                {
-                    id: 3,
-                    x: 50,
-                    y: 50,
-                    title: '河道中心',
-                    description: '地图中央的重要战略位置，控制这里可以掌握全局视野和支援优势。',
-                    icon: 'fas fa-crosshairs'
-                },
-                {
-                    id: 4,
-                    x: 30,
-                    y: 40,
-                    title: '蓝BUFF',
-                    description: '提供法力回复和冷却缩减的重要野区资源，法师和技能型英雄的核心BUFF。',
-                    icon: 'fas fa-magic'
-                },
-                {
-                    id: 5,
-                    x: 70,
-                    y: 60,
-                    title: '红BUFF',
-                    description: '提供真实伤害和减速效果的野区资源，射手和战士的核心BUFF。',
-                    icon: 'fas fa-fire'
-                },
-                {
-                    id: 6,
-                    x: 60,
-                    y: 30,
-                    title: '暴君巢穴',
-                    description: '重要的前期团队资源，击杀后获得金币和经验优势。',
-                    icon: 'fas fa-dragon'
-                },
-                {
-                    id: 7,
-                    x: 40,
-                    y: 70,
-                    title: '主宰巢穴',
-                    description: '中后期重要团队资源，击杀后获得主宰先锋推进优势。',
-                    icon: 'fas fa-crown'
-                }
-            ]
-        };
-
-        let currentMap = 'summoners-rift';
-
-        // 渲染地图热点
-        function renderHotspots(mapType) {
-            const viewer = document.getElementById('mapViewer');
-            const hotspots = hotspotData[mapType] || [];
-            
-            // 清除现有热点
-            viewer.querySelectorAll('.map-hotspot').forEach(hotspot => hotspot.remove());
-            
-            // 添加新热点
-            hotspots.forEach(hotspot => {
-                const hotspotElement = document.createElement('div');
-                hotspotElement.className = 'map-hotspot';
-                hotspotElement.style.left = `${hotspot.x}%`;
-                hotspotElement.style.top = `${hotspot.y}%`;
-                hotspotElement.innerHTML = `<i class="${hotspot.icon}"></i>`;
-                hotspotElement.dataset.hotspotId = hotspot.id;
-                
-                hotspotElement.addEventListener('click', () => {
-                    showHotspotDetail(hotspot);
+        const { createApp, ref, reactive, onMounted, nextTick } = Vue;
+        
+        createApp({
+            setup() {
+                // 响应式数据
+                const currentMap = ref({});
+                const showModal = ref(false);
+                const selectedHotspot = ref({});
+                const lightEffectVisible = ref(false);
+                const lightEffectStyle = reactive({
+                    left: '0px',
+                    top: '0px'
                 });
+                const mapViewer = ref(null);
                 
-                viewer.appendChild(hotspotElement);
-            });
-        }
-
-        // 显示热点详情
-        function showHotspotDetail(hotspot) {
-            document.getElementById('modalTitle').textContent = hotspot.title;
-            
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML = `
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <i class="${hotspot.icon}" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
-                    <h3 style="color: #ffd700; margin-bottom: 1rem;">${hotspot.title}</h3>
-                </div>
-                <div style="background: rgba(15, 20, 25, 0.5); padding: 1.5rem; border-radius: 10px;">
-                    <p style="color: #e0e0e0; line-height: 1.6; margin: 0;">${hotspot.description}</p>
-                </div>
-                <div style="margin-top: 2rem;">
-                    <h4 style="color: #ff6b35; margin-bottom: 1rem;">战略建议</h4>
-                    <ul style="color: #b0b0b0; line-height: 1.8;">
-                        <li>• 控制该区域可以获得视野优势</li>
-                        <li>• 团队配合是占领此处的关键</li>
-                        <li>• 注意敌方动向，避免被包抄</li>
-                        <li>• 合理利用地形进行战术部署</li>
-                    </ul>
-                </div>
-            `;
-
-            // 显示模态框
-            document.getElementById('hotspotModal').style.display = 'block';
-        }
-
-        // 切换地图
-        function switchMap(mapType) {
-            currentMap = mapType;
-            
-            // 更新按钮状态
-            document.querySelectorAll('.map-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.map === mapType) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // 更新地图图片和热点
-            const mapImage = document.getElementById('mapImage');
-            switch(mapType) {
-                case 'summoners-rift':
-                    mapImage.src = 'https://kimi-web-img.moonshot.cn/img/pic3.zhimg.com/2e69630d514dc40b1bee69812086103c5b7d06a1.jpg';
-                    break;
-                case 'aram':
-                    mapImage.src = 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/a22831c8082e2aae677e8819aff237d502f41bcf';
-                    break;
-                case 'abyss':
-                    mapImage.src = 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/70bc8a95f9b883b307f7f0e2b4be3aa4c0bbef1e';
-                    break;
-                case 'brawl':
-                    mapImage.src = 'https://kimi-web-img.moonshot.cn/img/pic.87g.com/c7a3bb1ad01618141cac1da6c78307483da28748.jpg';
-                    break;
-            }
-            
-            // 渲染热点（目前只有王者峡谷有热点数据）
-            if (mapType === 'summoners-rift') {
-                renderHotspots(mapType);
-            } else {
-                // 其他地图清除热点
-                document.querySelectorAll('.map-hotspot').forEach(hotspot => hotspot.remove());
-            }
-        }
-
-        // 事件监听器
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始渲染
-            renderHotspots(currentMap);
-
-            // 地图切换按钮
-            document.querySelectorAll('.map-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    switchMap(btn.dataset.map);
-                });
-            });
-
-            // 模态框关闭
-            document.getElementById('closeModal').addEventListener('click', () => {
-                document.getElementById('hotspotModal').style.display = 'none';
-            });
-
-            // 点击模态框外部关闭
-            document.getElementById('hotspotModal').addEventListener('click', (e) => {
-                if (e.target.id === 'hotspotModal') {
-                    document.getElementById('hotspotModal').style.display = 'none';
-                }
-            });
-
-            // 添加滚动动画
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                // 地图数据
+                const maps = ref([
+                    {
+                        id: 'summoners-rift',
+                        name: '王者峡谷',
+                        image: 'https://kimi-web-img.moonshot.cn/img/pic3.zhimg.com/2e69630d514dc40b1bee69812086103c5b7d06a1.jpg',
+                        hotspots: [
+                            {
+                                id: 1,
+                                x: 20,
+                                y: 80,
+                                title: '蓝方基地',
+                                description: '蓝方队伍的出生点和主要防御区域，包含水晶、商店和回复泉。',
+                                icon: 'fas fa-home'
+                            },
+                            {
+                                id: 2,
+                                x: 80,
+                                y: 20,
+                                title: '红方基地',
+                                description: '红方队伍的出生点和主要防御区域，是最终需要摧毁的目标。',
+                                icon: 'fas fa-home'
+                            },
+                            {
+                                id: 3,
+                                x: 50,
+                                y: 50,
+                                title: '河道中心',
+                                description: '地图中央的重要战略位置，控制这里可以掌握全局视野和支援优势。',
+                                icon: 'fas fa-crosshairs'
+                            },
+                            {
+                                id: 4,
+                                x: 30,
+                                y: 40,
+                                title: '蓝BUFF',
+                                description: '提供法力回复和冷却缩减的重要野区资源，法师和技能型英雄的核心BUFF。',
+                                icon: 'fas fa-magic'
+                            },
+                            {
+                                id: 5,
+                                x: 70,
+                                y: 60,
+                                title: '红BUFF',
+                                description: '提供真实伤害和减速效果的野区资源，射手和战士的核心BUFF。',
+                                icon: 'fas fa-fire'
+                            },
+                            {
+                                id: 6,
+                                x: 60,
+                                y: 30,
+                                title: '暴君巢穴',
+                                description: '重要的前期团队资源，击杀后获得金币和经验优势。',
+                                icon: 'fas fa-dragon'
+                            },
+                            {
+                                id: 7,
+                                x: 40,
+                                y: 70,
+                                title: '主宰巢穴',
+                                description: '中后期重要团队资源，击杀后获得主宰先锋推进优势。',
+                                icon: 'fas fa-crown'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'aram',
+                        name: '长平攻防战',
+                        image: 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/a22831c8082e2aae677e8819aff237d502f41bcf',
+                        hotspots: []
+                    },
+                    {
+                        id: 'abyss',
+                        name: '深渊大乱斗',
+                        image: 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/70bc8a95f9b883b307f7f0e2b4be3aa4c0bbef1e',
+                        hotspots: []
+                    },
+                    {
+                        id: 'brawl',
+                        name: '火焰山大战',
+                        image: 'https://kimi-web-img.moonshot.cn/img/pic.87g.com/c7a3bb1ad01618141cac1da6c78307483da28748.jpg',
+                        hotspots: []
                     }
+                ]);
+                
+                // 方法：切换地图
+                const switchMap = (map) => {
+                    currentMap.value = map;
+                };
+                
+                // 方法：显示热点详情
+                const showHotspotDetail = (hotspot) => {
+                    selectedHotspot.value = hotspot;
+                    showModal.value = true;
+                };
+                
+                // 方法：关闭模态框
+                const closeModal = () => {
+                    showModal.value = false;
+                };
+                
+                // 方法：处理地图鼠标移动
+                const handleMapMouseMove = (e) => {
+                    if (!mapViewer.value) return;
+                    
+                    const rect = mapViewer.value.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    lightEffectStyle.left = `${x - 50}px`;
+                    lightEffectStyle.top = `${y - 50}px`;
+                    lightEffectVisible.value = true;
+                };
+                
+                // 方法：移除光效
+                const removeLightEffect = () => {
+                    lightEffectVisible.value = false;
+                };
+                
+                // 生命周期：组件挂载后
+                onMounted(() => {
+                    // 设置默认地图
+                    currentMap.value = maps.value[0];
+                    
+                    // 添加滚动动画
+                    const observerOptions = {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -50px 0px'
+                    };
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }
+                        });
+                    }, observerOptions);
+                    
+                    // 观察所有卡片
+                    nextTick(() => {
+                        document.querySelectorAll('.info-card, .point-card, .mode-card').forEach(card => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(30px)';
+                            card.style.transition = 'all 0.6s ease';
+                            observer.observe(card);
+                        });
+                    });
                 });
-            }, observerOptions);
-            
-            // 观察所有卡片
-            document.querySelectorAll('.info-card, .point-card, .mode-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
-
-            // 添加地图悬停效果
-            const mapViewer = document.getElementById('mapViewer');
-            mapViewer.addEventListener('mousemove', (e) => {
-                const rect = mapViewer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
                 
-                // 创建跟随鼠标的光效
-                let lightEffect = mapViewer.querySelector('.light-effect');
-                if (!lightEffect) {
-                    lightEffect = document.createElement('div');
-                    lightEffect.className = 'light-effect';
-                    lightEffect.style.cssText = `
-                        position: absolute;
-                        width: 100px;
-                        height: 100px;
-                        background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-                        border-radius: 50%;
-                        pointer-events: none;
-                        transition: all 0.1s ease;
-                        z-index: 1;
-                    `;
-                    mapViewer.appendChild(lightEffect);
-                }
-                
-                lightEffect.style.left = `${x - 50}px`;
-                lightEffect.style.top = `${y - 50}px`;
-            });
-
-            mapViewer.addEventListener('mouseleave', () => {
-                const lightEffect = mapViewer.querySelector('.light-effect');
-                if (lightEffect) {
-                    lightEffect.remove();
-                }
-            });
-        });
+                // 返回模板中需要使用的数据和方法
+                return {
+                    maps,
+                    currentMap,
+                    showModal,
+                    selectedHotspot,
+                    lightEffectVisible,
+                    lightEffectStyle,
+                    mapViewer,
+                    switchMap,
+                    showHotspotDetail,
+                    closeModal,
+                    handleMapMouseMove,
+                    removeLightEffect
+                };
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>
