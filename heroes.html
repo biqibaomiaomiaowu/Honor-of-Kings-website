@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* 样式保持不变 */
         * {
             margin: 0;
             padding: 0;
@@ -273,7 +274,6 @@
         }
 
         .modal {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -417,433 +417,406 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-crown"></i>
-                王者荣耀
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="heroes.html" class="active">英雄介绍</a></li>
-                <li><a href="equipment.html">装备介绍</a></li>
-                <li><a href="maps.html">地图介绍</a></li>
-                <li><a href="world.html">世界观</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">英雄介绍</h1>
-            <p class="page-subtitle">探索王者峡谷中的每一位英雄，了解他们的故事与技能</p>
-        </div>
-
-        <div class="search-filter-section">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="搜索英雄名称..." id="searchInput">
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-crown"></i>
+                    王者荣耀
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="heroes.html" class="active">英雄介绍</a></li>
+                    <li><a href="equipment.html">装备介绍</a></li>
+                    <li><a href="maps.html">地图介绍</a></li>
+                    <li><a href="world.html">世界观</a></li>
+                </ul>
             </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-role="all">全部</button>
-                <button class="filter-btn" data-role="tank">坦克</button>
-                <button class="filter-btn" data-role="warrior">战士</button>
-                <button class="filter-btn" data-role="assassin">刺客</button>
-                <button class="filter-btn" data-role="mage">法师</button>
-                <button class="filter-btn" data-role="marksman">射手</button>
-                <button class="filter-btn" data-role="support">辅助</button>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">英雄介绍</h1>
+                <p class="page-subtitle">探索王者峡谷中的每一位英雄，了解他们的故事与技能</p>
             </div>
-        </div>
 
-        <div class="heroes-container" id="heroesContainer">
-            <!-- 英雄卡片将通过JavaScript动态生成 -->
-        </div>
-
-        <div class="no-results" id="noResults" style="display: none;">
-            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-            <h3>未找到匹配的英雄</h3>
-            <p>请尝试其他搜索条件</p>
-        </div>
-    </main>
-
-    <!-- 英雄详情模态框 -->
-    <div class="modal" id="heroModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">英雄详情</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="hero-detail-grid">
-                <div>
-                    <img id="modalHeroImage" class="hero-detail-image" src="" alt="">
+            <div class="search-filter-section">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        placeholder="搜索英雄名称..." 
+                        v-model="searchQuery"
+                    >
                 </div>
-                <div>
-                    <div class="hero-stats-chart" id="statsChart"></div>
+                <div class="filter-buttons">
+                    <button 
+                        v-for="role in roles" 
+                        :key="role.key"
+                        class="filter-btn" 
+                        :class="{ active: currentFilter === role.key }"
+                        @click="changeFilter(role.key)"
+                    >
+                        {{ role.name }}
+                    </button>
                 </div>
             </div>
-            <div class="hero-skills">
-                <h3 class="skills-title">技能介绍</h3>
-                <div id="skillsContainer">
-                    <!-- 技能信息将通过JavaScript动态生成 -->
+
+            <div class="heroes-container">
+                <div 
+                    v-for="hero in filteredHeroes" 
+                    :key="hero.id"
+                    class="hero-card"
+                    @click="showHeroDetail(hero)"
+                >
+                    <div class="hero-image-container">
+                        <img :src="hero.image" :alt="hero.name" class="hero-image">
+                        <div class="hero-overlay"></div>
+                    </div>
+                    <div class="hero-info">
+                        <h3 class="hero-name">{{ hero.name }}</h3>
+                        <span class="hero-role">{{ hero.roleText }}</span>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">{{ hero.stats.attack }}</div>
+                                <div class="stat-label">攻击</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ hero.stats.defense }}</div>
+                                <div class="stat-label">防御</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ hero.stats.magic }}</div>
+                                <div class="stat-label">法术</div>
+                            </div>
+                        </div>
+                        <p class="hero-description">{{ hero.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-results" v-if="filteredHeroes.length === 0">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                <h3>未找到匹配的英雄</h3>
+                <p>请尝试其他搜索条件</p>
+            </div>
+        </main>
+
+        <!-- 英雄详情模态框 -->
+        <div class="modal" v-if="showModal" @click.self="closeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">{{ selectedHero.name }}</h2>
+                    <button class="close-btn" @click="closeModal">&times;</button>
+                </div>
+                <div class="hero-detail-grid">
+                    <div>
+                        <img :src="selectedHero.image" :alt="selectedHero.name" class="hero-detail-image">
+                    </div>
+                    <div>
+                        <div class="hero-stats-chart" ref="statsChart"></div>
+                    </div>
+                </div>
+                <div class="hero-skills">
+                    <h3 class="skills-title">技能介绍</h3>
+                    <div class="skill-item" v-for="skill in selectedHero.skills" :key="skill.name">
+                        <div class="skill-name">{{ skill.name }}</div>
+                        <div class="skill-description">{{ skill.description }}</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 英雄数据
-        const heroesData = [
-            {
-                id: 1,
-                name: '露娜',
-                role: '战士',
-                roleText: '战士/刺客',
-                image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
-                description: '月光之女，拥有强大的突进能力和持续输出能力',
-                stats: { attack: 85, defense: 60, magic: 70, difficulty: 80 },
-                skills: [
-                    { name: '月光之舞', description: '露娜的普攻和技能会标记敌人，标记达到3层时会触发月光之舞效果' },
-                    { name: '弦月斩', description: '露娜向指定方向挥出剑气，对路径上的敌人造成伤害并标记' },
-                    { name: '炙热剑芒', description: '露娜向指定方向冲锋，对路径上的敌人造成伤害并眩晕' },
-                    { name: '新月突击', description: '露娜对指定敌人发起突击，造成大量伤害并刷新技能冷却' }
-                ]
-            },
-            {
-                id: 2,
-                name: '李白',
-                role: 'assassin',
-                roleText: '刺客',
-                image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/c40a217c7de831f826ecf0611534020b9dc1147b.jpg',
-                description: '青莲剑仙，以华丽的剑法和灵活的位移著称',
-                stats: { attack: 90, defense: 45, magic: 30, difficulty: 85 },
-                skills: [
-                    { name: '侠客行', description: '李白的普攻会减少技能冷却时间' },
-                    { name: '将进酒', description: '李白向指定方向突进，对路径上的敌人造成伤害' },
-                    { name: '神来之笔', description: '李白以自身为中心化剑为青莲剑阵，对范围内敌人造成伤害' },
-                    { name: '青莲剑歌', description: '李白化身为剑气，对指定方向范围内的敌人飞速穿梭斩击' }
-                ]
-            },
-            {
-                id: 3,
-                name: '貂蝉',
-                role: 'mage',
-                roleText: '法师',
-                image: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
-                description: '闭月羞花，拥有美丽的舞姿和强大的法术伤害',
-                stats: { attack: 40, defense: 50, magic: 95, difficulty: 75 },
-                skills: [
-                    { name: '语·花印', description: '貂蝉的技能命中会为目标叠加花之印记，持续8秒' },
-                    { name: '落·红雨', description: '貂蝉向前挥出花球并收回，每段造成法术伤害' },
-                    { name: '缘·心结', description: '貂蝉瞬间消失，并立即出现在指定方向的终点' },
-                    { name: '绽·风华', description: '貂蝉绽放风华，原地结成法阵，造成法术伤害' }
-                ]
-            },
-            {
-                id: 4,
-                name: '孙悟空',
-                role: 'warrior',
-                roleText: '战士/刺客',
-                image: 'https://kimi-web-img.moonshot.cn/img/shp.qpic.cn/8204b42e0495e2fcefe0e86bea03d95deb1dcd10',
-                description: '齐天大圣，拥有超强的爆发力和生存能力',
-                stats: { attack: 88, defense: 70, magic: 25, difficulty: 60 },
-                skills: [
-                    { name: '大圣神威', description: '孙悟空的普攻和技能命中敌人会强化下一次普攻' },
-                    { name: '护身咒法', description: '孙悟空念起护身咒，护身咒可为孙悟空抵挡一次敌方技能' },
-                    { name: '斗战冲锋', description: '孙悟空朝指定方向冲锋，命中敌人造成物理伤害' },
-                    { name: '如意金箍', description: '孙悟空将金箍棒变大直插入地，对范围内敌人造成物理伤害' }
-                ]
-            },
-            {
-                id: 5,
-                name: '亚瑟',
-                role: 'tank',
-                roleText: '坦克/战士',
-                image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/3f96caa35e3020689bd79d1bda06ada0daf8b898.jpg',
-                description: '圣骑之力，新手友好的坦克英雄，拥有稳定的控制能力',
-                stats: { attack: 65, defense: 85, magic: 30, difficulty: 30 },
-                skills: [
-                    { name: '圣光守护', description: '亚瑟获得圣光守护，每2秒恢复2%的最大生命值' },
-                    { name: '誓约之盾', description: '亚瑟短时间内提高移动速度，下一次普攻造成额外伤害' },
-                    { name: '回旋打击', description: '亚瑟在身边召唤圣盾，持续对周围敌人造成伤害' },
-                    { name: '圣剑裁决', description: '亚瑟向敌方英雄跳跃，造成目标最大生命值百分比伤害' }
-                ]
-            },
-            {
-                id: 6,
-                name: '后羿',
-                role: 'marksman',
-                roleText: '射手',
-                image: 'https://kimi-web-img.moonshot.cn/img/community-static.vivo.com.cn/060c606a568c030fe5c4eae236f3421e440aa497.jpg',
-                description: '半神之弓，拥有强大的持续输出能力和全图支援能力',
-                stats: { attack: 92, defense: 40, magic: 20, difficulty: 50 },
-                skills: [
-                    { name: '惩戒射击', description: '后羿的普攻命中敌人后增加自身攻击速度，可叠加3层' },
-                    { name: '炙日之矢', description: '后羿向前方射出火焰箭，击中敌方英雄时造成物理伤害' },
-                    { name: '燎原箭雨', description: '后羿向前方扇形区域射出箭矢，每支箭矢造成物理伤害' },
-                    { name: '火鸟之翼', description: '后羿向前方射出火焰鸟，对路径上的敌人造成物理伤害' }
-                ]
-            },
-            {
-                id: 7,
-                name: '蔡文姬',
-                role: 'support',
-                roleText: '辅助',
-                image: 'https://kimi-web-img.moonshot.cn/img/img.hongdoufm.com/30331206b9d866cdccf3718cb0f41c7bee3ab796.png',
-                description: '天籁弦音，拥有强大的治疗能力和控制技能',
-                stats: { attack: 35, defense: 55, magic: 80, difficulty: 40 },
-                skills: [
-                    { name: '长歌行', description: '蔡文姬受到伤害后短暂提高移动速度' },
-                    { name: '思无邪', description: '蔡文姬演奏乐曲，为自身和周围的友方英雄恢复生命值' },
-                    { name: '胡笳乐', description: '蔡文姬向指定方向弹奏音波，音波会向外飞出并造成法术伤害' },
-                    { name: '忘忧曲', description: '蔡文姬释放琴音，为范围内友方英雄恢复生命值并提高物理防御' }
-                ]
-            },
-            {
-                id: 8,
-                name: '韩信',
-                role: 'assassin',
-                roleText: '刺客',
-                image: 'https://kimi-web-img.moonshot.cn/img/img.zcool.cn/b46cbfecba978b5ac6c22e183e66dd133fac8552.jpg',
-                description: '国士无双，拥有多段位移和高爆发能力',
-                stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
-                skills: [
-                    { name: '杀意之枪', description: '韩信的第四次普攻会击飞目标' },
-                    { name: '无情冲锋', description: '韩信持枪冲锋后挑飞目标，对其造成物理伤害' },
-                    { name: '背水一战', description: '韩信向后跳跃并使下一次普攻变为横扫' },
-                    { name: '国士无双', description: '韩信朝指定方向乱舞四次长枪，对命中的敌人造成物理伤害' }
-                ]
-            }
-        ];
-
-        let filteredHeroes = [...heroesData];
-        let currentFilter = 'all';
-
-        // 渲染英雄列表
-        function renderHeroes(heroes) {
-            const container = document.getElementById('heroesContainer');
-            const noResults = document.getElementById('noResults');
-            
-            if (heroes.length === 0) {
-                container.innerHTML = '';
-                noResults.style.display = 'block';
-                return;
-            }
-            
-            noResults.style.display = 'none';
-            
-            container.innerHTML = heroes.map(hero => `
-                <div class="hero-card" data-hero-id="${hero.id}">
-                    <div class="hero-image-container">
-                        <img src="${hero.image}" alt="${hero.name}" class="hero-image">
-                        <div class="hero-overlay"></div>
-                    </div>
-                    <div class="hero-info">
-                        <h3 class="hero-name">${hero.name}</h3>
-                        <span class="hero-role">${hero.roleText}</span>
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">${hero.stats.attack}</div>
-                                <div class="stat-label">攻击</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">${hero.stats.defense}</div>
-                                <div class="stat-label">防御</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">${hero.stats.magic}</div>
-                                <div class="stat-label">法术</div>
-                            </div>
-                        </div>
-                        <p class="hero-description">${hero.description}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            // 添加点击事件
-            document.querySelectorAll('.hero-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const heroId = parseInt(card.dataset.heroId);
-                    showHeroDetail(heroId);
-                });
-            });
-        }
-
-        // 显示英雄详情
-        function showHeroDetail(heroId) {
-            const hero = heroesData.find(h => h.id === heroId);
-            if (!hero) return;
-
-            document.getElementById('modalTitle').textContent = hero.name;
-            document.getElementById('modalHeroImage').src = hero.image;
-            
-            // 渲染技能信息
-            const skillsContainer = document.getElementById('skillsContainer');
-            skillsContainer.innerHTML = hero.skills.map(skill => `
-                <div class="skill-item">
-                    <div class="skill-name">${skill.name}</div>
-                    <div class="skill-description">${skill.description}</div>
-                </div>
-            `).join('');
-
-            // 渲染属性雷达图
-            renderStatsChart(hero.stats);
-
-            // 显示模态框
-            document.getElementById('heroModal').style.display = 'block';
-        }
-
-        // 渲染属性雷达图
-        function renderStatsChart(stats) {
-            const chartDom = document.getElementById('statsChart');
-            const myChart = echarts.init(chartDom);
-
-            const option = {
-                backgroundColor: 'transparent',
-                radar: {
-                    indicator: [
-                        { name: '攻击', max: 100 },
-                        { name: '防御', max: 100 },
-                        { name: '法术', max: 100 },
-                        { name: '难度', max: 100 }
-                    ],
-                    axisName: {
-                        color: '#ffd700'
+        const { createApp, ref, computed, onMounted, nextTick } = Vue;
+        
+        createApp({
+            setup() {
+                // 响应式数据
+                const searchQuery = ref('');
+                const currentFilter = ref('all');
+                const showModal = ref(false);
+                const selectedHero = ref(null);
+                const statsChart = ref(null);
+                
+                // 英雄角色分类
+                const roles = ref([
+                    { key: 'all', name: '全部' },
+                    { key: 'tank', name: '坦克' },
+                    { key: 'warrior', name: '战士' },
+                    { key: 'assassin', name: '刺客' },
+                    { key: 'mage', name: '法师' },
+                    { key: 'marksman', name: '射手' },
+                    { key: 'support', name: '辅助' }
+                ]);
+                
+                // 英雄数据
+                const heroesData = ref([
+                    {
+                        id: 1,
+                        name: '露娜',
+                        role: 'warrior',
+                        roleText: '战士/刺客',
+                        image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
+                        description: '月光之女，拥有强大的突进能力和持续输出能力',
+                        stats: { attack: 85, defense: 60, magic: 70, difficulty: 80 },
+                        skills: [
+                            { name: '月光之舞', description: '露娜的普攻和技能会标记敌人，标记达到3层时会触发月光之舞效果' },
+                            { name: '弦月斩', description: '露娜向指定方向挥出剑气，对路径上的敌人造成伤害并标记' },
+                            { name: '炙热剑芒', description: '露娜向指定方向冲锋，对路径上的敌人造成伤害并眩晕' },
+                            { name: '新月突击', description: '露娜对指定敌人发起突击，造成大量伤害并刷新技能冷却' }
+                        ]
                     },
-                    splitLine: {
-                        lineStyle: {
-                            color: 'rgba(255, 215, 0, 0.3)'
-                        }
+                    {
+                        id: 2,
+                        name: '李白',
+                        role: 'assassin',
+                        roleText: '刺客',
+                        image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/c40a217c7de831f826ecf0611534020b9dc1147b.jpg',
+                        description: '青莲剑仙，以华丽的剑法和灵活的位移著称',
+                        stats: { attack: 90, defense: 45, magic: 30, difficulty: 85 },
+                        skills: [
+                            { name: '侠客行', description: '李白的普攻会减少技能冷却时间' },
+                            { name: '将进酒', description: '李白向指定方向突进，对路径上的敌人造成伤害' },
+                            { name: '神来之笔', description: '李白以自身为中心化剑为青莲剑阵，对范围内敌人造成伤害' },
+                            { name: '青莲剑歌', description: '李白化身为剑气，对指定方向范围内的敌人飞速穿梭斩击' }
+                        ]
                     },
-                    axisLine: {
-                        lineStyle: {
-                            color: 'rgba(255, 215, 0, 0.5)'
-                        }
+                    {
+                        id: 3,
+                        name: '貂蝉',
+                        role: 'mage',
+                        roleText: '法师',
+                        image: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
+                        description: '闭月羞花，拥有美丽的舞姿和强大的法术伤害',
+                        stats: { attack: 40, defense: 50, magic: 95, difficulty: 75 },
+                        skills: [
+                            { name: '语·花印', description: '貂蝉的技能命中会为目标叠加花之印记，持续8秒' },
+                            { name: '落·红雨', description: '貂蝉向前挥出花球并收回，每段造成法术伤害' },
+                            { name: '缘·心结', description: '貂蝉瞬间消失，并立即出现在指定方向的终点' },
+                            { name: '绽·风华', description: '貂蝉绽放风华，原地结成法阵，造成法术伤害' }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: '孙悟空',
+                        role: 'warrior',
+                        roleText: '战士/刺客',
+                        image: 'https://kimi-web-img.moonshot.cn/img/shp.qpic.cn/8204b42e0495e2fcefe0e86bea03d95deb1dcd10',
+                        description: '齐天大圣，拥有超强的爆发力和生存能力',
+                        stats: { attack: 88, defense: 70, magic: 25, difficulty: 60 },
+                        skills: [
+                            { name: '大圣神威', description: '孙悟空的普攻和技能命中敌人会强化下一次普攻' },
+                            { name: '护身咒法', description: '孙悟空念起护身咒，护身咒可为孙悟空抵挡一次敌方技能' },
+                            { name: '斗战冲锋', description: '孙悟空朝指定方向冲锋，命中敌人造成物理伤害' },
+                            { name: '如意金箍', description: '孙悟空将金箍棒变大直插入地，对范围内敌人造成物理伤害' }
+                        ]
+                    },
+                    {
+                        id: 5,
+                        name: '亚瑟',
+                        role: 'tank',
+                        roleText: '坦克/战士',
+                        image: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/3f96caa35e3020689bd79d1bda06ada0daf8b898.jpg',
+                        description: '圣骑之力，新手友好的坦克英雄，拥有稳定的控制能力',
+                        stats: { attack: 65, defense: 85, magic: 30, difficulty: 30 },
+                        skills: [
+                            { name: '圣光守护', description: '亚瑟获得圣光守护，每2秒恢复2%的最大生命值' },
+                            { name: '誓约之盾', description: '亚瑟短时间内提高移动速度，下一次普攻造成额外伤害' },
+                            { name: '回旋打击', description: '亚瑟在身边召唤圣盾，持续对周围敌人造成伤害' },
+                            { name: '圣剑裁决', description: '亚瑟向敌方英雄跳跃，造成目标最大生命值百分比伤害' }
+                        ]
+                    },
+                    {
+                        id: 6,
+                        name: '后羿',
+                        role: 'marksman',
+                        roleText: '射手',
+                        image: 'https://kimi-web-img.moonshot.cn/img/community-static.vivo.com.cn/060c606a568c030fe5c4eae236f3421e440aa497.jpg',
+                        description: '半神之弓，拥有强大的持续输出能力和全图支援能力',
+                        stats: { attack: 92, defense: 40, magic: 20, difficulty: 50 },
+                        skills: [
+                            { name: '惩戒射击', description: '后羿的普攻命中敌人后增加自身攻击速度，可叠加3层' },
+                            { name: '炙日之矢', description: '后羿向前方射出火焰箭，击中敌方英雄时造成物理伤害' },
+                            { name: '燎原箭雨', description: '后羿向前方扇形区域射出箭矢，每支箭矢造成物理伤害' },
+                            { name: '火鸟之翼', description: '后羿向前方射出火焰鸟，对路径上的敌人造成物理伤害' }
+                        ]
+                    },
+                    {
+                        id: 7,
+                        name: '蔡文姬',
+                        role: 'support',
+                        roleText: '辅助',
+                        image: 'https://kimi-web-img.moonshot.cn/img/img.hongdoufm.com/30331206b9d866cdccf3718cb0f41c7bee3ab796.png',
+                        description: '天籁弦音，拥有强大的治疗能力和控制技能',
+                        stats: { attack: 35, defense: 55, magic: 80, difficulty: 40 },
+                        skills: [
+                            { name: '长歌行', description: '蔡文姬受到伤害后短暂提高移动速度' },
+                            { name: '思无邪', description: '蔡文姬演奏乐曲，为自身和周围的友方英雄恢复生命值' },
+                            { name: '胡笳乐', description: '蔡文姬向指定方向弹奏音波，音波会向外飞出并造成法术伤害' },
+                            { name: '忘忧曲', description: '蔡文姬释放琴音，为范围内友方英雄恢复生命值并提高物理防御' }
+                        ]
+                    },
+                    {
+                        id: 8,
+                        name: '韩信',
+                        role: 'assassin',
+                        roleText: '刺客',
+                        image: 'https://kimi-web-img.moonshot.cn/img/img.zcool.cn/b46cbfecba978b5ac6c22e183e66dd133fac8552.jpg',
+                        description: '国士无双，拥有多段位移和高爆发能力',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '杀意之枪', description: '韩信的第四次普攻会击飞目标' },
+                            { name: '无情冲锋', description: '韩信持枪冲锋后挑飞目标，对其造成物理伤害' },
+                            { name: '背水一战', description: '韩信向后跳跃并使下一次普攻变为横扫' },
+                            { name: '国士无双', description: '韩信朝指定方向乱舞四次长枪，对命中的敌人造成物理伤害' }
+                        ]
                     }
-                },
-                series: [{
-                    type: 'radar',
-                    data: [{
-                        value: [stats.attack, stats.defense, stats.magic, stats.difficulty],
-                        name: '英雄属性',
-                        areaStyle: {
-                            color: 'rgba(255, 215, 0, 0.3)'
-                        },
-                        lineStyle: {
-                            color: '#ffd700'
-                        },
-                        itemStyle: {
-                            color: '#ffd700'
-                        }
-                    }]
-                }]
-            };
-
-            myChart.setOption(option);
-        }
-
-        // 搜索功能
-        function searchHeroes(query) {
-            const filtered = heroesData.filter(hero => 
-                hero.name.toLowerCase().includes(query.toLowerCase())
-            );
-            
-            if (currentFilter === 'all') {
-                filteredHeroes = filtered;
-            } else {
-                filteredHeroes = filtered.filter(hero => hero.role === currentFilter);
-            }
-            
-            renderHeroes(filteredHeroes);
-        }
-
-        // 筛选功能
-        function filterHeroes(role) {
-            currentFilter = role;
-            
-            if (role === 'all') {
-                filteredHeroes = [...heroesData];
-            } else {
-                filteredHeroes = heroesData.filter(hero => hero.role === role);
-            }
-            
-            // 考虑搜索条件
-            const searchQuery = document.getElementById('searchInput').value;
-            if (searchQuery) {
-                filteredHeroes = filteredHeroes.filter(hero => 
-                    hero.name.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-            }
-            
-            renderHeroes(filteredHeroes);
-        }
-
-        // 事件监听器
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始渲染
-            renderHeroes(heroesData);
-
-            // 搜索输入
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                searchHeroes(e.target.value);
-            });
-
-            // 筛选按钮
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // 更新按钮状态
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                ]);
+                
+                // 计算属性：过滤英雄
+                const filteredHeroes = computed(() => {
+                    let result = heroesData.value;
                     
-                    // 筛选英雄
-                    filterHeroes(btn.dataset.role);
-                });
-            });
-
-            // 模态框关闭
-            document.getElementById('closeModal').addEventListener('click', () => {
-                document.getElementById('heroModal').style.display = 'none';
-            });
-
-            // 点击模态框外部关闭
-            document.getElementById('heroModal').addEventListener('click', (e) => {
-                if (e.target.id === 'heroModal') {
-                    document.getElementById('heroModal').style.display = 'none';
-                }
-            });
-
-            // 添加滚动动画
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                    // 按角色筛选
+                    if (currentFilter.value !== 'all') {
+                        result = result.filter(hero => hero.role === currentFilter.value);
                     }
+                    
+                    // 按搜索词筛选
+                    if (searchQuery.value) {
+                        const query = searchQuery.value.toLowerCase();
+                        result = result.filter(hero => 
+                            hero.name.toLowerCase().includes(query)
+                        );
+                    }
+                    
+                    return result;
                 });
-            }, observerOptions);
-            
-            // 观察英雄卡片
-            const observeHeroCards = () => {
-                document.querySelectorAll('.hero-card').forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    card.style.transition = 'all 0.6s ease';
-                    observer.observe(card);
-                });
-            };
-            
-            observeHeroCards();
+                
+                // 方法：切换筛选条件
+                const changeFilter = (role) => {
+                    currentFilter.value = role;
+                };
+                
+                // 方法：显示英雄详情
+                const showHeroDetail = (hero) => {
+                    selectedHero.value = hero;
+                    showModal.value = true;
+                    
+                    // 在模态框显示后渲染图表
+                    nextTick(() => {
+                        renderStatsChart(hero.stats);
+                    });
+                };
+                
+                // 方法：关闭模态框
+                const closeModal = () => {
+                    showModal.value = false;
+                };
+                
+                // 方法：渲染属性雷达图
+                const renderStatsChart = (stats) => {
+                    if (!statsChart.value) return;
+                    
+                    const myChart = echarts.init(statsChart.value);
 
-            // 重新观察新渲染的卡片
-            const originalRenderHeroes = renderHeroes;
-            renderHeroes = function(heroes) {
-                originalRenderHeroes(heroes);
-                setTimeout(observeHeroCards, 100);
-            };
-        });
+                    const option = {
+                        backgroundColor: 'transparent',
+                        radar: {
+                            indicator: [
+                                { name: '攻击', max: 100 },
+                                { name: '防御', max: 100 },
+                                { name: '法术', max: 100 },
+                                { name: '难度', max: 100 }
+                            ],
+                            axisName: {
+                                color: '#ffd700'
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 215, 0, 0.3)'
+                                }
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 215, 0, 0.5)'
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'radar',
+                            data: [{
+                                value: [stats.attack, stats.defense, stats.magic, stats.difficulty],
+                                name: '英雄属性',
+                                areaStyle: {
+                                    color: 'rgba(255, 215, 0, 0.3)'
+                                },
+                                lineStyle: {
+                                    color: '#ffd700'
+                                },
+                                itemStyle: {
+                                    color: '#ffd700'
+                                }
+                            }]
+                        }]
+                    };
+
+                    myChart.setOption(option);
+                };
+                
+                // 生命周期：组件挂载后
+                onMounted(() => {
+                    // 添加滚动动画
+                    const observerOptions = {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -50px 0px'
+                    };
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }
+                        });
+                    }, observerOptions);
+                    
+                    // 观察英雄卡片
+                    const observeHeroCards = () => {
+                        document.querySelectorAll('.hero-card').forEach(card => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(30px)';
+                            card.style.transition = 'all 0.6s ease';
+                            observer.observe(card);
+                        });
+                    };
+                    
+                    // 初始观察
+                    observeHeroCards();
+                    
+                    // 当过滤结果变化时重新观察
+                    // 由于Vue的响应式更新，我们需要在DOM更新后重新观察
+                    // 这里使用一个简单的定时器，实际项目中可以使用nextTick
+                    setTimeout(observeHeroCards, 100);
+                });
+                
+                // 返回模板中需要使用的数据和方法
+                return {
+                    searchQuery,
+                    currentFilter,
+                    roles,
+                    filteredHeroes,
+                    showModal,
+                    selectedHero,
+                    statsChart,
+                    changeFilter,
+                    showHeroDetail,
+                    closeModal
+                };
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>
