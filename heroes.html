@@ -551,7 +551,7 @@
                     {
                         id: 1,
                         name: '露娜',
-                        role: 'warrior',
+                        role: ['warrior','assassin'],
                         roleText: '战士/刺客',
                         image:'./imgs/heroes/luna/luna.jpg',
                         description: '月光之女，拥有强大的突进能力和持续输出能力',
@@ -597,7 +597,7 @@
                         id: 4,
                         name: '孙悟空',
                         role: 'warrior',
-                        roleText: '战士/刺客',
+                        roleText: '刺客',
                         image: './imgs/heroes/sunwukong/sunwukong.jpg',
                         description: '齐天大圣，拥有超强的爆发力和生存能力',
                         stats: { attack: 88, defense: 70, magic: 25, difficulty: 60 },
@@ -611,7 +611,7 @@
                     {
                         id: 5,
                         name: '亚瑟',
-                        role: 'tank',
+                        role: ['tank','warrior'],
                         roleText: '坦克/战士',
                         image: './imgs/heroes/yase/yase.png',
                         description: '圣骑之力，新手友好的坦克英雄，拥有稳定的控制能力',
@@ -641,8 +641,8 @@
                     {
                         id: 7,
                         name: '蔡文姬',
-                        role: 'support',
-                        roleText: '辅助',
+                        role: ['support','mage'],
+                        roleText: '辅助/法师',
                         image: './imgs/heroes/caiwenji/caiwenji.png',
                         description: '天籁弦音，拥有强大的治疗能力和控制技能',
                         stats: { attack: 35, defense: 55, magic: 80, difficulty: 40 },
@@ -686,8 +686,8 @@
                     {
                         id: 10,
                         name: '刘禅',
-                        role: 'tank',
-                        roleText: '坦克',
+                        role: ['tank','support'],
+                        roleText: '坦克/辅助',
                         image: './imgs/heroes/liushan/liushan.png',
                         description: '机关干扰者，连续控制开团，旋转大招群伤。',
                         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
@@ -701,8 +701,8 @@
                     {
                         id: 11,
                         name: '庄周',
-                        role: 'tank',
-                        roleText: '坦克',
+                        role: ['tank','support'],
+                        roleText: '坦克/辅助',
                         image: './imgs/heroes/zhuangzhou/zhuangzhou.png',
                         description: '解控辅助，群体免控，大招守护队友安危',
                         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
@@ -711,6 +711,66 @@
                             { name: '化蝶', description: '庄周化蝶飞行，路径敌人受法术伤害与高额减速。' },
                             { name: '蝴蝶效应', description: '庄周蝴蝶扇动，附近敌伤友增移速，可叠加，被动触发。' },
                             { name: '天人合一', description: '庄周大招：幻域解控免控，队友获护盾持续1.5秒' }
+                        ]
+                    },
+                    {
+                        id: 12,
+                        name: '牛魔',
+                        role: ['tank','support'],
+                        roleText: '坦克/辅助',
+                        image: './imgs/heroes/niumo/niumo.png',
+                        description: '坚盾战神，抗伤控场，为团队冲锋陷阵',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '强力援护', description: '当800范围内有友方英雄时，为自身和范围内生命值最低的友方英雄提供110点双抗加成。' },
+                            { name: '咆哮之斧', description: '牛魔横劈大斧伤敌标记，印记叠层增额外伤害' },
+                            { name: '横行霸道', description: '牛魔冲锋破敌，高额伤击飞减移速一秒' },
+                            { name: '山崩地裂', description: '牛魔蓄力劈地，大范围击飞破法，裂地持续伤敌减速' }
+                        ]
+                    },
+                    {
+                        id: 13,
+                        name: '钟馗',
+                        role: ['tank','support'],
+                        roleText: '坦克/辅助',
+                        image: './imgs/heroes/zhongkui/zhongkui.jpg',
+                        description: '勾锁拉敌，大招强控，威慑力十足守团战',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '制裁仪式', description: '伤逾十成爆敌身，亡后三秒再燃幽冥威' },
+                            { name: '虚空清道者', description: '钟馗锤地伤敌减速，内圈高伤加印锁敌' },
+                            { name: '湮灭之锁', description: '钟馗钩锁拉敌致伤并标记，助战叠层增生命' },
+                            { name: '轮回吞噬', description: '钟馗开躯十六吞，高额伤敌附晕，吞噬获护盾' }
+                        ]
+                    },
+                    {
+                        id: 14,
+                        name: '瑶',
+                        role: ['mage','support'],
+                        roleText: '法师/辅助',
+                        image: './imgs/heroes/yao/yao.png',
+                        description: '灵鹿附体,可附身加盾，解控变鹿减速敌人',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '山鬼·白鹿', description: '瑶受硬控化鹿灵，免控减速，技能冷却刷新' },
+                            { name: '若有人兮', description: '举杖击退，跟踪打击带击飞显形，多态有增益' },
+                            { name: '风飒木萧', description: '5秒群攻敌，附身增距，鹿灵可跳跃。' },
+                            { name: '独立兮山之上', description: '附身赐真盾，技能强减CD，脱附返半 。' }
+                        ]
+                    },
+                    {
+                        id: 15,
+                        name: '王昭君',
+                        role: 'mage',
+                        roleText: '法师',
+                        image: './imgs/heroes/wangzhaojun/wangzhaojun.png',
+                        description: '冰盾控场法师，冰冻减速联动，大招暴风雪。',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '冰封之心', description: '脱战获冰盾，普攻化锥，技能附减速效果' },
+                            { name: '凋零冰晶', description: '冰晶绽放高伤加冰冷，施法获视野2秒。' },
+                            { name: '禁锢寒霜', description: '寒霜延迟冻敌，对冻敌额外施法伤。' },
+                            { name: '凛冬已至', description: '暴风雪五秒伤敌附冷效，召唤刷新护盾 。' }
                         ]
                     }
                 ]);
