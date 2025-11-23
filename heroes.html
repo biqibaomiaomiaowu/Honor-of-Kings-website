@@ -667,6 +667,51 @@
                             { name: '背水一战', description: '韩信向后跳跃并使下一次普攻变为横扫' },
                             { name: '国士无双', description: '韩信朝指定方向乱舞四次长枪，对命中的敌人造成物理伤害' }
                         ]
+                    },
+                    {
+                        id: 9,
+                        name: '张飞',
+                        role: ['tank','support'],
+                        roleText: '坦克/辅助',
+                        image: './imgs/heroes/zhangfei/zhangfei.png',
+                        description: '强力坦克，开团硬控，大招变身护盾保护队友',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '黑暗潜能', description: '张飞变身前，每次普攻会增加3点狂意。张飞变身后，施放技能会使得周围的地面震动，附近的敌人将会减少25~50%移速，持续2秒。' },
+                            { name: '画地为牢', description: '张飞挥扫蛇矛对敌人造成580/696/812/928/1044/1160(+145%物理攻击)物理伤害，命中敌方英雄时会将其击退。命中敌方单位会增加3点狂意。' },
+                            { name: '守护机关', description: '张飞向指定区域跳跃，落地时启动机关印记给范围内友军生成625/750/875/1000/1125/1250(+12.5％额外生命值)护盾(至多5人)。释放技能会增加3点狂意，每给一位友方英雄生成一个护盾可额外增加1点狂意。' },
+                            { name: '狂兽血性', description: '张飞开团怒吼击退眩晕，获得护盾霸体，变身强化普攻。' }
+                        ]
+                    },
+                    {
+                        id: 10,
+                        name: '刘禅',
+                        role: 'tank',
+                        roleText: '坦克',
+                        image: './imgs/heroes/liushan/liushan.png',
+                        description: '机关干扰者，连续控制开团，旋转大招群伤。',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '磁力屏障', description: '刘禅被动：技能对机关造成伤害并干扰1.2秒，掠夺零件回复生命（随等级成长）。' },
+                            { name: '小霸王护盾', description: '刘禅开盾冲锋获护盾加速，强化普攻击飞敌人。' },
+                            { name: '机关魔爪', description: '刘禅魔爪范围眩晕1秒，造成物理伤害。' },
+                            { name: '暴走熊猫', description: '刘禅旋转攻击持续伤害减速，期间可释放其他技能。' }
+                        ]
+                    },
+                    {
+                        id: 11,
+                        name: '庄周',
+                        role: 'tank',
+                        roleText: '坦克',
+                        image: './imgs/heroes/zhuangzhou/zhuangzhou.png',
+                        description: '解控辅助，群体免控，大招守护队友安危',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '自然意志', description: '庄周被动：免控解控+15%减伤移速，6秒自动回血（随额外生命成长）。' },
+                            { name: '化蝶', description: '庄周化蝶飞行，路径敌人受法术伤害与高额减速。' },
+                            { name: '蝴蝶效应', description: '庄周蝴蝶扇动，附近敌伤友增移速，可叠加，被动触发。' },
+                            { name: '天人合一', description: '庄周大招：幻域解控免控，队友获护盾持续1.5秒' }
+                        ]
                     }
                 ]);
                 
@@ -676,7 +721,7 @@
                     
                     // 按角色筛选
                     if (currentFilter.value !== 'all') {
-                        result = result.filter(hero => hero.role === currentFilter.value);
+                        result = result.filter(hero => hero.role.includes(currentFilter.value));
                     }
                     
                     // 按搜索词筛选
