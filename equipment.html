@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>装备介绍 - 王者荣耀</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* 样式保持不变 */
+        /* 基础样式保持不变 */
         * {
             margin: 0;
             padding: 0;
@@ -140,116 +139,60 @@
             margin-bottom: 3rem;
         }
 
+        /* 装备卡片样式 */
         .equipment-card {
-            background: rgba(26, 35, 50, 0.9);
+            height: 350px;
             border-radius: 15px;
-            padding: 1.5rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 215, 0, 0.2);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-        }
-
-        .equipment-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: #ffd700;
+            background-size: cover;
+            background-position: center;
         }
 
         .equipment-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
+            bottom: 0;
+            left: 0;
+            right: 0;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8) 70%);
+            z-index: 1;
         }
 
-        .equipment-card:hover::before {
-            left: 100%;
-        }
-
-        .equipment-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .equipment-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            margin-right: 1rem;
-            object-fit: cover;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .equipment-info {
-            flex: 1;
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: #ffd700;
         }
 
         .equipment-name {
-            font-size: 1.2rem;
+            position: absolute;
+            bottom: 40px;
+            left: 20px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ffd700;
-            margin-bottom: 0.3rem;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .equipment-price {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
             color: #ff6b35;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            z-index: 2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
-        .equipment-stats {
-            margin-bottom: 1rem;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.3rem;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-label {
-            color: #b0b0b0;
-        }
-
-        .stat-value {
-            color: #ffd700;
-            font-weight: 500;
-        }
-
-        .equipment-description {
-            color: #b0b0b0;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 1rem;
-        }
-
-        .equipment-passive {
-            background: rgba(15, 20, 25, 0.5);
-            padding: 0.8rem;
-            border-radius: 8px;
-            border-left: 3px solid #ff6b35;
-        }
-
-        .passive-title {
-            color: #ff6b35;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .passive-description {
-            color: #e0e0e0;
-            font-size: 0.8rem;
-            line-height: 1.3;
+        .equipment-stats, .equipment-description, .equipment-passive {
+            display: none;
         }
 
         .recommended-builds {
@@ -321,85 +264,173 @@
             line-height: 1.4;
         }
 
+        /* 模态框样式 */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 2000;
             backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 35, 50, 0.95);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 90%;
+            background: #1e293b;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 550px;
             max-height: 90vh;
             overflow-y: auto;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 2px solid #2d3748;
+            position: relative;
         }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            background: #1e293b;
+            padding: 1.5rem;
+            border-bottom: 1px solid #2d3748;
         }
 
         .modal-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-price {
+            color: #ff6b35;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
             background: none;
             border: none;
             color: #ffffff;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: color 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .close-btn:hover {
             color: #ffd700;
+            transform: rotate(90deg);
         }
 
-        .comparison-section {
-            margin-top: 2rem;
+        .modal-body {
+            padding: 1.5rem;
         }
 
-        .comparison-title {
-            font-size: 1.2rem;
+        /* 合成路径样式 */
+        .synthesis-path {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .synthesis-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-right: 1rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .synthesis-materials {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .material-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            margin-left: 0.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        /* 装备属性样式 */
+        .stats-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2d3748;
         }
 
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #2d3748;
         }
 
-        .comparison-item {
-            background: rgba(15, 20, 25, 0.5);
+        .stat-label {
+            color: #e2e8f0;
+        }
+
+        .stat-value {
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        /* 装备描述样式 */
+        .description-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .equipment-description {
+            display: block;
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* 被动效果样式 */
+        .passive-section {
+            margin-bottom: 1rem;
+        }
+
+        .passive-content {
+            background: #172030;
+            border-left: 4px solid #ff6b35;
             padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
+            border-radius: 0 6px 6px 0;
         }
 
-        .comparison-item.winner {
-            border: 1px solid #ffd700;
-            background: rgba(255, 215, 0, 0.1);
+        .passive-title {
+            color: #ff6b35;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .passive-description {
+            color: #e2e8f0;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -428,8 +459,16 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .comparison-grid {
-                grid-template-columns: 1fr;
+            .synthesis-path {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .synthesis-materials {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: flex-end;
             }
         }
     </style>
@@ -439,7 +478,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <a href="index.html" class="logo">
-                    <img src="imgs\index\logo.webp" alt="">
+                    <img src="imgs\index\logo.webp" alt="Logo">
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html">首页</a></li>
@@ -475,28 +514,13 @@
                     :key="equipment.id"
                     class="equipment-card" 
                     @click="showEquipmentDetail(equipment)"
+                    :style="{'background-image': 'url(' + equipment.icon + ')'}"
                 >
                     <div class="equipment-header">
-                        <img :src="equipment.icon" :alt="equipment.name" class="equipment-icon">
                         <div class="equipment-info">
                             <div class="equipment-name">{{ equipment.name }}</div>
                             <div class="equipment-price">{{ equipment.price }} 金币</div>
                         </div>
-                    </div>
-                    <div class="equipment-stats">
-                        <div 
-                            v-for="(value, key) in equipment.stats" 
-                            :key="key"
-                            class="stat-row"
-                        >
-                            <span class="stat-label">{{ key }}</span>
-                            <span class="stat-value">+{{ value }}</span>
-                        </div>
-                    </div>
-                    <div class="equipment-description">{{ equipment.description }}</div>
-                    <div class="equipment-passive">
-                        <div class="passive-title">被动效果</div>
-                        <div class="passive-description">{{ equipment.passive }}</div>
                     </div>
                 </div>
             </div>
@@ -532,19 +556,29 @@
         <div class="modal" v-if="showModal" @click.self="closeModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">{{ selectedEquipment.name }}</h2>
+                    <h2 class="modal-title">{{ selectedEquipment?.name }}</h2>
+                    <div class="modal-price">价格: {{ selectedEquipment?.price }} 金币</div>
                     <button class="close-btn" @click="closeModal">&times;</button>
                 </div>
-                <div v-if="selectedEquipment">
-                    <div class="equipment-header">
-                        <img :src="selectedEquipment.icon" :alt="selectedEquipment.name" class="equipment-icon">
-                        <div class="equipment-info">
-                            <div class="equipment-name">{{ selectedEquipment.name }}</div>
-                            <div class="equipment-price">价格: {{ selectedEquipment.price }} 金币</div>
+                
+                <div class="modal-body" v-if="selectedEquipment">
+                    <!-- 合成路径 -->
+                    <div class="synthesis-path">
+                        <img :src="selectedEquipment.icon" :alt="selectedEquipment.name" class="synthesis-icon">
+                        <div class="synthesis-materials">
+                            <img 
+                                v-for="(material, index) in selectedEquipment.materials" 
+                                :key="index"
+                                :src="material" 
+                                alt="合成材料" 
+                                class="material-icon"
+                            >
                         </div>
                     </div>
-                    <div class="equipment-stats">
-                        <h3 style="color: #ffd700; margin-bottom: 1rem;">装备属性</h3>
+                    
+                    <!-- 装备属性 -->
+                    <div class="stats-section">
+                        <h3 class="section-title">装备属性</h3>
                         <div 
                             v-for="(value, key) in selectedEquipment.stats" 
                             :key="key"
@@ -554,13 +588,25 @@
                             <span class="stat-value">+{{ value }}</span>
                         </div>
                     </div>
-                    <div class="equipment-description" style="margin: 1rem 0;">
-                        <h4 style="color: #ffd700; margin-bottom: 0.5rem;">装备描述</h4>
-                        {{ selectedEquipment.description }}
+                    
+                    <!-- 装备描述 -->
+                    <div class="description-section">
+                        <h3 class="section-title">装备描述</h3>
+                        <div class="equipment-description">
+                            {{ selectedEquipment.description }}
+                        </div>
                     </div>
-                    <div class="equipment-passive">
-                        <div class="passive-title">被动效果</div>
-                        <div class="passive-description">{{ selectedEquipment.passive }}</div>
+                    
+                    <!-- 被动效果 -->
+                    <div class="passive-section">
+                        <div class="passive-content">
+                            <div class="passive-title">
+                                {{ selectedEquipment.passiveType || '被动效果' }}
+                            </div>
+                            <div class="passive-description">
+                                {{ selectedEquipment.passive }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -568,7 +614,7 @@
     </div>
 
     <script>
-        const { createApp, ref, computed, onMounted } = Vue;
+        const { createApp, ref, computed } = Vue;
         
         createApp({
             setup() {
@@ -587,7 +633,7 @@
                     { key: 'support', name: '辅助装备' }
                 ]);
                 
-                // 装备数据
+                // 装备数据 - 补全所有分类数据
                 const equipmentData = ref({
                     attack: [
                         {
@@ -595,153 +641,333 @@
                             name: '无尽战刃',
                             price: 2140,
                             icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
-                            stats: {
-                                '物理攻击': 110,
-                                '暴击率': 25
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/111f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/222f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 110, '暴击率': 25 },
                             description: '提供大量物理攻击和暴击率，是物理输出英雄的核心装备',
-                            passive: '唯一被动：+40%暴击效果'
+                            passiveType: '唯一被动',
+                            passive: '+40%暴击效果'
                         },
                         {
                             id: 2,
                             name: '破军',
                             price: 2950,
                             icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                            stats: {
-                                '物理攻击': 180
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/444f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 180 },
                             description: '提供极高的物理攻击力，适合后期输出英雄',
-                            passive: '唯一被动：对生命值低于50%的敌人造成额外30%伤害'
+                            passiveType: '唯一被动',
+                            passive: '对生命值低于50%的敌人造成额外30%伤害'
                         },
                         {
                             id: 3,
                             name: '宗师之力',
                             price: 2100,
                             icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
-                            stats: {
-                                '物理攻击': 60,
-                                '暴击率': 20,
-                                '生命值': 400,
-                                '法力值': 400
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 60, '暴击率': 20, '生命值': 400, '法力值': 400 },
                             description: '综合性攻击装备，提供攻击、暴击和生存能力',
-                            passive: '唯一被动：使用技能后下次普攻造成额外100%物理加成的物理伤害'
+                            passiveType: '唯一被动',
+                            passive: '使用技能后下次普攻造成额外100%物理加成的物理伤害'
+                        },
+                        {
+                            id: 4,
+                            name: '闪电匕首',
+                            price: 1840,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/20e3e3e8f8e4f33f5655d06a0b0d2f86755d38c8.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/777f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/888f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 30, '攻击速度': 30, '暴击率': 10 },
+                            description: '提供攻击速度和暴击率，适合依赖普攻的英雄',
+                            passiveType: '唯一被动',
+                            passive: '普通攻击有30%几率释放连锁闪电，对3个目标造成100~360点法术伤害'
+                        },
+                        {
+                            id: 5,
+                            name: '破晓',
+                            price: 3400,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/932e82a0e25d677e542f8491f5a0a585f25e72c.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/999f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/000f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 50, '攻击速度': 35, '暴击率': 15 },
+                            description: '射手神装，提供全面的输出能力提升',
+                            passiveType: '唯一被动-破甲',
+                            passive: '普通攻击附带60点物理伤害，对英雄造成100%物理穿透；远程英雄使用时效果翻倍'
+                        },
+                        {
+                            id: 6,
+                            name: '暗影战斧',
+                            price: 2090,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b1573a82e1d638e0655f03f5a5e0c754f5d56e7.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/112f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/223f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理攻击': 85, '冷却缩减': 15, '生命值': 500 },
+                            description: '战士和刺客的核心装备，提供穿透和冷却缩减',
+                            passiveType: '唯一被动-切割',
+                            passive: '增加(50+英雄等级*10)点物理穿透；唯一被动-残废：普通攻击有30%几率降低目标20%移动速度，持续2秒'
                         }
                     ],
                     defense: [
                         {
-                            id: 4,
+                            id: 7,
                             name: '不祥征兆',
                             price: 2180,
                             icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                            stats: {
-                                '物理防御': 270,
-                                '生命值': 1200
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/334f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/445f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理防御': 270, '生命值': 1200 },
                             description: '提供高额物理防御和生命值，对抗物理输出英雄的核心装备',
-                            passive: '唯一被动：受到攻击时减少攻击者30%攻击速度和15%移动速度'
+                            passiveType: '唯一被动',
+                            passive: '受到攻击时减少攻击者30%攻击速度和15%移动速度'
                         },
                         {
-                            id: 5,
+                            id: 8,
                             name: '魔女斗篷',
                             price: 2120,
                             icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
-                            stats: {
-                                '法术防御': 300,
-                                '生命值': 1000
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术防御': 300, '生命值': 1000 },
                             description: '提供高额法术防御和生命值，对抗法师英雄的核心装备',
-                            passive: '唯一被动：脱战3秒后获得一个吸收法术伤害的护盾'
+                            passiveType: '唯一被动',
+                            passive: '脱战3秒后获得一个吸收法术伤害的护盾'
+                        },
+                        {
+                            id: 9,
+                            name: '红莲斗篷',
+                            price: 1830,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/550f3e3a8e5d355e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/777f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/888f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理防御': 240, '生命值': 1000 },
+                            description: '坦克装备，提供防御和持续伤害能力',
+                            passiveType: '唯一被动-献祭',
+                            passive: '每秒对周围敌人造成(60+英雄等级*2)点法术伤害'
+                        },
+                        {
+                            id: 10,
+                            name: '血魔之怒',
+                            price: 2100,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/825f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/999f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/000f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理防御': 30, '法术防御': 30, '生命值': 1000 },
+                            description: '攻防一体的装备，适合需要冲锋陷阵的英雄',
+                            passiveType: '唯一主动-血怒',
+                            passive: '逐渐扣除30%当前生命值，获得最大生命值30%的护盾，并增加80点物理攻击，持续4秒。冷却时间：60秒'
+                        },
+                        {
+                            id: 11,
+                            name: '反伤刺甲',
+                            price: 1910,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/325f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/112f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/223f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '物理防御': 420, '物理攻击': 40 },
+                            description: '对抗物理输出英雄的装备，能反弹伤害',
+                            passiveType: '唯一被动-荆棘',
+                            passive: '受到物理伤害时，会将伤害量的20%以法术伤害的形式回敬给对方'
+                        },
+                        {
+                            id: 12,
+                            name: '不死鸟之眼',
+                            price: 2100,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/625f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/334f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/445f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术防御': 240, '生命值': 1200 },
+                            description: '提供法术防御和生命回复加成',
+                            passiveType: '唯一被动-血统',
+                            passive: '治疗效果提升10%，当生命值低于50%时，治疗效果额外提升20%'
                         }
                     ],
                     magic: [
                         {
-                            id: 6,
+                            id: 13,
                             name: '回响之杖',
                             price: 2100,
                             icon: 'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
-                            stats: {
-                                '法术攻击': 240,
-                                '移动速度': 7
-                            },
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 240, '移动速度': 7 },
                             description: '提供高额法术攻击和移动速度，法师的核心输出装备',
-                            passive: '唯一被动：技能命中会触发小范围爆炸，造成额外法术伤害'
+                            passiveType: '唯一被动',
+                            passive: '技能命中会触发小范围爆炸，造成额外法术伤害'
+                        },
+                        {
+                            id: 14,
+                            name: '博学者之怒',
+                            price: 2300,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/125f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/777f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/888f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 240 },
+                            description: '法师核心输出装备，大幅提升法术强度',
+                            passiveType: '唯一被动-毁灭',
+                            passive: '法术攻击提升35%'
+                        },
+                        {
+                            id: 15,
+                            name: '虚无法杖',
+                            price: 2110,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/225f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/999f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/000f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 180, '生命值': 500 },
+                            description: '对抗高法术防御英雄的装备',
+                            passiveType: '唯一被动-法穿',
+                            passive: '增加45%法术穿透'
+                        },
+                        {
+                            id: 16,
+                            name: '痛苦面具',
+                            price: 2040,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/325f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/112f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/223f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 120, '冷却缩减': 5, '生命值': 500 },
+                            description: '兼具输出和生存能力的法术装备，适合持续输出型法师',
+                            passiveType: '唯一被动-折磨',
+                            passive: '技能命中目标后，会在3秒内造成持续法术伤害，总计相当于目标当前生命值的8%'
+                        },
+                        {
+                            id: 17,
+                            name: '辉月',
+                            price: 1990,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/425f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/334f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/445f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 160, '冷却缩减': 10 },
+                            description: '提供法术攻击和冷却缩减，具备保命能力',
+                            passiveType: '唯一主动-月之守护',
+                            passive: '免疫所有效果，不能移动、攻击和使用技能，持续1.5秒。冷却时间：90秒'
+                        },
+                        {
+                            id: 18,
+                            name: '梦魇之牙',
+                            price: 1950,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/525f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                            ],
+                            stats: { '法术攻击': 140, '攻击速度': 25 },
+                            description: '对抗高回复英雄的法术装备',
+                            passiveType: '唯一被动-重伤',
+                            passive: '造成伤害使目标的生命回复效果减少50%，持续1.5秒'
                         }
                     ],
                     boots: [
                         {
-                            id: 7,
-                            name: '抵抗之靴',
+                            id: 19,
+                            name: '急速战靴',
                             price: 710,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                            stats: {
-                                '移动速度': 60
-                            },
-                            description: '提供移动速度和韧性，减少控制时间',
-                            passive: '唯一被动：+35%韧性'
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/625f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [],
+                            stats: { '移动速度': 30, '攻击速度': 25 },
+                            description: '提升攻击速度的鞋子，适合依赖普攻的英雄',
+                            passiveType: '',
+                            passive: ''
                         }
+                        // 可补充其他鞋子数据
                     ],
                     jungle: [
                         {
-                            id: 8,
-                            name: '贪婪之噬',
-                            price: 2160,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b567a6e62cf1c57e96befed03a144d6996c30f88.jpg',
-                            stats: {
-                                '物理攻击': 60,
-                                '攻击速度': 15
-                            },
-                            description: '打野专用装备，提供攻击力和攻击速度',
-                            passive: '唯一被动：对野怪造成额外伤害，击杀野怪获得额外金币'
+                            id: 20,
+                            name: '巡守利斧',
+                            price: 750,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/725f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [],
+                            stats: { '物理攻击': 30, '生命值': 400 },
+                            description: '坦克型打野英雄的初始打野装备',
+                            passiveType: '唯一被动-打野',
+                            passive: '增加对野怪的伤害，击杀野怪获得额外经验'
                         }
+                        // 可补充其他打野装备数据
                     ],
                     support: [
                         {
-                            id: 9,
-                            name: '近卫荣耀',
-                            price: 2010,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/img3.eventwang.com.cn/153c108eca1e4bfe9ee45b76f675b4315a7a536e.jpg',
-                            stats: {
-                                '生命值': 1000,
-                                '移动速度': 10
-                            },
-                            description: '辅助专用装备，提供生命值和团队增益',
-                            passive: '唯一被动：周围友军获得物理攻击和法术攻击加成'
+                            id: 21,
+                            name: '凤鸣指环',
+                            price: 1070,
+                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/825f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            materials: [],
+                            stats: { '法术防御': 50, '生命值': 300, '冷却缩减': 10 },
+                            description: '辅助英雄的核心装备，提供团队增益',
+                            passiveType: '唯一被动-奉献',
+                            passive: '周围有友方英雄时，每3秒获得5点金币和经验'
                         }
+                        // 可补充其他辅助装备数据
                     ]
                 });
-                
+
                 // 推荐出装数据
                 const recommendedBuilds = ref([
                     {
-                        hero: '露娜',
-                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/image.9game.cn/015bab8e8e4269336e08438c16d3d99beac9d99c.jpg',
+                        hero: '后羿',
+                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/111f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
                         items: [
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
-                            'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/625f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 急速战靴
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/20e3e3e8f8e4f33f5655d06a0b0d2f86755d38c8.png', // 闪电匕首
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/932e82a0e25d677e542f8491f5a0a585f25e72c.png', // 破晓
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png', // 无尽战刃
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png', // 不祥征兆
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'  // 魔女斗篷
                         ],
-                        description: '暴击流出装，高额爆发伤害，适合快速击杀敌方后排'
+                        description: '后羿的经典出装，兼顾输出和生存，后期可根据敌方阵容调整防御装备'
                     },
                     {
-                        hero: '貂蝉',
-                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/i0.hdslb.com/c2d72af18daaca880ad2bfe1902d497c3aa5cf73.jpg',
+                        hero: '安琪拉',
+                        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/222f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
                         items: [
-                            'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
-                            'https://kimi-web-img.moonshot.cn/img/img2.40407.com/bc38faf7e18c8e6bbf48bf33bef84d6848705a4f.jpg',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png'
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/925f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 秘法之靴
+                            'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg', // 回响之杖
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/125f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 博学者之怒
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/225f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 虚无法杖
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/425f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 辉月
+                            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'  // 魔女斗篷
                         ],
-                        description: '法术穿透出装，高额法术伤害，适合持续输出和团战'
+                        description: '安琪拉的爆发流出装，高额法术强度配合穿透，瞬间秒杀敌方脆皮'
                     }
                 ]);
                 
-                // 计算属性：根据当前分类过滤装备
+                // 计算属性：根据当前分类筛选装备
                 const filteredEquipment = computed(() => {
                     return equipmentData.value[currentCategory.value] || [];
                 });
@@ -760,42 +986,13 @@
                 // 方法：关闭模态框
                 const closeModal = () => {
                     showModal.value = false;
+                    selectedEquipment.value = null;
                 };
                 
-                // 生命周期：组件挂载后
-                onMounted(() => {
-                    // 添加滚动动画
-                    const observerOptions = {
-                        threshold: 0.1,
-                        rootMargin: '0px 0px -50px 0px'
-                    };
-                    
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.style.opacity = '1';
-                                entry.target.style.transform = 'translateY(0)';
-                            }
-                        });
-                    }, observerOptions);
-                    
-                    // 观察装备卡片
-                    const observeCards = () => {
-                        document.querySelectorAll('.equipment-card, .build-card').forEach(card => {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(30px)';
-                            card.style.transition = 'all 0.6s ease';
-                            observer.observe(card);
-                        });
-                    };
-                    
-                    observeCards();
-                });
-                
-                // 返回模板中需要使用的数据和方法
                 return {
-                    currentCategory,
                     categories,
+                    currentCategory,
+                    equipmentData,
                     filteredEquipment,
                     recommendedBuilds,
                     showModal,
