@@ -551,8 +551,8 @@
                     {
                         id: 1,
                         name: '露娜',
-                        role: ['warrior','assassin'],
-                        roleText: '战士/刺客',
+                        role: ['mage','assassin'],
+                        roleText: '法师/刺客',
                         image:'./imgs/heroes/luna/luna.jpg',
                         description: '月光之女，拥有强大的突进能力和持续输出能力',
                         stats: { attack: 85, defense: 60, magic: 70, difficulty: 80 },
@@ -772,7 +772,172 @@
                             { name: '禁锢寒霜', description: '寒霜延迟冻敌，对冻敌额外施法伤。' },
                             { name: '凛冬已至', description: '暴风雪五秒伤敌附冷效，召唤刷新护盾 。' }
                         ]
-                    }
+                    },
+                    {
+                        id: 16,
+                        name: '西施',
+                        role: 'mage',
+                        roleText: '法师',
+                        image: './imgs/heroes/xishi/xishi.png',
+                        description: '灵动西施，妙舞操幻纱，以智控敌乱战场 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '少女的把戏', description: '西施技能伤害随距增，每100增5%，至多提40% ' },
+                            { name: '纱缚之印', description: '西施扔法器伤敌聚拢，纱缚印控敌，非英雄双倍 ' },
+                            { name: '幻纱之灵', description: '西施抛球遇野停，多段减伤，中心爆炸双倍' },
+                            { name: '心无旁骛', description: '西施强化视野8秒，双技优化，提速，可提前关大' }
+                        ]
+                    },
+                    {
+                        id: 17,
+                        name: '鲁班七号',
+                        role: 'marksman',
+                        roleText: '射手',
+                        image: './imgs/heroes/luban/luban.png',
+                        description: '火力射手，火力倾泻战场，收割实力强劲 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '火力压制', description: '鲁班七号五普或技能后扫射，三次伤害分敌增减' },
+                            { name: '河豚手雷', description: '鲁班手雷：高额物理伤，减速控敌并获视野 ' },
+                            { name: '无敌鲨嘴炮', description: '鲁班七号发射火箭，击退敌人，附已损生命法术伤' },
+                            { name: '空中支援', description: '鲁班召飞艇支援14秒，投弹伤敌减速，照亮视野 ' }
+                        ]
+                    },
+                    {
+                        id: 18,
+                        name: '艾琳',
+                        role: 'marksman',
+                        roleText: '射手',
+                        image: './imgs/heroes/ailin/ailin.png',
+                        description: '法伤射手，技能穿梭，持续输出战场强控 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '精灵舞步', description: '艾琳：普攻获能飞行，强普双伤，取优穿透吸血' },
+                            { name: '叶舞·致意', description: '艾琳月桂叶：命中叠加印记，环伤减速，法攻减冷却  ' },
+                            { name: '旋舞·轻语', description: '艾琳：受祝福回能双印，免减速增攻速3秒 ' },
+                            { name: '月桂之舞·盛放', description: '艾琳：能量叠印，6层解锁大招，伤敌减冷却可关 ' }
+                        ]
+                    },
+                    {
+                        id: 19,
+                        name: '公孙离',
+                        role: 'marksman',
+                        roleText: '射手',
+                        image: './imgs/heroes/gongsunli/gongsunli.jpeg',
+                        description: '伞舞灵动，多段位移，高爆发射手典范 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '晚云落', description: '公孙离：印记群伤，伞位回返，移速攻速追伤可存。' },
+                            { name: '岑中归月', description: '阿离向指定方向瞬步，并将纸伞留在原地（如果纸伞在阿离手中）  ' },
+                            { name: '霜叶舞', description: '阿离旋伞两段法术伤，击落飞行物破敌招。 ' },
+                            { name: '孤鹜断霞', description: '阿离击退敌人，法术伤掷伞，伤害随技能等级递增。 ' }
+                        ]
+                    },
+                    {
+                        id: 20,
+                        name: '百里守约',
+                        role: ['marksman','assassin'],
+                        roleText: '射手/刺客',
+                        image: './imgs/heroes/bailishouyue/bailishouyue.jpg',
+                        description: '超远狙击破防，陷阱控场，偷袭收割能手 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '瞄准', description: '百里守约：伏击增伤穿甲，暴击提升技能伤害' },
+                            { name: '静谧之眼', description: '守约布视野装置，300秒探测，多敌占速失；非战隐匿提攻速移速 。  ' },
+                            { name: '狂风之息', description: '百里守约：狙击高额伤减速，充能速受攻速影响 ' },
+                            { name: '逃脱', description: '百里守约：后跳射击减速，双移速效果，增普攻射程。 ' }
+                        ]
+                    },
+                    {
+                        id: 21,
+                        name: '孙尚香',
+                        role: 'marksman',
+                        roleText: '射手',
+                        image: './imgs/heroes/sunshangxiang/sunshangxiang.webp',
+                        description: '翻滚强化炮击，高爆输出，灵活射手典范 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '活力迸发', description: '被动：孙尚香每次普通攻击命中敌人都会减少0.5秒翻滚突袭的冷却时间。' },
+                            { name: '翻滚突袭', description: '孙尚香翻滚强化射击，近敌提速，普攻重置增距  ' },
+                            { name: '红莲爆弹', description: '爆弹减速减甲标记，普攻对标增伤破防 ' },
+                            { name: '究极弩炮', description: '蓄力弩炮，首敌高额伤，爆破范围递减 ' }
+                        ]
+                    },
+                    {
+                        id: 22,
+                        name: '宫本武藏',
+                        role: ['warrior','assassin'],
+                        roleText: '战士/刺客',
+                        image: './imgs/heroes/gongbenwuzang/gongbenwuzang.png',
+                        description: '无双突进强控，技能衔接，高爆发战士 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '二天一流', description: '技能蓄势，普攻强化，多伤减CD破敌 。' },
+                            { name: '空明斩', description: '空明斩剑气伤敌减速，释放霸体抗控。  ' },
+                            { name: '神速', description: '宫本武藏冲刺破敌，命中获盾减CD，高机动性刺客' },
+                            { name: '一决生死', description: '大招突进击飞，减伤霸体，迟滞目标回复 ' }
+                        ]
+                    },
+                    {
+                        id: 23,
+                        name: '嫦娥',
+                        role: ['warrior','mage'],
+                        roleText: '战士/法师',
+                        image: './imgs/heroes/change/change.jpg',
+                        description: '蓝量换血伤，技能爆发强，清线守塔佳 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '月盈', description: '移动普攻攒强化，减速回蓝，满蓝转回血。' },
+                            { name: '月辰', description: '推球定身英雄，穿插减时，获普攻移速。  ' },
+                            { name: '月璇', description: '双涡旋伤耗法回血，吸附兵线减伤可控。' },
+                            { name: '月芒', description: '弹幕倾泻增移速，耗蓝换伤回血，可续放技能。 ' }
+                        ]
+                    },
+                    {
+                        id: 24,
+                        name: '盘古',
+                        role: 'warrior',
+                        roleText: '战士',
+                        image: './imgs/heroes/pangu/pangu.png',
+                        description: '斧刃撕裂减甲，枪形态突进，近战强控 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '盘古斧', description: '斧碎化臂，斧伤流血，臂击范围高额伤' },
+                            { name: '狂怒突袭', description: '跃地强普冲锋，斧臂双态攻速增，冷却减半  ' },
+                            { name: '压制之握', description: '缴械标记敌，攻击高额伤减速，普攻回血强' },
+                            { name: '开天辟地', description: '劈裂缴械减速，霸体变臂，多击衰减 。 ' }
+                        ]
+                    },
+                    {
+                        id: 25,
+                        name: '铠',
+                        role: ['warrior','tank'],
+                        roleText: '战士/坦克',
+                        image: './imgs/heroes/kai/kai.jpg',
+                        description: '一刀流战士，大招增伤霸体，近战收割强手 ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '修罗之魂', description: '铠的普攻和【极刃风暴】只命中一个目标时将会额外造成50%伤害。' },
+                            { name: '回旋之刃', description: '掷刃弹射减速，回血减CD，攻速移速双增。  ' },
+                            { name: '极刃风暴', description: '双斩击飞，强化普攻冲锋，脱战续航提移速' },
+                            { name: '不灭魔躯', description: '大招召唤魔铠强化属性，持续伤可提前关  ' }
+                        ]
+                    },
+                    {
+                        id: 26,
+                        name: '澜',
+                        role: ['warrior','assassin'],
+                        roleText: '战士/刺客',
+                        image: './imgs/heroes/lan/lan.jpg',
+                        description: '潜水突袭收割，多段位移，高爆发刺客  ',
+                        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+                        skills: [
+                            { name: '狩猎', description: '当敌人的生命值低于30%，会被澜视作“猎物”。澜的技能和普攻对“猎物”额外造成7.5%~15%真实伤害' },
+                            { name: '破浪', description: '下潜加速，河道常驻，猎物近则爆发追击   ' },
+                            { name: '断空', description: '双割伤获印回血，追击减CD，潜有位移' },
+                            { name: '处决', description: '下潜处决免投匕，拖敌破控高伤减CD  ' }
+                        ]
+                    },
                 ]);
                 
                 // 计算属性：过滤英雄
