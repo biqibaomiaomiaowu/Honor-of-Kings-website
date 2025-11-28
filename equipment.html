@@ -340,7 +340,7 @@
         .synthesis-path {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin: 0.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #2d3748;
         }
@@ -376,7 +376,7 @@
             font-size: 1.3rem;
             font-weight: bold;
             color: #ffd700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5px;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #2d3748;
         }
@@ -395,18 +395,6 @@
         .stat-value {
             color: #ffd700;
             font-weight: 500;
-        }
-
-        /* 装备描述样式 */
-        .description-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .equipment-description {
-            display: block;
-            color: #e2e8f0;
-            line-height: 1.6;
-            font-size: 1rem;
         }
 
         /* 被动效果样式 */
@@ -562,19 +550,30 @@
                 </div>
                 
                 <div class="modal-body" v-if="selectedEquipment">
-                    <!-- 合成路径 -->
-                    <div class="synthesis-path">
-                        <img :src="selectedEquipment.icon" :alt="selectedEquipment.name" class="synthesis-icon">
-                        <div class="synthesis-materials">
-                            <img 
-                                v-for="(material, index) in selectedEquipment.materials" 
-                                :key="index"
-                                :src="material" 
-                                alt="合成材料" 
-                                class="material-icon"
-                            >
+                    <!-- 合成路径区域-->
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <img :src="selectedEquipment.icon" :alt="selectedEquipment.name" class="synthesis-icon" style="width: 70px; height: 70px;">
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                            <div v-if="selectedEquipment?.materials && selectedEquipment.materials.length > 0" style="color: #ffd700; font-weight: bold; margin-bottom: 8px; position: relative; left: -29.5px; font-size: 18px;">
+                                合成路径
+                            </div>
+                            <div class="synthesis-materials" v-if="selectedEquipment?.materials && selectedEquipment.materials.length > 0" style="display: flex;">
+                                <template v-for="(material, index) in selectedEquipment.materials" :key="index">
+                                    <img  
+                                    :src="material" 
+                                    alt="合成材料" 
+                                    class="material-icon"
+                                    style="width: 50px; height: 50px; border-radius: 4px;"
+                                    >
+                                    <div v-if="index === 0" style="color: #e2e8f0; font-size: 1.5rem; font-weight: bold; margin-right:0; margin-left:8px; margin-bottom: 7px;">+</div>
+                                </template>
+                            </div>
                         </div>
                     </div>
+
+                    <div style="border-bottom: 1px solid #2d3748; margin-top: 18px; margin-bottom: 7px"></div>
                     
                     <!-- 装备属性 -->
                     <div class="stats-section">
@@ -589,22 +588,16 @@
                         </div>
                     </div>
                     
-                    <!-- 装备描述 -->
-                    <div class="description-section">
-                        <h3 class="section-title">装备描述</h3>
-                        <div class="equipment-description">
-                            {{ selectedEquipment.description }}
-                        </div>
-                    </div>
-                    
-                    <!-- 被动效果 -->
-                    <div class="passive-section">
-                        <div class="passive-content">
-                            <div class="passive-title">
-                                {{ selectedEquipment.passiveType || '被动效果' }}
-                            </div>
-                            <div class="passive-description">
-                                {{ selectedEquipment.passive }}
+                    <!-- 装备效果 -->
+                    <div v-if="selectedEquipment?.passives && selectedEquipment.passives.length > 0">
+                        <div class="passive-section" v-for="(passive, index) in selectedEquipment.passives" :key="index">
+                            <div class="passive-content">
+                                <div class="passive-title">
+                                    {{ passive.type || '装备效果' }}
+                                </div>
+                                <div class="passive-description">
+                                    {{ passive.description }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -630,7 +623,7 @@
                     { key: 'magic', name: '法术装备' },
                     { key: 'boots', name: '移动装备' },
                     { key: 'jungle', name: '打野装备' },
-                    { key: 'support', name: '辅助装备' }
+                    { key: 'support', name: '游走装备' }
                 ]);
                 
                 // 装备数据 - 补全所有分类数据
@@ -638,173 +631,976 @@
                     attack: [
                         {
                             id: 1,
-                            name: '无尽战刃',
-                            price: 2140,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/111f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/222f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理攻击': 110, '暴击率': 25 },
-                            description: '提供大量物理攻击和暴击率，是物理输出英雄的核心装备',
-                            passiveType: '唯一被动',
-                            passive: '+40%暴击效果'
+                            name: '铁剑',
+                            price: 275,
+                            icon: 'imgs/equipment/tiejian.webp',
+                            stats: { '物理攻击': 20}
                         },
                         {
                             id: 2,
-                            name: '破军',
-                            price: 2950,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d499ecf9c4ef136f03a0320fe802356678b20bec.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/444f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理攻击': 180 },
-                            description: '提供极高的物理攻击力，适合后期输出英雄',
-                            passiveType: '唯一被动',
-                            passive: '对生命值低于50%的敌人造成额外30%伤害'
+                            name: '匕首',
+                            price: 300,
+                            icon: 'imgs/equipment/bishou.webp',
+                            stats: { '攻击速度': '10%'}
                         },
                         {
                             id: 3,
-                            name: '宗师之力',
-                            price: 2100,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b6c51cbb28a4f4720a54ea494a2a9b9234f075d9.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理攻击': 60, '暴击率': 20, '生命值': 400, '法力值': 400 },
-                            description: '综合性攻击装备，提供攻击、暴击和生存能力',
-                            passiveType: '唯一被动',
-                            passive: '使用技能后下次普攻造成额外100%物理加成的物理伤害'
+                            name: '搏击拳套',
+                            price: 300,
+                            icon: 'imgs/equipment/bojiquantao.webp',
+                            stats: { '暴击率': '8%'}
                         },
                         {
                             id: 4,
-                            name: '闪电匕首',
-                            price: 1840,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/20e3e3e8f8e4f33f5655d06a0b0d2f86755d38c8.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/777f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/888f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理攻击': 30, '攻击速度': 30, '暴击率': 10 },
-                            description: '提供攻击速度和暴击率，适合依赖普攻的英雄',
-                            passiveType: '唯一被动',
-                            passive: '普通攻击有30%几率释放连锁闪电，对3个目标造成100~360点法术伤害'
+                            name: '吸血之镰',
+                            price: 300,
+                            icon: 'imgs/equipment/xixuezhilian.webp',
+                            stats: { '物理吸血': '8%'}
                         },
                         {
                             id: 5,
-                            name: '破晓',
-                            price: 3400,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/932e82a0e25d677e542f8491f5a0a585f25e72c.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/999f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/000f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理攻击': 50, '攻击速度': 35, '暴击率': 15 },
-                            description: '射手神装，提供全面的输出能力提升',
-                            passiveType: '唯一被动-破甲',
-                            passive: '普通攻击附带60点物理伤害，对英雄造成100%物理穿透；远程英雄使用时效果翻倍'
+                            name: '附魔之羽',
+                            price: 300,
+                            icon: 'imgs/equipment/fumozhiyu.webp',
+                            stats: { '移速': '5%'}
                         },
                         {
                             id: 6,
+                            name: '迅捷长矛',
+                            price: 760,
+                            icon: 'imgs/equipment/xunjiechangmao.webp',
+                            stats: { '物理攻击': 35,'移速': '7.5%'},
+                             materials: [
+                                'imgs/equipment/tiejian.webp',
+                                'imgs/equipment/fumozhiyu.webp'
+                            ]
+                        },
+                        {
+                            id: 7,
+                            name: '雷鸣刃',
+                            price: 820,
+                            icon: 'imgs/equipment/leimingren.webp',
+                            stats: { '物理攻击': 35,'暴击率': '12%'},
+                             materials: [
+                                'imgs/equipment/tiejian.webp',
+                                'imgs/equipment/bojiquantao.webp'
+                            ]
+                        },
+                        {
+                            id: 8,
+                            name: '风暴巨剑',
+                            price: 850,
+                            icon: 'imgs/equipment/fengbaojujian.webp',
+                            stats: { '物理攻击': 75},
+                             materials: [
+                                'imgs/equipment/tiejian.webp',
+                                'imgs/equipment/tiejian.webp'
+                            ]
+                        },
+                        {
+                            id: 9,
+                            name: '日冕',
+                            price: 760,
+                            icon: 'imgs/equipment/rimian.webp',
+                            stats: { '物理攻击': 35,'最大生命': 450},
+                             materials: [
+                                'imgs/equipment/tiejian.webp',
+                                'imgs/equipment/hongmanao.webp'
+                            ]
+                        },
+                        {
+                            id: 10,
+                            name: '狂暴双刃',
+                            price: 760,
+                            icon: 'imgs/equipment/xunjiechangmao.webp',
+                            stats: { '攻击速度': '15%','移速': '7.5%'},
+                             materials: [
+                                'imgs/equipment/bishou.webp',
+                                'imgs/equipment/fumozhiyu.webp'
+                            ]
+                        },
+                        {
+                            id: 11,
+                            name: '陨星',
+                            price: 760,
+                            icon: 'imgs/equipment/yunxing.webp',
+                            stats: { '物理攻击': 35,'冷却缩减': '7.5%'},
+                             materials: [
+                                'imgs/equipment/tiejian.webp',
+                                'imgs/equipment/yuanliujiejing.webp'
+                            ]
+                        },
+                        {
+                            id: 12,
+                            name: '速击之枪',
+                            price: 800,
+                            icon: 'imgs/equipment/sujizhiqiang.webp',
+                            stats: { '物理攻击': 35,'攻击速度': '15%'},
+                             materials: [
+                                'imgs/equipment/bishou.webp',
+                                'imgs/equipment/tiejian.webp'
+                            ]
+                        },
+                        {
+                            id: 13,
+                            name: '精钢锻刀',
+                            price: 850,
+                            icon: 'imgs/equipment/jinggangduandao.webp',
+                            stats: { '攻击速度': '15%','最大生命':450 },
+                            materials: [
+                                'imgs/equipment/bishou.webp',
+                                'imgs/equipment/hongmanao.webp'
+                            ]
+                        },
+                        {
+                            id: 14,
+                            name: '血魂刃',
+                            price: 800,
+                            icon: 'imgs/equipment/xuehunren.webp',
+                            stats: { '物理攻击': 35,'物理吸血':'12%' },
+                            materials: [
+                                'imgs/equipment/xixuezhilian.webp',
+                                'imgs/equipment/tiejian.webp'
+                            ]
+                        },
+                        {
+                            id: 15,
+                            name: '穿云弓',
+                            price: 800,
+                            icon: 'imgs/equipment/chuanyungong.webp',
+                            stats: { '攻击速度': '15%','暴击率':'12%' },
+                            materials: [
+                                'imgs/equipment/bishou.webp',
+                                'imgs/equipment/bojiquantao.webp'
+                            ]
+                        },
+                        {
+                            id: 16,
+                            name: '名刀·司命',
+                            price: 2060,
+                            icon: 'imgs/equipment/mingdaosiming.webp',
+                            stats: { '物理攻击': 75,'攻击速度':'15%','最大生命':500 },
+                            materials: [
+                                'imgs/equipment/fengbaojujian.webp',
+                                'imgs/equipment/jinggangduandao.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-暗幕',
+                                    description: '受到致命伤害时不会立刻阵亡，获得1秒短暂无敌（远程为0.75秒）并增加15%移速与15%攻速，该效果购买携带后每5秒增加0.01秒持续时长，最多提升0.5秒（冷却时间：120秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 17,
+                            name: '碎星锤',
+                            price: 2080,
+                            icon: 'imgs/equipment/suixingchui.webp',
+                            stats: { '物理攻击': 90,'最大生命':700,'移速':'7.5%' },
+                            materials: [
+                                'imgs/equipment/rimian.webp',
+                                'imgs/equipment/xunjiechangmao.webp'
+                            ],
+                             passives: [
+                                {
+                                    type: '被动-破甲',
+                                    description: '增加30%物理穿透'
+                                }
+                            ]
+                        },
+                        {
+                            id: 18,
+                            name: '破魔刀',
+                            price: 2060,
+                            icon: 'imgs/equipment/pomodao.webp',
+                            stats: { '物理攻击': 90,'法术防御':150,'最大生命':600 },
+                            materials: [
+                                'imgs/equipment/fengbaojujian.webp',
+                                'imgs/equipment/shenyingdoupeng.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-破魔',
+                                    description: '获得(50%Ad)法术防御，最多不超过250点'
+                                }
+                            ]
+                        },
+                        {
+                            id: 19,
+                            name: '寒霜侵袭',
+                            price: 2040,
+                            icon: 'imgs/equipment/hanshuangqinxi.webp',
+                            stats: { '物理攻击': 70,'攻击速度':'25%','最大生命':750 },
+                            materials: [
+                                'imgs/equipment/rimian.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-寒霜',
+                                    description: '普攻和技能减少5~10%移速，持续1.5秒，可叠加2层'
+                                },
+                                {
+                                    type: '被动-冻伤',
+                                    description: '普攻和技能对目标额外造成135~270（+45%额外Ad）物理伤害（冷却时间：3秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 21,
+                            name: '纯净苍穹',
+                            price: 2140,
+                            icon: 'imgs/equipment/chunjingcangqiong.webp',
+                            stats: { '物理攻击': 80,'冷却缩减':'10%','物理防御':150 },
+                            materials: [
+                                'imgs/equipment/yunxing.webp',
+                                'imgs/equipment/jingjihushou.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-残废',
+                                    description: '技能对首个命中的敌方英雄造成10%~20%减速，并使其对自己的伤害降低20%，持续3秒（冷却时间：8秒）'
+                                },
+                                {
+                                    type: '主动-驱散',
+                                    description: '获得30%减伤，持续3秒（冷却时间：75秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 22,
+                            name: '末世',
+                            price: 2100,
+                            icon: 'imgs/equipment/moshi.webp',
+                            stats: { '物理攻击': 40,'攻击速度':'20%','物理吸血':'20%','最大生命':500 },
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/jinggangduandao.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-破败',
+                                    description: '普攻额外造成目标80~160（+7%目标额外生命值）当前生命的物理伤害（对野怪最多：80）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 23,
+                            name: '泣血之刃',
+                            price: 2020,
+                            icon: 'imgs/equipment/qixuezhiren.webp',
+                            stats: { '物理攻击': 85,'物理吸血':'25%','最大生命':500},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/rimian.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-养战',
+                                    description: '增加25%物理技能吸血'
+                                }
+                            ]
+                        },
+                        {
+                            id: 24,
+                            name: '无尽战刃',
+                            price: 2110,
+                            icon: 'imgs/equipment/wujinzhanren.webp',
+                            stats: { '物理攻击': 120,'暴击率':'20%'},
+                            materials: [
+                                'imgs/equipment/fengbaojujian.webp',
+                                'imgs/equipment/leimingren.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-无尽',
+                                    description: '获得20%暴击效果，每2%暴击增加1%暴击效果，最多不超过50%'
+                                }
+                            ]
+                        },
+                        {
+                            id: 25,
+                            name: '宗师之力',
+                            price: 2100,
+                            icon: 'imgs/equipment/zongshizhili.webp',
+                            stats: { '物理攻击': 55,'攻击速度':'15%','暴击率':'20% ','最大生命':600},
+                            materials: [
+                                'imgs/equipment/leimingren.webp',
+                                'imgs/equipment/jinggangduandao.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-强击',
+                                    description: '使用技能后，2秒内提升自身12%移动速度，并使得5秒内下次普通攻击造成额外80%物理攻击的物理伤害（冷却时间：3秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 26,
+                            name: '闪电匕首',
+                            price: 2040,
+                            icon: 'imgs/equipment/shandianbishou.webp',
+                            stats: { '物理攻击': 40,'攻击速度':'35%','移速':'7.5% '},
+                            materials: [
+                                'imgs/equipment/sujizhiqiang.webp',
+                                'imgs/equipment/kuangbaoshuangren.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-电弧',
+                                    description: '普攻额外造成40~80法术伤害，每3次普攻会释放一次连锁闪电，造成160~400法术伤害'
+                                }
+                            ]
+                        },
+                        {
+                            id: 27,
+                            name: '影刃',
+                            price: 2040,
+                            icon: 'imgs/equipment/yingren.webp',
+                            stats: { '物理攻击': 45,'攻击速度':'35%','暴击率':'20% ','移速':'7.5%'},
+                            materials: [
+                                'imgs/equipment/leimingren.webp',
+                                'imgs/equipment/kuangbaoshuangren.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-暴风',
+                                    description: '暴击后增加20%攻速和5%移速，持续3.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 28,
                             name: '暗影战斧',
                             price: 2090,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/b1573a82e1d638e0655f03f5a5e0c754f5d56e7.png',
+                            icon: 'imgs/equipment/anyingzhanfu.webp',
+                            stats: { '物理攻击': 80,'冷却缩减':'10%','最大生命':500},
                             materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/112f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/223f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                                'imgs/equipment/yunxing.webp',
+                                'imgs/equipment/rimian.webp'
                             ],
-                            stats: { '物理攻击': 85, '冷却缩减': 15, '生命值': 500 },
-                            description: '战士和刺客的核心装备，提供穿透和冷却缩减',
-                            passiveType: '唯一被动-切割',
-                            passive: '增加(50+英雄等级*10)点物理穿透；唯一被动-残废：普通攻击有30%几率降低目标20%移动速度，持续2秒'
+                            passives: [
+                                {
+                                    type: '被动-切割',
+                                    description: '增加90~180点物理穿透'
+                                }
+                            ]
+                        },
+                        {
+                            id: 29,
+                            name: '强者破军',
+                            price: 2540,
+                            icon: 'imgs/equipment/qiangzhepojun.webp',
+                            stats: { '物理攻击': 150,'冷却缩减':'5%'},
+                            materials: [
+                                'imgs/equipment/fengbaojujian.webp',
+                                'imgs/equipment/fengbaojujian.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-破军',
+                                    description: '对生命值低于50%的敌人造成额外30%的伤害'
+                                }
+                            ]
+                        },
+                        {
+                            id: 30,
+                            name: '逐日之弓',
+                            price: 2100,
+                            icon: 'imgs/equipment/zhurizhigong.webp',
+                            stats: { '物理攻击': 40,'攻击速度':'20%','暴击率':'15% ','移速':'7.5%'},
+                            materials: [
+                                'imgs/equipment/chuanyungong.webp',
+                                'imgs/equipment/xunjiechangmao.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-精准',
+                                    description: '普攻伤害提升25点（远程英雄使用时该效果翻倍）'
+                                },
+                                {
+                                    type: '主动-逐日',
+                                    description: '增加自己125点普攻射程和20%移动速度，持续5秒（增加射程效果仅远程英雄生效）（冷却时间：75秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 31,
+                            name: '忍者破晓',
+                            price: 2570,
+                            icon: 'imgs/equipment/renzhepoxiao.webp',
+                            stats: { '物理攻击': 75,'攻击速度':'30%','暴击率':'15% '},
+                            materials: [
+                                'imgs/equipment/chuanyungong.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-破甲',
+                                    description: '增加15%物理穿透（远程英雄使用时效果翻倍）'
+                                },
+                                {
+                                    type: '被动-破晓',
+                                    description: '普攻伤害提升25点（远程英雄使用时效果翻倍）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 32,
+                            name: '逐风',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhufeng.webp',
+                            stats: { '物理攻击': 50,'攻击速度':'30%','最大生命':600},
+                            materials: [
+                                'imgs/equipment/sujizhiqiang.webp',
+                                'imgs/equipment/jinggangduandao.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-逐风',
+                                    description: '单次技能和普攻行为命中目标，提高2%攻速、移速与伤害，持续2.5秒，最多叠加5层'
+                                }
+                            ]
+                        },
+                        {
+                            id: 33,
+                            name: '迅疾·日渊',
+                            price: 3320,
+                            icon: 'imgs/equipment/xunjiriyuan.webp',
+                            stats: { '物理攻击': 40,'攻击速度':'20%','暴击率':'15% ','移速':'7.5%'},
+                            materials: [
+                                'imgs/equipment/zhurizhigong.webp',
+                                'imgs/equipment/yuanchuyizhu.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-精准',
+                                    description: '普攻伤害提升25点（远程英雄使用时该效果翻倍）'
+                                },
+                                {
+                                    type: '主动-逐日',
+                                    description: '增加125点普攻射程和40%移速，期间普攻会向目标附近的1个目标造成30%额外伤害，持续5秒（增加射程和额外伤害效果仅远程英雄生效）（冷却时间：75秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 34,
+                            name: '不动·天穹',
+                            price: 3280,
+                            icon: 'imgs/equipment/budongtianqiong.webp',
+                            stats: { '物理攻击': 80,'冷却缩减':'10%','物理防御':150},
+                            materials: [
+                                'imgs/equipment/chunjingcangqiong.webp',
+                                'imgs/equipment/yunchuyizhu.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-残废',
+                                    description: '技能对首个命中的敌方英雄造成10%~20%减速，并使其对自己的伤害降低20%，持续3秒（冷却时间：8秒）'
+                                },
+                                {
+                                    type: '主动-驱散',
+                                    description: '解除所有控制，获得35%减伤，增加30%移速并无视地形阻挡，持续3秒，期间击杀敌方英雄可刷新效果持续时间（冷却时间：75秒）'
+                                }
+                            ]
                         }
                     ],
                     defense: [
                         {
-                            id: 7,
-                            name: '不祥征兆',
-                            price: 2180,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/334f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/445f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理防御': 270, '生命值': 1200 },
-                            description: '提供高额物理防御和生命值，对抗物理输出英雄的核心装备',
-                            passiveType: '唯一被动',
-                            passive: '受到攻击时减少攻击者30%攻击速度和15%移动速度'
+                            id: 35,
+                            name: '红玛瑙',
+                            price: 300,
+                            icon: 'imgs/equipment/hongmanao.webp',
+                            stats: { '最大生命': 300},
                         },
                         {
-                            id: 8,
-                            name: '魔女斗篷',
-                            price: 2120,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/555f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/666f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '法术防御': 300, '生命值': 1000 },
-                            description: '提供高额法术防御和生命值，对抗法师英雄的核心装备',
-                            passiveType: '唯一被动',
-                            passive: '脱战3秒后获得一个吸收法术伤害的护盾'
+                            id: 36,
+                            name: '布甲',
+                            price: 275,
+                            icon: 'imgs/equipment/bujia.webp',
+                            stats: { '物理防御': 100},
                         },
                         {
-                            id: 9,
-                            name: '红莲斗篷',
-                            price: 1830,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/550f3e3a8e5d355e545d06e8234f5c6996e0c8f5.png',
-                            materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/777f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/888f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理防御': 240, '生命值': 1000 },
-                            description: '坦克装备，提供防御和持续伤害能力',
-                            passiveType: '唯一被动-献祭',
-                            passive: '每秒对周围敌人造成(60+英雄等级*2)点法术伤害'
+                            id: 37,
+                            name: '抗魔披风',
+                            price: 275,
+                            icon: 'imgs/equipment/kangmopifeng.webp',
+                            stats: { '法术防御': 100},
                         },
                         {
-                            id: 10,
-                            name: '血魔之怒',
-                            price: 2100,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/825f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            id: 38,
+                            name: '急速铠甲',
+                            price: 800,
+                            icon: 'imgs/equipment/jisukaijia.webp',
+                            stats: { '冷却缩减': '7.5%','最大生命':450},
                             materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/999f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/000f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
-                            ],
-                            stats: { '物理防御': 30, '法术防御': 30, '生命值': 1000 },
-                            description: '攻防一体的装备，适合需要冲锋陷阵的英雄',
-                            passiveType: '唯一主动-血怒',
-                            passive: '逐渐扣除30%当前生命值，获得最大生命值30%的护盾，并增加80点物理攻击，持续4秒。冷却时间：60秒'
+                                'imgs/equipment/hongmanao.webp',
+                                'imgs/equipment/yuanliujiejing.webp'
+                            ]
                         },
                         {
-                            id: 11,
+                            id: 39,
+                            name: '力量腰带',
+                            price: 850,
+                            icon: 'imgs/equipment/liliangyaodai.webp',
+                            stats: { '最大生命': 900},
+                            materials: [
+                                'imgs/equipment/hongmanao.webp',
+                                'imgs/equipment/hongmanao.webp'
+                            ]
+                        },
+                        {
+                            id: 40,
+                            name: '神隐斗篷',
+                            price: 800,
+                            icon: 'imgs/equipment/shenyindoupeng.webp',
+                            stats: { '法术防御': 150,'最大生命':450},
+                            materials: [
+                                'imgs/equipment/hongmanao.webp',
+                                'imgs/equipment/kangmopifeng.webp'
+                            ]
+                        },
+                        {
+                            id: 41,
+                            name: '雪山圆盾',
+                            price: 750,
+                            icon: 'imgs/equipment/xueshanyuandun.webp',
+                            stats: { '冷却缩减': '7.5%','物理防御':150},
+                            materials: [
+                                'imgs/equipment/bujia.webp',
+                                'imgs/equipment/yuanliujiejing.webp'
+                            ]
+                        },
+                        {
+                            id: 42,
+                            name: '守护者之铠',
+                            price: 800,
+                            icon: 'imgs/equipment/shouhuzhezhikai.webp',
+                            stats: { '物理防御': 150,'最大生命':450},
+                            materials: [
+                                'imgs/equipment/bujia.webp',
+                                'imgs/equipment/hongmanao.webp'
+                            ]
+                        },
+                        {
+                            id: 43,
+                            name: '玛瑙护心镜',
+                            price: 2800,
+                            icon: 'imgs/equipment/manaohuxinjing.webp',
+                            stats: { '最大生命': 400,'移速':'7.5%'},
+                            materials: [
+                                'imgs/equipment/hongmanao.webp',
+                                'imgs/equipment/fumozhiyu.webp'
+                            ]
+                        },
+                        {
+                            id: 44,
+                            name: '荆棘护手',
+                            price: 750,
+                            icon: 'imgs/equipment/jingjihushou.webp',
+                            stats: { '物理攻击': 35,'物理防御':150},
+                            materials: [
+                                'imgs/equipment/bujia.webp',
+                                'imgs/equipment/tiejian.webp'
+                            ]
+                        },
+                        {
+                            id: 45,
+                            name: '天地石',
+                            price: 800,
+                            icon: 'imgs/equipment/tiandishi.webp',
+                            stats: { '物理防御': 150,'法术防御':150},
+                            materials: [
+                                'imgs/equipment/bujia.webp',
+                                'imgs/equipment/kangmopifeng.webp'
+                            ]
+                        },
+                        {
+                            id: 46,
                             name: '反伤刺甲',
-                            price: 1910,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/325f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            price: 2020,
+                            icon: 'imgs/equipment/fanshangcijia.webp',
+                            stats: { '物理攻击': 45,'物理防御':300,'最大生命':700},
                             materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/112f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/223f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                                'imgs/equipment/jingjihushou.webp',
+                                'imgs/equipment/shouhuzhezhikai.webp'
                             ],
-                            stats: { '物理防御': 420, '物理攻击': 40 },
-                            description: '对抗物理输出英雄的装备，能反弹伤害',
-                            passiveType: '唯一被动-荆棘',
-                            passive: '受到物理伤害时，会将伤害量的20%以法术伤害的形式回敬给对方'
+                            passives: [
+                                {
+                                    type: '主动-反刺',
+                                    description: '3秒内进入反刺状态，将受到的35%伤害以真实伤害回敬给对方（随距离衰减至多50%）（冷却时间：75秒）'
+                                }
+                            ]
                         },
                         {
-                            id: 12,
-                            name: '不死鸟之眼',
-                            price: 2100,
-                            icon: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/625f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+                            id: 47,
+                            name: '血魔之怒',
+                            price: 2180,
+                            icon: 'imgs/equipment/xuemozhinu.webp',
+                            stats: { '物理攻击': 75,'最大生命':900},
                             materials: [
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/334f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
-                                'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/445f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png'
+                                'imgs/equipment/fengbaojujian.webp',
+                                'imgs/equipment/liliangyaodai.webp'
                             ],
-                            stats: { '法术防御': 240, '生命值': 1200 },
-                            description: '提供法术防御和生命回复加成',
-                            passiveType: '唯一被动-血统',
-                            passive: '治疗效果提升10%，当生命值低于50%时，治疗效果额外提升20%'
+                            passives: [
+                                {
+                                    type: '被动-狂怒',
+                                    description: '普通攻击额外造成（1.5%最大生命）物理伤害，当自身生命低于50%时，伤害提升25%~50%'
+                                },
+                                {
+                                    type: '主动-血怒',
+                                    description: '逐渐扣除30%当前生命，逐渐获得累计（40%最大生命）护盾，持续4秒（冷却时间：75秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 48,
+                            name: '冰霜冲击',
+                            price: 2030,
+                            icon: 'imgs/equipment/bingshuangchongji.webp',
+                            stats: { '冷却缩减': '7.5%','物理防御':150,'最大生命':900},
+                            materials: [
+                                'imgs/equipment/shouhuzhezhikai.webp',
+                                'imgs/equipment/jisukaijia.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-冰甲',
+                                    description: '提升10%韧性，当自身受到除压制外的硬控后，获得（10%最大生命）护盾，持续5秒（冷却时间：15秒）'
+                                },
+                                {
+                                    type: '主动-冲击',
+                                    description: '在自身450范围内生成霜冻领域，造成30%~60%减速，0.75秒后对敌人造成100~200法术伤害和0.75秒冻结（冷却时间：75秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 49,
+                            name: '原初遗珠',
+                            price: 800,
+                            icon: 'imgs/equipment/yuanchuyizhu.webp',
+                            stats: { '物理防御': 150,'法术防御':150},
+                            passives: [
+                                {
+                                    type: '效果',
+                                    description: '贤者的庇护虽已损坏，但其能量内核在原初之息的浸染下拥有了强化装备的效果(20分钟后开放购买)'
+                                }
+                            ]
+                        },
+                        {
+                            id: 50,
+                            name: '怒龙剑盾',
+                            price: 2040,
+                            icon: 'imgs/equipment/nulongjiandun.webp',
+                            stats: { '物理防御': 180,'法术防御':90,'最大生命':1350},
+                            materials: [
+                                'imgs/equipment/liliangyaodai.webp',
+                                'imgs/equipment/shouhuzhezhikai.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-重创',
+                                    description: '普攻与技能对兵线和野怪造成（7%最大生命）的物理伤害，同时恢复伤害效果50%的生命（远程攻击减半）（冷却时间：2秒）'
+                                },
+                                {
+                                    type: '被动-神力',
+                                    description: '普攻与技能对敌方英雄和防御塔造成（3.5%最大生命）的物理伤害（远程攻击减半）（冷却时间：2秒）'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
+                        },
+                        {
+                            id: 20,
+                            name: '制裁之刃',
+                            price: 2080,
+                            icon: 'imgs/equipment/zhicaizhiren.webp',
+                            stats: { '物理攻击': 100,'攻击速度':'20%','物理吸血':'20% '},
+                            materials: [
+                                'imgs/equipment/xuehunren.webp',
+                                'imgs/equipment/sujizhiqiang.webp'
+                            ],
+                            passives: [
+                                {
+                                    type: '被动-回魂',
+                                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
+                                },
+                                {
+                                    type: '被动-重伤',
+                                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
+                                }
+                            ]
                         }
                     ],
                     magic: [
