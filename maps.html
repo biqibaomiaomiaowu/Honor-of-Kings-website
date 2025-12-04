@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地图介绍 - 王者荣耀</title>
+    <title>地图介绍 - 王者峡谷</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -19,6 +20,7 @@
             background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
             color: #ffffff;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .navbar {
@@ -61,7 +63,8 @@
             position: relative;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #ffd700;
             transform: translateY(-2px);
         }
@@ -77,21 +80,26 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after, .nav-links a.active::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
         .main-content {
             margin-top: 80px;
             padding: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
 
+        .intro-section {
+            margin-bottom: 2rem;
+        }
+
         .page-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .page-title {
@@ -104,123 +112,21 @@
         .page-subtitle {
             font-size: 1.2rem;
             color: #b0b0b0;
-        }
-
-        .map-selector {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .map-btn {
-            padding: 1rem 2rem;
-            background: rgba(26, 35, 50, 0.8);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 25px;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .map-btn:hover, .map-btn.active {
-            background: #ffd700;
-            color: #0f1419;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .map-container {
-            background: rgba(26, 35, 50, 0.8);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .map-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://kimi-web-img.moonshot.cn/img/pic3.zhimg.com/2e69630d514dc40b1bee69812086103c5b7d06a1.jpg') center/cover;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .map-viewer {
-            width: 100%;
-            height: 500px;
-            background: rgba(15, 20, 25, 0.5);
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .map-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-            transition: opacity 0.5s ease;
-        }
-
-        .map-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-        }
-
-        .map-hotspot {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 215, 0, 0.8);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-        }
-
-        .map-hotspot:hover {
-            transform: scale(1.2);
-            background: #ffd700;
-        }
-
-        .map-hotspot i {
-            color: #0f1419;
-            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .map-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
         .info-card {
             background: rgba(15, 20, 25, 0.6);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             border: 1px solid rgba(255, 215, 0, 0.2);
             transition: all 0.3s ease;
@@ -270,7 +176,7 @@
         }
 
         .strategic-points {
-            margin-top: 3rem;
+            margin-bottom: 3rem;
         }
 
         .points-title {
@@ -278,18 +184,18 @@
             font-size: 2rem;
             font-weight: bold;
             color: #ffd700;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .points-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .point-card {
             background: rgba(26, 35, 50, 0.8);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             text-align: center;
             transition: all 0.3s ease;
@@ -303,16 +209,16 @@
         }
 
         .point-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #ffd700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .point-name {
             font-size: 1.2rem;
             font-weight: bold;
             color: #ffffff;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .point-description {
@@ -321,7 +227,7 @@
         }
 
         .game-modes {
-            margin-top: 3rem;
+            margin-bottom: 3rem;
         }
 
         .modes-title {
@@ -329,13 +235,13 @@
             font-size: 2rem;
             font-weight: bold;
             color: #ffd700;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .modes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
 
         .mode-card {
@@ -354,16 +260,16 @@
 
         .mode-image {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
         }
 
         .mode-info {
-            padding: 1.5rem;
+            padding: 1.2rem;
         }
 
         .mode-name {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 0.5rem;
@@ -371,112 +277,341 @@
 
         .mode-description {
             color: #b0b0b0;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.4;
         }
 
+        /* 地图样式*/
+        .full-map-section {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 95vh;
+            background: rgba(15, 20, 25, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .map-viewer {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: transparent;
+            object-position: center;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        .map-hotspot {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .hotspot-img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 #ffd700;
+            }
+
+            70% {
+                box-shadow: 0 0 0 12px rgba(255, 215, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+            }
+        }
+
+        .map-hotspot:hover {
+            transform: scale(1.3);
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .map-hotspot i {
+            color: #0f1419;
+            font-size: 1.2rem;
+        }
+
+        .light-effect {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 5;
+        }
+
+        /* 模态框样式 */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 2000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal {
+            visibility: visible;
+            opacity: 1;
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 35, 50, 0.95);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .modal-header {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 75vh;
+            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.3);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            flex-direction: row;
         }
 
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .modal-global-title {
+            position: absolute;
+            top: 1.2rem;
+            left: 2rem;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            font-weight: 500;
+            z-index: 20;
+        }
+
+        .modal-textarea {
+            width: 42%;
+            padding: 2.8rem 2rem 2rem;
+            overflow-y: auto;
+            position: relative;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .modal-hotspot-title {
+            font-size: 1.4rem;
             color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 2rem;
+        .modal-type-tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            background: #ff6b35;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 1.5rem;
+            margin: 0 0 1.5rem;
+            position: relative;
+        }
+
+        .modal-tab {
+            color: #94a3b8;
+            font-size: 0.95rem;
             cursor: pointer;
+            padding: 0.4rem 0;
+            position: relative;
             transition: color 0.3s ease;
         }
 
-        .close-btn:hover {
-            color: #ffd700;
+        .modal-tab.active {
+            color: #3b82f6;
         }
 
-        .light-effect {
+        .modal-tab.active::after {
+            content: '';
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transition: all 0.1s ease;
-            z-index: 1;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #3b82f6;
+            border-radius: 2px;
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .map-selector {
+        /* 内容区域 */
+        .content-section-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .content-text {
+            color: #e2e8f0;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .content-list {
+            padding-left: 1.2rem;
+            color: #e2e8f0;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .content-list-item {
+            margin-bottom: 0.7rem;
+        }
+
+        .modal-image-container {
+            width: 58%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-detail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .modal-image-container:hover .modal-detail-img {
+            transform: scale(1.02);
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .prev-arrow {
+            left: 1.2rem;
+        }
+
+        .next-arrow {
+            right: 1.2rem;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 38px;
+            height: 38px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 50%;
+            color: #94a3b8;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .modal-close-btn:hover {
+            color: #3b82f6;
+            background: #1e293b;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 900px) {
+            .modal-content {
                 flex-direction: column;
-                align-items: center;
+                height: auto;
+                max-height: 90vh;
             }
-            
-            .map-viewer {
-                height: 300px;
+
+            .modal-textarea,
+            .modal-image-container {
+                width: 100%;
             }
-            
-            .map-info {
-                grid-template-columns: 1fr;
+
+            .modal-textarea {
+                max-height: 45vh;
+                padding: 2.5rem 1.5rem 1.5rem;
             }
-            
-            .points-grid {
-                grid-template-columns: 1fr;
+
+            .modal-image-container {
+                height: 35vh;
             }
-            
-            .modes-grid {
-                grid-template-columns: 1fr;
+
+            .modal-global-title {
+                top: 1rem;
+                left: 1.5rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar">
             <div class="nav-container">
                 <a href="index.html" class="logo">
-                    <img src="imgs\index\logo.webp" alt="">
-
+                    <img src="imgs\index\logo.webp" alt="Logo">
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html">首页</a></li>
@@ -489,58 +624,38 @@
         </nav>
 
         <main class="main-content">
-            <div class="page-header">
-                <h1 class="page-title">地图介绍</h1>
-                <p class="page-subtitle">探索王者峡谷的每一个角落，掌握战场主动权</p>
-            </div>
-
-            <div class="map-selector">
-                <button 
-                    v-for="map in maps" 
-                    :key="map.id"
-                    class="map-btn" 
-                    :class="{ active: currentMap.id === map.id }"
-                    @click="switchMap(map)"
-                >
-                    {{ map.name }}
-                </button>
-            </div>
-
-            <div class="map-container">
-                <div class="map-viewer" 
-                     @mousemove="handleMapMouseMove"
-                     @mouseleave="removeLightEffect"
-                     ref="mapViewer"
-                >
-                    <img 
-                        :src="currentMap.image" 
-                        :alt="currentMap.name" 
-                        class="map-image"
-                    >
-                    <div class="map-overlay"></div>
-                    
-                    <!-- 地图热点 -->
-                    <div 
-                        v-for="hotspot in currentMap.hotspots" 
-                        :key="hotspot.id"
-                        class="map-hotspot" 
-                        :style="{
-                            left: `${hotspot.x}%`,
-                            top: `${hotspot.y}%`
-                        }"
-                        @click="showHotspotDetail(hotspot)"
-                    >
-                        <i :class="hotspot.icon"></i>
-                    </div>
-                    
-                    <!-- 鼠标光效 -->
-                    <div 
-                        v-if="lightEffectVisible"
-                        class="light-effect"
-                        :style="lightEffectStyle"
-                    ></div>
+            <section class="intro-section">
+                <!-- 标题和简介居中 -->
+                <div class="page-header">
+                    <h1 class="page-title">王者峡谷</h1>
+                    <p class="page-subtitle">
+                        王者荣耀最经典的5V5对战地图，对称的地形设计、丰富的资源分布和策略性的路线规划，
+                        是考验团队配合与个人操作的核心战场。地图分为红蓝双方阵营，通过推塔、击杀野怪、争夺中立资源，
+                        最终摧毁敌方水晶即可获得胜利。
+                    </p>
                 </div>
 
+                <!-- 地图-->
+                <section class="full-map-section" @mousemove="handleMapMouseMove" @mouseleave="removeLightEffect"
+                    ref="mapViewer">
+                    <div class="map-viewer">
+                        <img :src="currentMap.image" :alt="currentMap.name" class="map-image">
+                        <div class="map-overlay"></div>
+
+                        <!-- 地图热点 -->
+                        <div v-for="hotspot in currentMap.hotspots" :key="hotspot.id" class="map-hotspot" :style="{
+                                left: `${hotspot.x}%`,
+                                top: `${hotspot.y}%`
+                            }" @click="showHotspotDetail(hotspot)">
+                            <img :src="hotspot.customImg" class="hotspot-img" :alt="hotspot.title + '图标'">
+                        </div>
+
+                        <!-- 鼠标光效 -->
+                        <div v-if="lightEffectVisible" class="light-effect" :style="lightEffectStyle"></div>
+                    </div>
+                </section>
+
+                <!-- 基地/防御塔/野区资源介绍 -->
                 <div class="map-info">
                     <div class="info-card">
                         <h3 class="info-title">
@@ -587,264 +702,791 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <section class="strategic-points">
-                <h2 class="points-title">战略要点</h2>
-                <div class="points-grid">
-                    <div class="point-card">
-                        <div class="point-icon">
-                            <i class="fas fa-crosshairs"></i>
+                <!-- 战略要点 -->
+                <section class="strategic-points">
+                    <h2 class="points-title">战略要点</h2>
+                    <div class="points-grid">
+                        <div class="point-card">
+                            <div class="point-icon">
+                                <i class="fas fa-crosshairs"></i>
+                            </div>
+                            <h3 class="point-name">河道控制</h3>
+                            <p class="point-description">
+                                河道是连接各路的重要通道，控制河道视野可以获得敌方动向信息，为团战和支援创造有利条件。
+                            </p>
                         </div>
-                        <h3 class="point-name">河道控制</h3>
-                        <p class="point-description">
-                            河道是连接各路的重要通道，控制河道视野可以获得敌方动向信息，为团战和支援创造有利条件。
-                        </p>
-                    </div>
 
-                    <div class="point-card">
-                        <div class="point-icon">
-                            <i class="fas fa-eye"></i>
+                        <div class="point-card">
+                            <div class="point-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="point-name">视野控制</h3>
+                            <p class="point-description">
+                                在关键位置布置守卫，掌握敌方英雄位置信息，避免被gank，同时为团队提供决策依据。
+                            </p>
                         </div>
-                        <h3 class="point-name">视野控制</h3>
-                        <p class="point-description">
-                            在关键位置布置守卫，掌握敌方英雄位置信息，避免被gank，同时为团队提供决策依据。
-                        </p>
-                    </div>
 
-                    <div class="point-card">
-                        <div class="point-icon">
-                            <i class="fas fa-users"></i>
+                        <div class="point-card">
+                            <div class="point-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="point-name">团战位置</h3>
+                            <p class="point-description">
+                                选择合适的团战位置，利用地形优势，发挥英雄特长，是取得团战胜利的关键因素。
+                            </p>
                         </div>
-                        <h3 class="point-name">团战位置</h3>
-                        <p class="point-description">
-                            选择合适的团战位置，利用地形优势，发挥英雄特长，是取得团战胜利的关键因素。
-                        </p>
-                    </div>
 
-                    <div class="point-card">
-                        <div class="point-icon">
-                            <i class="fas fa-route"></i>
-                        </div>
-                        <h3 class="point-name">游走路线</h3>
-                        <p class="point-description">
-                            掌握各路之间的游走路线，快速支援队友，形成多打少的局面，建立优势。
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="game-modes">
-                <h2 class="modes-title">游戏模式</h2>
-                <div class="modes-grid">
-                    <div class="mode-card">
-                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/50379ef853f2cede5a8016ec55c287c603da89bc" alt="5v5模式" class="mode-image">
-                        <div class="mode-info">
-                            <h3 class="mode-name">5v5王者峡谷</h3>
-                            <p class="mode-description">
-                                经典的MOBA对战模式，5v5团队作战，推塔、团战、策略并重，是最受欢迎的游戏模式。
+                        <div class="point-card">
+                            <div class="point-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <h3 class="point-name">游走路线</h3>
+                            <p class="point-description">
+                                掌握各路之间的游走路线，快速支援队友，形成多打少的局面，建立优势。
                             </p>
                         </div>
                     </div>
+                </section>
 
-                    <div class="mode-card">
-                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/e44c7850ba84934d639a7776f088c67ada2c005c" alt="3v3模式" class="mode-image">
-                        <div class="mode-info">
-                            <h3 class="mode-name">3v3长平攻防战</h3>
-                            <p class="mode-description">
-                                快节奏的3v3对战，只有一条路，团战频繁，适合练习英雄技能和团战配合。
-                            </p>
+                <!-- 适配游戏模式 -->
+                <section class="game-modes">
+                    <h2 class="modes-title">适配游戏模式</h2>
+                    <div class="modes-grid">
+                        <div class="mode-card">
+                            <img src="imgs/map/pipei.jpg"
+                                alt="5v5模式" class="mode-image">
+                            <div class="mode-info">
+                                <h3 class="mode-name">5v5经典对战</h3>
+                                <p class="mode-description">
+                                    最核心的MOBA对战模式，5v5团队协作，通过推塔、打野、团战积累优势，最终摧毁敌方水晶获胜，考验团队配合与策略布局。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mode-card">
+                            <img src="imgs/map/paiwei.jpg"
+                                alt="排位赛" class="mode-image">
+                            <div class="mode-info">
+                                <h3 class="mode-name">排位赛</h3>
+                                <p class="mode-description">
+                                    基于王者峡谷的竞技模式，玩家通过胜利提升段位，匹配实力相近的对手，是展示个人技术与团队协作的最高舞台。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mode-card">
+                            <img src="imgs/map/dianfengsai.jpg"
+                                alt="巅峰赛" class="mode-image">
+                            <div class="mode-info">
+                                <h3 class="mode-name">巅峰赛</h3>
+                                <p class="mode-description">
+                                    高段位玩家专属的竞技模式，无铭文公平对战，仅使用王者峡谷地图，胜负直接影响巅峰积分，是顶尖玩家的终极对决。
+                                </p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="mode-card">
-                        <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/49cd1db58a0f179ae283c6ec5bb4e6106d037e0c" alt="1v1模式" class="mode-image">
-                        <div class="mode-info">
-                            <h3 class="mode-name">1v1墨家机关道</h3>
-                            <p class="mode-description">
-                                纯粹的单人对决，考验个人技术和英雄理解，是展示个人实力的最佳舞台。
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                </section>
             </section>
         </main>
 
         <!-- 热点详情模态框 -->
         <div class="modal" v-if="showModal" @click.self="closeModal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">{{ selectedHotspot.title }}</h2>
-                    <button class="close-btn" @click="closeModal">&times;</button>
+                <div class="modal-global-title">地图介绍</div>
+                <div class="modal-textarea">
+                    <div class="modal-header">
+                        <h2 class="modal-hotspot-title">
+                            {{ selectedHotspot.title }}
+                            <span class="modal-type-tag">{{ selectedHotspot.type }}</span>
+                        </h2>
+                    </div>
+                    <div class="modal-tabs">
+                        <div class="modal-tab" :class="{active: activeTab === 'brief'}" @click="activeTab = 'brief'">简略
+                        </div>
+                        <div class="modal-tab" :class="{active: activeTab === 'detail'}" @click="activeTab = 'detail'">
+                            详细</div>
+                        <div class="modal-tab" :class="{active: activeTab === 'legend'}" @click="activeTab = 'legend'">
+                            风物志</div>
+                    </div>
+                    <div class="modal-content-wrap">
+                        <div v-if="activeTab === 'brief'">
+                            <h4 class="content-section-label">说明</h4>
+                            <p class="content-text">{{ selectedHotspot.brief }}</p>
+                        </div>
+                        <div v-if="activeTab === 'detail'">
+                            <div v-if="selectedHotspot.detail && selectedHotspot.detail.length">
+                                <h4 class="content-section-label">说明</h4>
+                                <ul class="content-list">
+                                    <li v-for="(item, index) in selectedHotspot.detail" :key="index"
+                                        class="content-list-item">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div v-if="selectedHotspot.generalFeatures && selectedHotspot.generalFeatures.length"
+                                class="mt-4">
+                                <h4 class="content-section-label">通用特性</h4>
+                                <ul class="content-list">
+                                    <li v-for="(item, index) in selectedHotspot.generalFeatures" :key="index"
+                                        class="content-list-item">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div v-if="selectedHotspot.otherBenefits && selectedHotspot.otherBenefits.length"
+                                class="mt-4">
+                                <h4 class="content-section-label">其他收益</h4>
+                                <ul class="content-list">
+                                    <li v-for="(item, index) in selectedHotspot.otherBenefits" :key="index"
+                                        class="content-list-item">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div v-if="selectedHotspot.defeatBenefits && selectedHotspot.defeatBenefits.length"
+                                class="mt-4">
+                                <h4 class="content-section-label">击败收益</h4>
+                                <ul class="content-list">
+                                    <li v-for="(item, index) in selectedHotspot.defeatBenefits" :key="index"
+                                        class="content-list-item">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div v-if="!selectedHotspot.detail?.length && !selectedHotspot.generalFeatures?.length && !selectedHotspot.otherBenefits?.length && !selectedHotspot.defeatBenefits?.length"
+                                class="content-text text-gray-400">
+                                暂无详细数据
+                            </div>
+                        </div>
+                        <div v-if="activeTab === 'legend'">
+                            <h4 class="content-section-label">峡谷风物志</h4>
+                            <p class="content-text">{{ selectedHotspot.legend }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="selectedHotspot">
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <i :class="selectedHotspot.icon" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
-                        <h3 style="color: #ffd700; margin-bottom: 1rem;">{{ selectedHotspot.title }}</h3>
+                <div class="modal-image-container">
+                    <img :src="selectedHotspot.detailImage" class="modal-detail-img" :alt="selectedHotspot.title">
+                    <div class="nav-arrow prev-arrow" @click.stop="navigateHotspot(-1)">
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div style="background: rgba(15, 20, 25, 0.5); padding: 1.5rem; border-radius: 10px;">
-                        <p style="color: #e0e0e0; line-height: 1.6; margin: 0;">{{ selectedHotspot.description }}</p>
-                    </div>
-                    <div style="margin-top: 2rem;">
-                        <h4 style="color: #ff6b35; margin-bottom: 1rem;">战略建议</h4>
-                        <ul style="color: #b0b0b0; line-height: 1.8;">
-                            <li>• 控制该区域可以获得视野优势</li>
-                            <li>• 团队配合是占领此处的关键</li>
-                            <li>• 注意敌方动向，避免被包抄</li>
-                            <li>• 合理利用地形进行战术部署</li>
-                        </ul>
+                    <div class="nav-arrow next-arrow" @click.stop="navigateHotspot(1)">
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
+                <button class="modal-close-btn" @click="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         const { createApp, ref, reactive, onMounted, nextTick } = Vue;
-        
+
         createApp({
             setup() {
                 // 响应式数据
                 const currentMap = ref({});
                 const showModal = ref(false);
                 const selectedHotspot = ref({});
+                const activeTab = ref('brief');
                 const lightEffectVisible = ref(false);
                 const lightEffectStyle = reactive({
                     left: '0px',
                     top: '0px'
                 });
                 const mapViewer = ref(null);
-                
+
                 // 地图数据
                 const maps = ref([
                     {
                         id: 'summoners-rift',
                         name: '王者峡谷',
-                        image: 'https://kimi-web-img.moonshot.cn/img/pic3.zhimg.com/2e69630d514dc40b1bee69812086103c5b7d06a1.jpg',
+                        image: 'imgs/map/wangzhexiagu.jpg',
                         hotspots: [
                             {
                                 id: 1,
-                                x: 20,
-                                y: 80,
-                                title: '蓝方基地',
-                                description: '蓝方队伍的出生点和主要防御区域，包含水晶、商店和回复泉。',
-                                icon: 'fas fa-home'
+                                x: 9,
+                                y: 95.5,
+                                title: '泉水（出生点）',
+                                type: '建筑',
+                                customImg: 'imgs/map/quanshui.png',
+                                detailImage: 'imgs/map/quanshui.jpg',
+                                brief: '英雄出生和复活的地方',
+                                detail: [
+                                    '英雄出生和复活的地方',
+                                    '状态较低时，可利用回城技能撤回到泉水，快速回复英雄生命值和法力值',
+                                    '泉水可以保护己方英雄，对进入的敌方单位造成巨大伤害'
+                                ],
+                                legend: '上古的旷世之战击穿世界位面，形成联通各个时空的位面裂隙，传说构成水晶的能量核心便是由此坠落。古代的贤者曾来此研究遗迹，却意外触发了水晶祭坛的能量，位于峡谷两端的位面裂隙被波及唤醒，不断悸动，无数世界位面中的英雄力量被召唤来此，投影成型，开始了永无终结的战斗。'
                             },
                             {
                                 id: 2,
-                                x: 80,
-                                y: 20,
-                                title: '红方基地',
-                                description: '红方队伍的出生点和主要防御区域，是最终需要摧毁的目标。',
-                                icon: 'fas fa-home'
+                                x: 16.3,
+                                y: 90.2,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             },
                             {
                                 id: 3,
-                                x: 50,
-                                y: 50,
-                                title: '河道中心',
-                                description: '地图中央的重要战略位置，控制这里可以掌握全局视野和支援优势。',
-                                icon: 'fas fa-crosshairs'
+                                x: 28.5,
+                                y: 95,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             },
                             {
                                 id: 4,
-                                x: 30,
-                                y: 40,
-                                title: '蓝BUFF',
-                                description: '提供法力回复和冷却缩减的重要野区资源，法师和技能型英雄的核心BUFF。',
-                                icon: 'fas fa-magic'
+                                x: 37,
+                                y: 78,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             },
                             {
                                 id: 5,
-                                x: 70,
-                                y: 60,
-                                title: '红BUFF',
-                                description: '提供真实伤害和减速效果的野区资源，射手和战士的核心BUFF。',
-                                icon: 'fas fa-fire'
+                                x: 45.5,
+                                y: 67.5,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             },
                             {
                                 id: 6,
-                                x: 60,
-                                y: 30,
-                                title: '暴君巢穴',
-                                description: '重要的前期团队资源，击杀后获得金币和经验优势。',
-                                icon: 'fas fa-dragon'
+                                x: 49,
+                                y: 79,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             },
                             {
                                 id: 7,
-                                x: 40,
+                                x: 59,
+                                y: 85,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 8,
+                                x: 45.5,
+                                y: 95,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 9,
+                                x: 84,
+                                y: 95,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 10,
+                                x: 60.5,
                                 y: 70,
-                                title: '主宰巢穴',
-                                description: '中后期重要团队资源，击杀后获得主宰先锋推进优势。',
-                                icon: 'fas fa-crown'
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 11,
+                                x: 55,
+                                y: 95,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 12,
+                                x: 39,
+                                y: 58,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 13,
+                                x: 34.5,
+                                y: 65,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 14,
+                                x: 45,
+                                y: 50,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 15,
+                                x: 42,
+                                y: 41.7,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 16,
+                                x: 12,
+                                y: 43.5,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 17,
+                                x: 12,
+                                y: 54,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 18,
+                                x: 10,
+                                y: 0,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },   
+                            {
+                                id: 19,
+                                x: 43,
+                                y: 83,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 20,
+                                x: 25.7,
+                                y: 58,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            }, 
+                            {
+                                id: 21,
+                                x: 29,
+                                y: 45,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 22,
+                                x: 21,
+                                y: 43.5,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 23,
+                                x: 22,
+                                y: 26,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 24,
+                                x: 34.9,
+                                y: 24.7,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
+                            },
+                            {
+                                id: 25,
+                                x: 65,
+                                y: 70,
+                                title: '水晶',
+                                type: '建筑',
+                                customImg: 'imgs/map/shuijing.png',
+                                detailImage: 'imgs/map/shuijing.jpg',
+                                brief: '红方阵营的核心据点，具备与蓝方基地对等的复活、补给、购物功能，是红方的最终防线',
+                                detail: [
+                                    '出生与复活：红方英雄初始出生及死亡后复活的唯一地点',
+                                    '泉水效果：与蓝方泉水属性一致，提供高额生命/法力回复',
+                                    '商店系统：支持所有装备的购买、合成与出售，无品类限制',
+                                    '防御体系：水晶外侧有3座防御塔，形成三层立体防线',
+                                    '失败条件：基地水晶被摧毁，红方直接判定失败',
+                                    '战略意义：是红方所有资源的起点，保护基地是核心目标'
+                                ],
+                                generalFeatures:[
+                                    '123',
+                                    'wdfgh'
+                                ],
+                                legend: '红方基地坐落于峡谷东侧的火山岩脉之上，泉水由地心熔岩能量转化而成，虽外观炽热，却能精准治愈英雄的创伤。基地水晶嵌入在远古火山的核心，吸收着大地的脉动感，传说水晶的能量与红方英雄的战斗意志相连，越是危急时刻，能量越加强盛。'
                             }
                         ]
-                    },
-                    {
-                        id: 'aram',
-                        name: '长平攻防战',
-                        image: 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/a22831c8082e2aae677e8819aff237d502f41bcf',
-                        hotspots: []
-                    },
-                    {
-                        id: 'abyss',
-                        name: '深渊大乱斗',
-                        image: 'https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/70bc8a95f9b883b307f7f0e2b4be3aa4c0bbef1e',
-                        hotspots: []
-                    },
-                    {
-                        id: 'brawl',
-                        name: '火焰山大战',
-                        image: 'https://kimi-web-img.moonshot.cn/img/pic.87g.com/c7a3bb1ad01618141cac1da6c78307483da28748.jpg',
-                        hotspots: []
                     }
                 ]);
-                
-                // 方法：切换地图
-                const switchMap = (map) => {
-                    currentMap.value = map;
-                };
-                
-                // 方法：显示热点详情
-                const showHotspotDetail = (hotspot) => {
-                    selectedHotspot.value = hotspot;
-                    showModal.value = true;
-                };
-                
-                // 方法：关闭模态框
-                const closeModal = () => {
-                    showModal.value = false;
-                };
-                
-                // 方法：处理地图鼠标移动
-                const handleMapMouseMove = (e) => {
-                    if (!mapViewer.value) return;
-                    
-                    const rect = mapViewer.value.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    lightEffectStyle.left = `${x - 50}px`;
-                    lightEffectStyle.top = `${y - 50}px`;
-                    lightEffectVisible.value = true;
-                };
-                
-                // 方法：移除光效
-                const removeLightEffect = () => {
-                    lightEffectVisible.value = false;
-                };
-                
-                // 生命周期：组件挂载后
+
+                // 初始化默认地图
                 onMounted(() => {
-                    // 设置默认地图
                     currentMap.value = maps.value[0];
-                    
-                    // 添加滚动动画
+
+                    // 滚动动画：介绍部分卡片渐入
                     const observerOptions = {
                         threshold: 0.1,
                         rootMargin: '0px 0px -50px 0px'
                     };
-                    
+
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
@@ -853,8 +1495,7 @@
                             }
                         });
                     }, observerOptions);
-                    
-                    // 观察所有卡片
+
                     nextTick(() => {
                         document.querySelectorAll('.info-card, .point-card, .mode-card').forEach(card => {
                             card.style.opacity = '0';
@@ -864,24 +1505,70 @@
                         });
                     });
                 });
-                
-                // 返回模板中需要使用的数据和方法
+
+                // 显示热点详情
+                const showHotspotDetail = (hotspot) => {
+                    selectedHotspot.value = hotspot;
+                    showModal.value = true;
+                    activeTab.value = 'brief';
+                };
+
+                // 关闭模态框
+                const closeModal = () => {
+                    showModal.value = false;
+                };
+
+                const navigateHotspot = (direction) => {
+                    const hotspots = currentMap.value.hotspots;
+                    if (!hotspots.length || !selectedHotspot.value.id) return;
+
+                    const currentIndex = hotspots.findIndex(h => h.id === selectedHotspot.value.id);
+                    let newIndex = (currentIndex + direction + hotspots.length) % hotspots.length;
+                    selectedHotspot.value = hotspots[newIndex];
+                    activeTab.value = 'brief';
+
+                    anime({
+                        targets: '.modal-detail-img',
+                        opacity: [0.5, 1],
+                        duration: 300,
+                        easing: 'ease-in-out'
+                    });
+                };
+
+                // 鼠标光效交互
+                const handleMapMouseMove = (e) => {
+                    if (!mapViewer.value) return;
+
+                    const rect = mapViewer.value.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    lightEffectStyle.left = `${x - 60}px`;
+                    lightEffectStyle.top = `${y - 60}px`;
+                    lightEffectVisible.value = true;
+                };
+
+                const removeLightEffect = () => {
+                    lightEffectVisible.value = false;
+                };
+
                 return {
-                    maps,
                     currentMap,
                     showModal,
                     selectedHotspot,
+                    activeTab,
                     lightEffectVisible,
                     lightEffectStyle,
                     mapViewer,
-                    switchMap,
                     showHotspotDetail,
                     closeModal,
                     handleMapMouseMove,
-                    removeLightEffect
+                    removeLightEffect,
+                    navigateHotspot
                 };
             }
         }).mount('#app');
     </script>
 </body>
+
 </html>
