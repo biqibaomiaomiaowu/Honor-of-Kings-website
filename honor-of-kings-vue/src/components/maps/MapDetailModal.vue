@@ -12,10 +12,10 @@ const emit = defineEmits(['close', 'prev', 'next']);
 const activeTab = ref('brief');
 const detailImage = ref(null);
 
-// Reset tab when hotspot changes
+// 当热点改变时重置标签页
 watch(() => props.hotspot, () => {
   activeTab.value = 'brief';
-  // Simple animation for image change
+  // 图片切换的简单动画
   if (detailImage.value) {
     anime({
       targets: detailImage.value,

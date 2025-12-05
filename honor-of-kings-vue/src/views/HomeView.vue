@@ -19,8 +19,5 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 </template>
 
 <style scoped>
-/* 
-   HomeView specific styles can go here if needed, 
-   but most styles have been moved to components.
-*/
+
 </style>

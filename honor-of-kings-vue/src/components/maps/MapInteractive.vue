@@ -43,7 +43,7 @@ const navigateHotspot = (direction) => {
     if (!hotspots.length || !selectedHotspot.value.id) return;
 
     const currentIndex = hotspots.findIndex(h => h.id === selectedHotspot.value.id);
-    // Calculate new index with wrap-around
+    // 计算新索引（循环）
     let newIndex = (currentIndex + direction + hotspots.length) % hotspots.length;
     selectedHotspot.value = hotspots[newIndex];
 };

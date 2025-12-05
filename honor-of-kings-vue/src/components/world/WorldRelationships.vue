@@ -1,36 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import anime from 'animejs';
-
-const relationships = ref([
-    {
-        id: 1,
-        avatars: [
-            '/imgs/world/sunce.webp',
-            '/imgs/world/daqiao.webp'
-        ],
-        type: '宿命羁绊',
-        description: '孙策为江东霸业征战，勇猛无畏；大乔温柔支持，默默相伴。战场双防提升，如坚固防线相守。 他们的爱情在硝烟中绽放，成为彼此最坚强的后盾。'
-    },
-    {
-        id: 2,
-        avatars: [
-            '/imgs/world/yangjian.webp',
-            '/imgs/world/houyi.webp'
-        ],
-        type: '亦敌亦友',
-        description: '杨戬与后羿曾为天界主神候选人，相互讥讽。因延误人间救援神力衰退，被迫合作。濒死觉悟后互信，触发「日曜之辉」。 '
-    },
-    {
-        id: 3,
-        avatars: [
-            '/imgs/world/sunshangxiang.webp',
-            '/imgs/world/luban.webp'
-        ],
-        type: '同门师兄妹',
-        description: '孙尚香与鲁班七号是同门，感情深厚。故事中鲁班七号为护师妹不顾安危。游戏里，二者皆为射手，孙尚香输出灵活，鲁班七号火力强大。 '
-    }
-]);
+import { relationships } from '../../data/worldData';
 
 const handleCardHover = (e) => {
     anime({

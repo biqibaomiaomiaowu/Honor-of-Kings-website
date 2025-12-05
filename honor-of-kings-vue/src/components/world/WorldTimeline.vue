@@ -1,12 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-
-const timelineEvents = ref([
-    { year: '太古时期', title: '科技文明的巅峰', description: '人类文明达到前所未有的高度，科技与魔法完美结合，创造了无数奇迹。' },
-    { year: '大灾变', title: '文明的崩溃', description: '未知的灾难降临，辉煌的文明在一夜之间崩塌，世界回归原始状态。' },
-    { year: '复兴时代', title: '新文明的崛起', description: '幸存者在废墟上重建文明，新的国家和势力逐渐形成，魔法重新觉醒。' },
-    { year: '王者时代', title: '英雄辈出', description: '各路英雄豪杰涌现，为了理想、荣耀和信念，在王者大陆上书写传奇。' }
-]);
+import { timelineEvents } from '../../data/worldData';
 
 const itemRefs = ref([]);
 let observer = null;

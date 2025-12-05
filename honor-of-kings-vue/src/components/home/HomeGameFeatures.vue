@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, nextTick } from 'vue';
+import { gameFeatures } from '../../data/homeData';
 
 onMounted(() => {
     nextTick(() => {
@@ -31,35 +32,14 @@ onMounted(() => {
 <template>
     <section class="game-features">
         <div class="features-container">
-            <h2 class="section-title">游戏特色</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div v-for="feature in gameFeatures" :key="feature.id" class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-users"></i>
+                        <i :class="feature.icon"></i>
                     </div>
-                    <h3 class="feature-title">5v5公平竞技</h3>
+                    <h3 class="feature-title">{{ feature.title }}</h3>
                     <p class="feature-description">
-                        经典的MOBA玩法，5v5团队作战，考验配合与策略，体验公平的竞技乐趣。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="feature-title">快节奏对战</h3>
-                    <p class="feature-description">
-                        10分钟一局，随时随地享受紧张刺激的战斗体验，适合移动端游戏习惯。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">丰富英雄池</h3>
-                    <p class="feature-description">
-                        超过100位英雄，涵盖坦克、战士、法师、射手、辅助、刺客六大职业。
+                        {{ feature.description }}
                     </p>
                 </div>
             </div>

@@ -32,7 +32,7 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 <style scoped>
 .maps-page {
     min-height: 100vh;
-    padding-top: 40px; /* Adjust for navbar */
+    padding-top: 40px; 
     color: #fff;
 }
 

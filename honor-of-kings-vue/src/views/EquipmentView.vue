@@ -63,7 +63,7 @@ const closeModal = () => {
 <style scoped>
 .equipment-view {
   min-height: 100vh;
-  /* background inherited from body */
+  /* 背景继承自 body */
   color: #fff;
   display: flex;
   flex-direction: column;

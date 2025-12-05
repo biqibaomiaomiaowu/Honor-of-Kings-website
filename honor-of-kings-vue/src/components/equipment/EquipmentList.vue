@@ -28,14 +28,14 @@ defineProps({
 defineEmits(['select']);
 
 const getImageUrl = (path) => {
-  // Handle both local paths and external URLs
+  // 处理本地路径和外部 URL
   if (path.startsWith('http')) {
     return path;
   }
-  // For local paths, we need to adjust the path to be relative to public or use require
-  // Since the data has 'imgs/equipment/...', and we are in Vue, 
-  // if the images are in public/imgs/equipment, we can just use the path directly
-  // assuming the app is served from root.
+  // 对于本地路径，我们需要调整路径使其相对于 public 或使用 require
+  // 由于数据中有 'imgs/equipment/...'，且我们在 Vue 中，
+  // 如果图片在 public/imgs/equipment 中，我们可以直接使用路径
+  // 假设应用从根目录提供服务。
   return '/' + path;
 };
 </script>
