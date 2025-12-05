@@ -1,13 +1,14 @@
 <script setup>
-import { ref, computed, onMounted, nextTick, watch } from 'vue';
-import * as echarts from 'echarts';
+import { ref, computed } from 'vue';
+import HeroesFilter from '../components/heroes/HeroesFilter.vue';
+import HeroesList from '../components/heroes/HeroesList.vue';
+import HeroDetailModal from '../components/heroes/HeroDetailModal.vue';
 
 // 响应式数据
 const searchQuery = ref('');
 const currentFilter = ref('all');
 const showModal = ref(false);
 const selectedHero = ref(null);
-const statsChart = ref(null);
 
 // 英雄角色分类
 const roles = ref([
@@ -439,121 +440,16 @@ const filteredHeroes = computed(() => {
     return result;
 });
 
-// 方法：切换筛选条件
-const changeFilter = (role) => {
-    currentFilter.value = role;
-};
-
 // 方法：显示英雄详情
 const showHeroDetail = (hero) => {
     selectedHero.value = hero;
     showModal.value = true;
-    
-    // 在模态框显示后渲染图表
-    nextTick(() => {
-        renderStatsChart(hero.stats);
-    });
 };
 
 // 方法：关闭模态框
 const closeModal = () => {
     showModal.value = false;
 };
-
-// 方法：渲染属性雷达图
-const renderStatsChart = (stats) => {
-    if (!statsChart.value) return;
-    
-    const myChart = echarts.init(statsChart.value);
-
-    const option = {
-        backgroundColor: 'transparent',
-        radar: {
-            indicator: [
-                { name: '攻击', max: 100 },
-                { name: '防御', max: 100 },
-                { name: '法术', max: 100 },
-                { name: '难度', max: 100 }
-            ],
-            axisName: {
-                color: '#ffd700'
-            },
-            splitLine: {
-                lineStyle: {
-                    color: 'rgba(255, 215, 0, 0.3)'
-                }
-            },
-            axisLine: {
-                lineStyle: {
-                    color: 'rgba(255, 215, 0, 0.5)'
-                }
-            }
-        },
-        series: [{
-            type: 'radar',
-            data: [{
-                value: [stats.attack, stats.defense, stats.magic, stats.difficulty],
-                name: '英雄属性',
-                areaStyle: {
-                    color: 'rgba(255, 215, 0, 0.3)'
-                },
-                lineStyle: {
-                    color: '#ffd700'
-                },
-                itemStyle: {
-                    color: '#ffd700'
-                }
-            }]
-        }]
-    };
-
-    myChart.setOption(option);
-};
-
-// 生命周期：组件挂载后
-onMounted(() => {
-    // 添加滚动动画
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                // 停止观察已显示的元素，避免重复触发
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // 观察英雄卡片
-    const observeHeroCards = () => {
-        nextTick(() => {
-            document.querySelectorAll('.hero-card').forEach(card => {
-                // 仅对未初始化的卡片设置初始状态
-                if (!card.dataset.observed) {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    card.style.transition = 'all 0.6s ease';
-                    card.dataset.observed = 'true'; // 标记已观察
-                    observer.observe(card);
-                }
-            });
-        });
-    };
-    
-    // 初始观察
-    observeHeroCards();
-    
-    // 监听过滤结果变化，重新观察新渲染的卡片
-    watch(filteredHeroes, () => {
-        // 稍微延迟以确保DOM更新
-        setTimeout(observeHeroCards, 100);
-    });
-});
 </script>
 
 <template>
@@ -564,92 +460,26 @@ onMounted(() => {
                 <p class="page-subtitle">探索王者峡谷中的每一位英雄，了解他们的故事与技能</p>
             </div>
 
-            <div class="search-filter-section">
-                <div class="search-box">
-                    <input 
-                        type="text" 
-                        class="search-input" 
-                        placeholder="搜索英雄名称..." 
-                        v-model="searchQuery"
-                    >
-                </div>
-                <div class="filter-buttons">
-                    <button 
-                        v-for="role in roles" 
-                        :key="role.key"
-                        class="filter-btn" 
-                        :class="{ active: currentFilter === role.key }"
-                        @click="changeFilter(role.key)"
-                    >
-                        {{ role.name }}
-                    </button>
-                </div>
-            </div>
+            <HeroesFilter 
+                :searchQuery="searchQuery"
+                @update:searchQuery="searchQuery = $event"
+                :currentFilter="currentFilter"
+                @update:currentFilter="currentFilter = $event"
+                :roles="roles"
+            />
 
-            <div class="heroes-container">
-                <div 
-                    v-for="hero in filteredHeroes" 
-                    :key="hero.id"
-                    class="hero-card"
-                    @click="showHeroDetail(hero)"
-                >
-                    <div class="hero-image-container">
-                        <img :src="hero.image" :alt="hero.name" class="hero-image">
-                        <div class="hero-overlay"></div>
-                    </div>
-                    <div class="hero-info">
-                        <h3 class="hero-name">{{ hero.name }}</h3>
-                        <span class="hero-role">{{ hero.roleText }}</span>
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">{{ hero.stats.attack }}</div>
-                                <div class="stat-label">攻击</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">{{ hero.stats.defense }}</div>
-                                <div class="stat-label">防御</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">{{ hero.stats.magic }}</div>
-                                <div class="stat-label">法术</div>
-                            </div>
-                        </div>
-                        <p class="hero-description">{{ hero.description }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="no-results" v-if="filteredHeroes.length === 0">
-                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-                <h3>未找到匹配的英雄</h3>
-                <p>请尝试其他搜索条件</p>
-            </div>
+            <HeroesList 
+                :heroes="filteredHeroes"
+                @select-hero="showHeroDetail"
+            />
         </main>
 
         <!-- 英雄详情模态框 -->
-        <div class="modal" v-if="showModal" @click.self="closeModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">{{ selectedHero.name }}</h2>
-                    <button class="close-btn" @click="closeModal">&times;</button>
-                </div>
-                <div class="hero-detail-grid">
-                    <div>
-                        <img :src="selectedHero.image" :alt="selectedHero.name" class="hero-detail-image">
-                    </div>
-                    <div>
-                        <div class="hero-stats-chart" ref="statsChart"></div>
-                    </div>
-                </div>
-                <div class="hero-skills">
-                    <h3 class="skills-title">技能介绍</h3>
-                    <div class="skill-item" v-for="skill in selectedHero.skills" :key="skill.name">
-                        <div class="skill-name">{{ skill.name }}</div>
-                        <div class="skill-description">{{ skill.description }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <HeroDetailModal 
+            v-if="showModal" 
+            :hero="selectedHero"
+            @close="closeModal"
+        />
     </div>
 </template>
 
@@ -685,302 +515,9 @@ onMounted(() => {
     color: #b0b0b0;
 }
 
-.search-filter-section {
-    background: rgba(26, 35, 50, 0.8);
-    padding: 2rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-}
-
-.search-box {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.search-input {
-    flex: 1;
-    padding: 1rem;
-    background: rgba(15, 20, 25, 0.8);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 1rem;
-    min-width: 250px;
-}
-
-.search-input::placeholder {
-    color: #888;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #ffd700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.filter-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.filter-btn {
-    padding: 0.8rem 1.5rem;
-    background: rgba(15, 20, 25, 0.8);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 25px;
-    color: #ffffff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.filter-btn:hover, .filter-btn.active {
-    background: #ffd700;
-    color: #0f1419;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-}
-
-.heroes-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.hero-card {
-    background: rgba(26, 35, 50, 0.9);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    cursor: pointer;
-    position: relative;
-}
-
-.hero-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border-color: #ffd700;
-}
-
-.hero-image-container {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
-}
-
-.hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.hero-card:hover .hero-image {
-    transform: scale(1.1);
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
-}
-
-.hero-info {
-    padding: 1.5rem;
-}
-
-.hero-name {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #ffd700;
-    margin-bottom: 0.5rem;
-}
-
-.hero-role {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: rgba(255, 107, 53, 0.2);
-    color: #ff6b35;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 0.5rem;
-    background: rgba(15, 20, 25, 0.5);
-    border-radius: 8px;
-}
-
-.stat-value {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.stat-label {
-    font-size: 0.8rem;
-    color: #888;
-}
-
-.hero-description {
-    color: #b0b0b0;
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(26, 35, 50, 0.95);
-    border-radius: 20px;
-    padding: 2rem;
-    max-width: 800px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.modal-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #ffd700;
-}
-
-.hero-detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.hero-detail-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-.hero-stats-chart {
-    height: 300px;
-}
-
-.hero-skills {
-    margin-top: 2rem;
-}
-
-.skills-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ffd700;
-    margin-bottom: 1rem;
-}
-
-.skill-item {
-    background: rgba(15, 20, 25, 0.5);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-}
-
-.skill-name {
-    font-weight: bold;
-    color: #ff6b35;
-    margin-bottom: 0.5rem;
-}
-
-.skill-description {
-    color: #b0b0b0;
-    font-size: 0.9rem;
-}
-
-.loading {
-    text-align: center;
-    padding: 2rem;
-    color: #ffd700;
-}
-
-.no-results {
-    text-align: center;
-    padding: 3rem;
-    color: #888;
-}
-
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
-    }
-    
-    .search-box {
-        flex-direction: column;
-    }
-    
-    .filter-buttons {
-        justify-content: flex-start;
-    }
-    
-    .heroes-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .hero-detail-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        width: 95%;
-        padding: 1rem;
     }
 }
 </style>
