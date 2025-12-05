@@ -1,14 +1,15 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+
+import AppNavbar from './components/AppNavbar.vue' 
 </script>
 
 <template>
   <div>
-    <Navbar />
-    <!-- 这里的 main-content 类用于给内容留出导航栏的高度 -->
+    <!-- 使用新的组件名 -->
+    <AppNavbar /> 
     <main class="main-content">
-    <RouterView />
+      <RouterView />
     </main>
   </div>
 </template>
@@ -30,7 +31,7 @@ body {
 
 /* 统一的内容容器样式 */
 .main-content {
-  margin-top: 80px; /* 对应 Navbar 高度 */
-  min-height: calc(100vh - 80px);
+  /* margin-top: 80px;  由各个页面自己控制，因为首页需要全屏 */
+  min-height: 100vh;
 }
 </style>
