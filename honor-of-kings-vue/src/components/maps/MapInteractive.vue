@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive } from 'vue';
 import { mapsData } from '../../data/mapsData';
 import MapDetailModal from './MapDetailModal.vue';
 

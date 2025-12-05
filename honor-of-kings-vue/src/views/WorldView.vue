@@ -9,7 +9,7 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 </script>
 
 <template>
-  <div class="world-page">
+  <div class="world-page" :style="{ backgroundImage: 'url(/imgs/world/jixiaxueyuan.jpg)' }">
     <div class="container">
       <header class="page-header">
         <h1 class="page-title">王者世界</h1>
@@ -31,7 +31,7 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 .world-page {
     min-height: 100vh;
     padding-top: 100px;
-    background-image: url('/imgs/world/world_bg.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import anime from 'animejs';
 import { relationships } from '../../data/worldData';
 

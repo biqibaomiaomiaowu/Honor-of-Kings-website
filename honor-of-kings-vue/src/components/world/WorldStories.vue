@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
 import { heroStories } from '../../data/worldData';

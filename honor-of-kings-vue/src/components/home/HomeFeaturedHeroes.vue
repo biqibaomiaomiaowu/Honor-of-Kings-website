@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { onMounted, nextTick } from 'vue';
 import { featuredHeroes as heroes } from '../../data/homeData';
 
 onMounted(() => {
