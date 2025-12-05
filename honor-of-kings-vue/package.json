@@ -10,7 +10,7 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
     "@splidejs/vue-splide": "^0.6.12",
-    "animejs": "^4.2.2",
+    "animejs": "^3.2.1",
     "core-js": "^3.8.3",
     "echarts": "^6.0.0",
     "pixi.js": "^8.14.3",
