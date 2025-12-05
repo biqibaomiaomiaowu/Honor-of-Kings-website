@@ -7,7 +7,7 @@ import AppNavbar from './components/AppNavbar.vue'
 <template>
   <div>
     <!-- 使用新的组件名 -->
-    <AppNavbar /> 
+    <AppNavbar />
     <main class="main-content">
       <RouterView />
     </main>
