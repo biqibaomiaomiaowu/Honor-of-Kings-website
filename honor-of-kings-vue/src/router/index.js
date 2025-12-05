@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import HeroesView from '../views/HeroesView.vue'
 import WorldView from '../views/WorldView.vue'
 import MapsView from '../views/MapsView.vue'
+import EquipmentView from '../views/EquipmentView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/maps',
       name: 'maps',
       component: MapsView
+    },
+    {
+      path: '/equipment',
+      name: 'equipment',
+      component: EquipmentView
     }
   ]
 })
