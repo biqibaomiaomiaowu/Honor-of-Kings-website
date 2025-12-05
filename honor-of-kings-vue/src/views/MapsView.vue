@@ -9,20 +9,23 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 
 <template>
   <div class="maps-page">
-    <div class="intro-section">
-      <div class="container">
-        <header class="page-header">
-          <h1 class="page-title">地图介绍</h1>
-          <p class="page-subtitle">探索王者峡谷的奥秘，掌握制胜的关键要素</p>
-        </header>
+    <main class="main-content">
+      <section class="intro-section">
+        <div class="page-header">
+          <h1 class="page-title">王者峡谷</h1>
+          <p class="page-subtitle">
+            王者荣耀最经典的5V5对战地图，对称的地形设计、丰富的资源分布和策略性的路线规划，
+            是考验团队配合与个人操作的核心战场。地图分为红蓝双方阵营，通过推塔、击杀野怪、争夺中立资源，
+            最终摧毁敌方水晶即可获得胜利。
+          </p>
+        </div>
 
+        <MapInteractive />
         <MapInfo />
         <MapStrategies />
         <MapModes />
-      </div>
-    </div>
-
-    <MapInteractive />
+      </section>
+    </main>
     
     <AppFooter />
     <ScrollToTop />
@@ -32,24 +35,25 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 <style scoped>
 .maps-page {
     min-height: 100vh;
-    padding-top: 40px; 
-    color: #fff;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+    color: #ffffff;
+}
+
+.main-content {
+    margin-top: 80px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .intro-section {
     margin-bottom: 2rem;
-    padding: 2rem 0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
 }
 
 .page-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .page-title {
@@ -57,7 +61,6 @@ import ScrollToTop from '../components/ScrollToTop.vue';
     font-weight: bold;
     color: #ffd700;
     margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .page-subtitle {
@@ -66,15 +69,5 @@ import ScrollToTop from '../components/ScrollToTop.vue';
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 2rem;
-    }
-    
-    .container {
-        padding: 0 1rem;
-    }
 }
 </style>

@@ -1,34 +1,34 @@
 <template>
   <section class="game-modes">
-    <h2 class="modes-title">游戏模式</h2>
+    <h2 class="modes-title">适配游戏模式</h2>
     <div class="modes-grid">
       <div class="mode-card">
-        <img src="/imgs/map/5v5.png" alt="5v5" class="mode-image">
+        <img src="/imgs/map/pipei.jpg" alt="5v5模式" class="mode-image">
         <div class="mode-info">
-          <div class="mode-name">5v5 王者峡谷</div>
-          <div class="mode-description">
-            最经典的竞技模式，三路兵线，野区资源，团队配合是取胜关键。
-          </div>
+          <h3 class="mode-name">5v5经典对战</h3>
+          <p class="mode-description">
+            最核心的MOBA对战模式，5v5团队协作，通过推塔、打野、团战积累优势，最终摧毁敌方水晶获胜，考验团队配合与策略布局。
+          </p>
         </div>
       </div>
 
       <div class="mode-card">
-        <img src="/imgs/map/3v3.jpg" alt="3v3" class="mode-image">
+        <img src="/imgs/map/paiwei.jpg" alt="排位赛" class="mode-image">
         <div class="mode-info">
-          <div class="mode-name">3v3 长平攻防战</div>
-          <div class="mode-description">
-            单路对抗，节奏更快，更注重个人操作和小规模团战配合。
-          </div>
+          <h3 class="mode-name">排位赛</h3>
+          <p class="mode-description">
+            基于王者峡谷的竞技模式，玩家通过胜利提升段位，匹配实力相近的对手，是展示个人技术与团队协作的最高舞台。
+          </p>
         </div>
       </div>
 
       <div class="mode-card">
-        <img src="/imgs/map/1v1.png" alt="1v1" class="mode-image">
+        <img src="/imgs/map/dianfengsai.jpg" alt="巅峰赛" class="mode-image">
         <div class="mode-info">
-          <div class="mode-name">1v1 墨家机关道</div>
-          <div class="mode-description">
-            单挑模式，纯粹的个人实力比拼，是练习英雄操作的最佳场所。
-          </div>
+          <h3 class="mode-name">巅峰赛</h3>
+          <p class="mode-description">
+            高段位玩家专属的竞技模式，无铭文公平对战，仅使用王者峡谷地图，胜负直接影响巅峰积分，是顶尖玩家的终极对决。
+          </p>
         </div>
       </div>
     </div>

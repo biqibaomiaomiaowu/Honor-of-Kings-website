@@ -2,7 +2,7 @@ export const mapsData = [
     {
         id: 1,
         name: '王者峡谷',
-        image: '/imgs/map/map.png',
+        image: '/imgs/map/wangzhexiagu.jpg',
         hotspots: [
             {
                 id: 1,

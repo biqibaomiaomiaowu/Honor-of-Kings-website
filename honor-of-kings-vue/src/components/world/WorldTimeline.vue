@@ -34,19 +34,18 @@ onUnmounted(() => {
 
 <template>
   <section class="timeline-section">
-    <h2 class="section-title">历史长河</h2>
+    <h2 class="section-title">历史时间线</h2>
     <div class="timeline">
       <div 
         v-for="(event, index) in timelineEvents" 
         :key="index" 
         class="timeline-item"
-        :class="{ 'left': index % 2 === 0, 'right': index % 2 !== 0 }"
         :ref="setItemRef"
       >
         <div class="timeline-content">
-          <div class="year">{{ event.year }}</div>
-          <h3>{{ event.title }}</h3>
-          <p>{{ event.description }}</p>
+          <div class="timeline-year">{{ event.year }}</div>
+          <div class="timeline-title">{{ event.title }}</div>
+          <div class="timeline-description">{{ event.description }}</div>
         </div>
       </div>
     </div>
@@ -55,125 +54,116 @@ onUnmounted(() => {
 
 <style scoped>
 .timeline-section {
-    margin-bottom: 4rem;
-    padding: 2rem 0;
+    margin: 3rem 0;
+    background: rgba(26, 35, 50, 0.5);
+    padding: 3rem 2rem;
+    border-radius: 20px;
 }
 
 .section-title {
-    font-size: 2rem;
-    color: #ffd700;
     text-align: center;
-    margin-bottom: 3rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 2rem;
 }
 
 .timeline {
     position: relative;
-    max-width: 1000px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.timeline::after {
+.timeline::before {
     content: '';
     position: absolute;
-    width: 2px;
-    background: #ffd700;
     top: 0;
-    bottom: 0;
     left: 50%;
-    margin-left: -1px;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffd700, rgba(255, 215, 0, 0.3));
 }
 
 .timeline-item {
-    padding: 10px 40px;
     position: relative;
-    background-color: inherit;
-    width: 50%;
-    box-sizing: border-box;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
 }
 
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
+.timeline-item:nth-child(odd) {
+    flex-direction: row;
 }
 
-.timeline-item.left {
-    left: 0;
-}
-
-.timeline-item.right {
-    left: 50%;
-}
-
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    right: -10px;
-    background-color: #1a2332;
-    border: 2px solid #ffd700;
-    top: 15px;
-    border-radius: 50%;
-    z-index: 1;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-.timeline-item.right::after {
-    left: -10px;
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
 }
 
 .timeline-content {
-    padding: 20px 30px;
-    background: rgba(26, 35, 50, 0.9);
-    position: relative;
-    border-radius: 6px;
+    background: rgba(15, 20, 25, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 45%;
     border: 1px solid rgba(255, 215, 0, 0.2);
+    position: relative;
 }
 
-.timeline-content:hover {
-    border-color: #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 50%;
+    transform: translateY(-50%);
 }
 
-.year {
-    color: #ffd700;
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -60px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -60px;
+}
+
+.timeline-year {
+    font-size: 1.2rem;
     font-weight: bold;
+    color: #ffd700;
     margin-bottom: 0.5rem;
+}
+
+.timeline-title {
     font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
-.timeline-content h3 {
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.timeline-content p {
-    color: #a0a0a0;
+.timeline-description {
+    color: #b0b0b0;
     line-height: 1.5;
 }
 
-@media screen and (max-width: 600px) {
-    .timeline::after {
-        left: 31px;
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px;
     }
     
     .timeline-item {
+        flex-direction: column !important;
+        align-items: flex-start;
+    }
+    
+    .timeline-content {
         width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
+        margin-left: 40px;
     }
     
-    .timeline-item::after {
-        left: 21px;
-    }
-    
-    .timeline-item.right {
-        left: 0%;
+    .timeline-content::before {
+        left: -50px !important;
     }
 }
 </style>

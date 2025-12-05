@@ -1,45 +1,50 @@
 <template>
-  <section class="map-info">
+  <div class="map-info">
     <div class="info-card">
-      <div class="info-title">
-        <i class="fas fa-ruler-combined"></i>
-        地图规格
-      </div>
+      <h3 class="info-title">
+        <i class="fas fa-chess-king"></i>
+        基地与水晶
+      </h3>
       <div class="info-content">
         <ul class="info-list">
-          <li><i class="fas fa-check"></i> 对角线距离：约 12000 码</li>
-          <li><i class="fas fa-check"></i> 基地距离：约 8000 码</li>
-          <li><i class="fas fa-check"></i> 河道宽度：约 800 码</li>
+          <li><i class="fas fa-shield-alt"></i>基地是胜利的关键，摧毁敌方基地即可获得胜利</li>
+          <li><i class="fas fa-cog"></i>水晶会不断产生小兵推进战线</li>
+          <li><i class="fas fa-home"></i>在基地范围内可以快速回复生命值和法力值</li>
+          <li><i class="fas fa-shopping-cart"></i>商店位于基地内，可购买装备强化英雄</li>
         </ul>
       </div>
     </div>
 
     <div class="info-card">
-      <div class="info-title">
-        <i class="fas fa-trophy"></i>
-        胜利条件
-      </div>
+      <h3 class="info-title">
+        <i class="fas fa-tower"></i>
+        防御塔
+      </h3>
       <div class="info-content">
         <ul class="info-list">
-          <li><i class="fas fa-check"></i> 摧毁敌方水晶</li>
-          <li><i class="fas fa-check"></i> 敌方投降</li>
+          <li><i class="fas fa-crosshairs"></i>每路有3座外塔，提供视野和防御</li>
+          <li><i class="fas fa-bolt"></i>防御塔攻击会随时间增加伤害</li>
+          <li><i class="fas fa-users"></i>防御塔优先攻击小兵和召唤物</li>
+          <li><i class="fas fa-coins"></i>摧毁防御塔获得金币和经验奖励</li>
         </ul>
       </div>
     </div>
 
     <div class="info-card">
-      <div class="info-title">
-        <i class="fas fa-users"></i>
-        对战规模
-      </div>
+      <h3 class="info-title">
+        <i class="fas fa-tree"></i>
+        野区资源
+      </h3>
       <div class="info-content">
         <ul class="info-list">
-          <li><i class="fas fa-check"></i> 5 vs 5 团队竞技</li>
-          <li><i class="fas fa-check"></i> 分路对抗 + 野区资源争夺</li>
+          <li><i class="fas fa-dragon"></i>暴君：提供团队金币和经验</li>
+          <li><i class="fas fa-crown"></i>主宰：提供主宰先锋推进</li>
+          <li><i class="fas fa-ghost"></i>暗影暴君：提供强力BUFF效果</li>
+          <li><i class="fas fa-fire"></i>红蓝BUFF：提供持续增益效果</li>
         </ul>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>

@@ -9,19 +9,20 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 </script>
 
 <template>
-  <div class="world-page" :style="{ backgroundImage: 'url(/imgs/world/jixiaxueyuan.jpg)' }">
-    <div class="container">
-      <header class="page-header">
-        <h1 class="page-title">王者世界</h1>
-        <p class="page-subtitle">探索王者大陆的传奇故事与历史</p>
-      </header>
+  <div class="world-page">
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title">世界观</h1>
+        <p class="page-subtitle">探索王者大陆的神秘历史与英雄传说</p>
+      </div>
 
       <WorldOverview />
       <WorldFactions />
       <WorldTimeline />
       <WorldStories />
       <WorldRelationships />
-    </div>
+    </main>
+    
     <AppFooter />
     <ScrollToTop />
   </div>
@@ -30,46 +31,32 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 <style scoped>
 .world-page {
     min-height: 100vh;
-    padding-top: 100px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    color: #fff;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+    color: #ffffff;
 }
 
-.container {
+.main-content {
+    margin-top: 80px;
+    padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .page-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .page-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: bold;
     color: #ffd700;
     margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .page-subtitle {
     font-size: 1.2rem;
-    color: #e0e0e0;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
-
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 2.5rem;
-    }
-    
-    .container {
-        padding: 0 1rem;
-    }
+    color: #b0b0b0;
 }
 </style>

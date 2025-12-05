@@ -26,8 +26,8 @@ const handleCardLeave = (e) => {
     <h2 class="section-title">英雄关系</h2>
     <div class="relationships-grid">
       <div 
-        v-for="relation in relationships" 
-        :key="relation.id" 
+        v-for="relationship in relationships" 
+        :key="relationship.id" 
         class="relationship-card"
         @mouseenter="handleCardHover"
         @mouseleave="handleCardLeave"
@@ -35,16 +35,16 @@ const handleCardLeave = (e) => {
         <div class="relationship-header">
           <div class="hero-avatars">
             <img 
-              v-for="(avatar, index) in relation.avatars" 
+              v-for="(avatar, index) in relationship.avatars" 
               :key="index" 
               :src="avatar" 
               alt="Hero Avatar"
               class="hero-avatar"
             >
           </div>
-          <div class="relationship-type">{{ relation.type }}</div>
+          <div class="relationship-type">{{ relationship.type }}</div>
         </div>
-        <div class="relationship-description">{{ relation.description }}</div>
+        <div class="relationship-description">{{ relationship.description }}</div>
       </div>
     </div>
   </section>
@@ -52,74 +52,67 @@ const handleCardLeave = (e) => {
 
 <style scoped>
 .hero-relationships {
-    margin-bottom: 4rem;
+    margin: 3rem 0;
 }
 
 .section-title {
-    font-size: 2rem;
-    color: #ffd700;
     text-align: center;
-    margin-bottom: 3rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 2rem;
 }
 
 .relationships-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
-    padding: 0 2rem;
 }
 
 .relationship-card {
-    background: rgba(26, 35, 50, 0.9);
-    border-radius: 15px;
+    background: rgba(26, 35, 50, 0.8);
     padding: 2rem;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    transition: border-color 0.3s;
-}
-
-.relationship-card:hover {
-    border-color: #ffd700;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .relationship-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin-bottom: 1.5rem;
 }
 
 .hero-avatars {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
+    margin-right: 1rem;
 }
 
 .hero-avatar {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border: 2px solid #ffd700;
-    margin: 0 -10px;
-    transition: transform 0.3s;
     object-fit: cover;
-}
-
-.relationship-card:hover .hero-avatar {
-    transform: scale(1.1);
-    margin: 0 5px;
+    border: 2px solid #ffd700;
+    margin-right: -10px;
 }
 
 .relationship-type {
-    color: #ffd700;
-    font-size: 1.2rem;
-    font-weight: bold;
+    padding: 0.3rem 1rem;
+    background: rgba(255, 107, 53, 0.2);
+    color: #ff6b35;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .relationship-description {
-    color: #a0a0a0;
-    font-size: 0.9rem;
+    color: #b0b0b0;
     line-height: 1.6;
-    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .relationships-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

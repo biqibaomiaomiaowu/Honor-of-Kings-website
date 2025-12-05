@@ -1,35 +1,45 @@
 <template>
   <section class="strategic-points">
-    <h2 class="points-title">战略要地</h2>
+    <h2 class="points-title">战略要点</h2>
     <div class="points-grid">
       <div class="point-card">
         <div class="point-icon">
-          <i class="fas fa-road"></i>
+          <i class="fas fa-crosshairs"></i>
         </div>
-        <div class="point-name">分路</div>
-        <div class="point-description">
-          上路（对抗路）、中路、下路（发育路），三条主要进攻路线，连接双方基地。
-        </div>
+        <h3 class="point-name">河道控制</h3>
+        <p class="point-description">
+          河道是连接各路的重要通道，控制河道视野可以获得敌方动向信息，为团战和支援创造有利条件。
+        </p>
       </div>
 
       <div class="point-card">
         <div class="point-icon">
-          <i class="fas fa-tree"></i>
+          <i class="fas fa-eye"></i>
         </div>
-        <div class="point-name">野区</div>
-        <div class="point-description">
-          分布在分路之间，提供野怪资源和Buff，是打野英雄的主要活动区域。
-        </div>
+        <h3 class="point-name">视野控制</h3>
+        <p class="point-description">
+          在关键位置布置守卫，掌握敌方英雄位置信息，避免被gank，同时为团队提供决策依据。
+        </p>
       </div>
 
       <div class="point-card">
         <div class="point-icon">
-          <i class="fas fa-water"></i>
+          <i class="fas fa-users"></i>
         </div>
-        <div class="point-name">河道</div>
-        <div class="point-description">
-          贯穿地图中心，连接三路和野区，是爆发团战和争夺中立生物的关键区域。
+        <h3 class="point-name">团战位置</h3>
+        <p class="point-description">
+          选择合适的团战位置，利用地形优势，发挥英雄特长，是取得团战胜利的关键因素。
+        </p>
+      </div>
+
+      <div class="point-card">
+        <div class="point-icon">
+          <i class="fas fa-route"></i>
         </div>
+        <h3 class="point-name">游走路线</h3>
+        <p class="point-description">
+          掌握各路之间的游走路线，快速支援队友，形成多打少的局面，建立优势。
+        </p>
       </div>
     </div>
   </section>

@@ -32,10 +32,10 @@ const handleCardLeave = (e) => {
         @mouseenter="handleCardHover"
         @mouseleave="handleCardLeave"
       >
-        <img :src="faction.image" :alt="faction.name">
+        <img :src="faction.image" :alt="faction.name" class="faction-image">
         <div class="faction-info">
-          <h3>{{ faction.name }}</h3>
-          <p>{{ faction.description }}</p>
+          <h3 class="faction-name">{{ faction.name }}</h3>
+          <p class="faction-description">{{ faction.description }}</p>
           <div class="faction-heroes">
             <span 
               v-for="hero in faction.heroes" 
@@ -53,57 +53,57 @@ const handleCardLeave = (e) => {
 
 <style scoped>
 .factions-section {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .section-title {
-    font-size: 2rem;
-    color: #ffd700;
     text-align: center;
-    margin-bottom: 3rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 2rem;
 }
 
 .factions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 0 2rem;
 }
 
 .faction-card {
-    background: rgba(26, 35, 50, 0.9);
+    background: rgba(26, 35, 50, 0.8);
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    cursor: pointer;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .faction-card:hover {
+    transform: translateY(-10px);
     border-color: #ffd700;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.faction-card img {
+.faction-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
 }
 
 .faction-info {
-    padding: 1.5rem;
+    padding: 2rem;
 }
 
-.faction-info h3 {
+.faction-name {
+    font-size: 1.4rem;
+    font-weight: bold;
     color: #ffd700;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
-.faction-info p {
-    color: #a0a0a0;
-    font-size: 0.9rem;
-    line-height: 1.5;
+.faction-description {
+    color: #b0b0b0;
+    line-height: 1.6;
     margin-bottom: 1rem;
 }
 
