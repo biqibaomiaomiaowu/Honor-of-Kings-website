@@ -399,4 +399,115 @@ export const heroesData = [
             { name: '处决', description: '下潜处决免投匕，拖敌破控高伤减CD  ' }
         ]
     },
+    {
+        id: 26,
+        name: '海月',
+        role: 'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/haiyue/haiyue.webp',
+        description: '幻境法师，操纵月华，大招致命  ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '别月', description: '海月耗月盘放技能，命中叠印触发效果 ' },
+            { name: '瞬华', description: '海月释放月光，造成法术伤害，印记触发额外真伤' },
+            { name: '流光', description: '海月发三法球，有伤害护盾移速，印记触发晕眩 ' },
+            { name: '幻海映月', description: '海月链接英雄，免伤入幻境，减冷却可拉距   ' }
+        ]
+    },
+    {
+        id: 27,
+        name: '少司缘',
+        role: ['mage','support'],
+        roleText: '法师/辅助',
+        image: '/imgs/heroes/shaosiyuan/shaosiyuan.png',
+        description: '辅助法师，牵线搭桥，掌控姻缘之线  ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+             { name: '吟行', description: '7.5 - 6秒强化普攻，达成业绩奖金币减CD  ' },
+            { name: '两同心', description: '祝友“良缘”回血，触发赐福再回并加速 ' },
+            { name: '怨离别', description: '警示“冤缘”显形伤害，化解定身降伤减速  ' },
+            { name: '因缘际会', description: '大招施“缘”，友回血敌伤，被动增伤回血' }
+        ]
+    },
+    {
+        id: 28,
+        name: '海诺',
+        role: 'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/hainuo/hainuo.png',
+        description: '海诺输出极高，可远程近战，大招回溯战场   ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '命运洞察', description: '海诺双态战斗，命中叠印，远近伤害各异' },
+            { name: '命刃·追芒/旋击', description: '海诺命中减冷，远掷杖伤近挥刃，回血减速  ' },
+            { name: '命途行游', description: '海诺穿行，近敌近战远敌远程，增益随敌提升' },
+            { name: '命运回溯', description: '海诺开领域减伤回血，延迟伤敌回溯自身塔 ' }
+           
+        ]
+    },
+    {
+        id: 29,
+        name: '朵莉亚',
+        role:  ['mage','support'],
+        roleText: '法师/辅助',
+        image: '/imgs/heroes/duoliya/duoliya.jpg',
+        description: '人鱼公主朵莉亚，辅助能续航还可重置技能    ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '人鱼之赐', description: '水域化人鱼，减控回血，赐契约助队友 ' },
+            { name: '欢歌', description: '朵莉亚声波扩散伤敌减速，水域释放有击退晕   ' },
+            { name: '逐浪', description: '朵莉亚跃起造水域回血，水中释放减冷却 ' },
+            { name: '天籁', description: '朵莉亚刷新友军技能，收益共享，冷却灵活  ' }
+           
+        ]
+    },
+    {
+        id: 30,
+        name: '桑启',
+        role:  ['mage','support'],
+        roleText: '法师/辅助',
+        image: '/imgs/heroes/sangqi/sangqi.jpg',
+        description: '萌趣桑启，治愈队友，种树助力战场    ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '萤火庇护', description: '桑启普攻召萤伤敌显形，无敌蓄力自回血  ' },
+            { name: '桑木为引', description: '桑启引萤火伤敌击飞，有友则治疗队友    ' },
+            { name: '乘风启程', description: '桑启飞草放萤，伤敌显形或为友回血，可充能  ' },
+            { name: '萤火微光', description: '桑启召光之草丛，发射萤火伤敌或疗友   ' }
+           
+        ]
+    },
+    {
+        id: 31,
+        name: '上官婉儿',
+        role:  'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/shangguanwaner/shangguanwaner.png',
+        description: '婉儿墨舞长空，笔力惊鸿，大招收割战场',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '笔阵', description: '婉儿普攻强化，笔力碰撞伤敌，触之回血   ' },
+            { name: '篆法·疾势', description:'婉儿挥笔伤敌，远距爆炸再添一次伤害 ' },
+            { name: '飞白·藏锋', description: '婉儿书写伤敌减速，笔势可储，冷却可变   ' },
+            { name: '章草·横鳞', description: '婉儿冲刺伤敌，多段冲刺高空打击，减冷却    ' }
+           
+        ]
+    },
+    {
+        id: 32,
+        name: '米莱狄',
+        role:  'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/milaidi/milaidi.png',
+        description: '米莱狄召唤机械，远程消耗，推塔能力超强 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '机械仆从', description: '米莱狄召仆从，合体升级，攻敌爆塔有伤害' },
+            { name: '空中力量', description:'米莱狄指挥飞行器伤敌，分身可减速目标' },
+            { name: '强制入侵', description: '米莱狄区域召仆伤敌，技能冷却可储三组     ' },
+            { name: '浩劫磁场', description: '米莱狄大招标记眩晕，增仆速，死敌召三仆 ' }
+           
+        ]
+    },
 ];
+ 
