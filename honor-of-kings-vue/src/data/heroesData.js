@@ -12,16 +12,16 @@ export const heroesData = [
     {
         id: 1,
         name: '露娜',
-        role: ['warrior','assassin'],
-        roleText: '战士/刺客',
-        image: '/imgs/heroes/luna/luna.jpg',
-        description: '月光之女，拥有强大的突进能力和持续输出能力，是战场上的致命杀手。',
-        stats: { attack: 80, defense: 40, magic: 70, difficulty: 90 },
+        role: ['mage','assassin'],
+        roleText: '法师/刺客',
+        image:'./imgs/heroes/luna/luna.jpg',
+        description: '月光之女，拥有强大的突进能力和持续输出能力',
+        stats: { attack: 85, defense: 60, magic: 70, difficulty: 80 },
         skills: [
-            { name: '月光之舞', description: '露娜的普攻对目标造成法术伤害，第三次普攻会造成范围法术伤害并标记敌人' },
-            { name: '弦月斩', description: '露娜挥出一道剑气冲击波，对命中的敌人造成法术伤害并标记敌人' },
-            { name: '炙热剑芒', description: '露娜将剑插入大地，以炙热剑芒牵引附近敌人靠近自己并造成法术伤害' },
-            { name: '新月突击', description: '露娜向指定位置发起突击，对路径上敌人造成法术伤害，如果命中标记敌人则刷新冷却' }
+            { name: '月光之舞', description: '露娜的普攻和技能会标记敌人，标记达到3层时会触发月光之舞效果' },
+            { name: '弦月斩', description: '露娜向指定方向挥出剑气，对路径上的敌人造成伤害并标记' },
+            { name: '炙热剑芒', description: '露娜向指定方向冲锋，对路径上的敌人造成伤害并眩晕' },
+            { name: '新月突击', description: '露娜对指定敌人发起突击，造成大量伤害并刷新技能冷却' }
         ]
     },
     {
@@ -29,44 +29,44 @@ export const heroesData = [
         name: '李白',
         role: 'assassin',
         roleText: '刺客',
-        image: '/imgs/heroes/libai/libai.jpeg',
-        description: '青莲剑仙，以华丽的剑法和灵活的位移著称，能够快速切入敌方后排。',
-        stats: { attack: 90, defense: 30, magic: 20, difficulty: 85 },
+        image: './imgs/heroes/libai/libai.jpeg',
+        description: '青莲剑仙，以华丽的剑法和灵活的位移著称',
+        stats: { attack: 90, defense: 45, magic: 30, difficulty: 85 },
         skills: [
-            { name: '侠客行', description: '李白积累4道剑气后进入侠客行状态，增加攻击力并解锁青莲剑歌' },
-            { name: '将进酒', description: '李白向指定方向突进，对经过的目标造成物理伤害，可连续释放两次' },
-            { name: '神来之笔', description: '李白以自身为中心化为青莲剑阵，对范围内敌人造成物理伤害' },
-            { name: '青莲剑歌', description: '李白化身为剑气，对指定方向范围内的所有敌人飞速穿梭斩击5次' }
+            { name: '侠客行', description: '李白的普攻会减少技能冷却时间' },
+            { name: '将进酒', description: '李白向指定方向突进，对路径上的敌人造成伤害' },
+            { name: '神来之笔', description: '李白以自身为中心化剑为青莲剑阵，对范围内敌人造成伤害' },
+            { name: '青莲剑歌', description: '李白化身为剑气，对指定方向范围内的敌人飞速穿梭斩击' }
         ]
     },
     {
         id: 3,
         name: '貂蝉',
-        role: ['mage','assassin'],
-        roleText: '法师/刺客',
-        image: '/imgs/heroes/diaochan/diaochan.jpg',
-        description: '闭月羞花，拥有美丽的舞姿和强大的法术伤害，是团队的核心输出。',
-        stats: { attack: 30, defense: 40, magic: 95, difficulty: 70 },
+        role: 'mage',
+        roleText: '法师',
+        image: './imgs/heroes/diaochan/diaochan.jpg',
+        description: '闭月羞花，拥有美丽的舞姿和强大的法术伤害',
+        stats: { attack: 40, defense: 50, magic: 95, difficulty: 75 },
         skills: [
-            { name: '语·花印', description: '貂蝉的技能命中会叠加花之印记，叠满4层后回复生命并造成真实伤害' },
+            { name: '语·花印', description: '貂蝉的技能命中会为目标叠加花之印记，持续8秒' },
             { name: '落·红雨', description: '貂蝉向前挥出花球并收回，每段造成法术伤害' },
-            { name: '缘·心结', description: '貂蝉瞬间消失并出现在指定位置，散发3枚花球攻击附近敌人' },
-            { name: '绽·风华', description: '貂蝉原地结成法阵，法阵生成及消失时造成法术伤害' }
+            { name: '缘·心结', description: '貂蝉瞬间消失，并立即出现在指定方向的终点' },
+            { name: '绽·风华', description: '貂蝉绽放风华，原地结成法阵，造成法术伤害' }
         ]
     },
     {
         id: 4,
         name: '孙悟空',
-        role: ['warrior','assassin'],
-        roleText: '战士/刺客',
-        image: '/imgs/heroes/sunwukong/sunwukong.jpg',
-        description: '齐天大圣，拥有超强的爆发力和生存能力，是战场上的不败战神。',
-        stats: { attack: 95, defense: 50, magic: 20, difficulty: 60 },
+        role: 'assassin',
+        roleText: '刺客',
+        image: './imgs/heroes/sunwukong/sunwukong.jpg',
+        description: '齐天大圣，拥有超强的爆发力和生存能力',
+        stats: { attack: 88, defense: 70, magic: 25, difficulty: 60 },
         skills: [
-            { name: '大圣神威', description: '孙悟空每次释放技能后下一次普通攻击变更为强力敲击' },
-            { name: '护身咒法', description: '孙悟空念起护身咒，抵挡一次敌方技能' },
-            { name: '斗战冲锋', description: '孙悟空向指定方向冲锋，如果命中敌人则借力腾空跳跃' },
-            { name: '如意金箍', description: '孙悟空将金箍棒变大直插入地，对范围内敌人造成物理伤害并晕眩' }
+            { name: '大圣神威', description: '孙悟空的普攻和技能命中敌人会强化下一次普攻' },
+            { name: '护身咒法', description: '孙悟空念起护身咒，护身咒可为孙悟空抵挡一次敌方技能' },
+            { name: '斗战冲锋', description: '孙悟空朝指定方向冲锋，命中敌人造成物理伤害' },
+            { name: '如意金箍', description: '孙悟空将金箍棒变大直插入地，对范围内敌人造成物理伤害' }
         ]
     },
     {
@@ -74,14 +74,14 @@ export const heroesData = [
         name: '亚瑟',
         role: ['tank','warrior'],
         roleText: '坦克/战士',
-        image: '/imgs/heroes/yase/yase.png',
+        image: './imgs/heroes/yase/yase.png',
         description: '圣骑之力，新手友好的坦克英雄，拥有稳定的控制能力',
-        stats: { attack: 60, defense: 85, magic: 20, difficulty: 20 },
+        stats: { attack: 65, defense: 85, magic: 30, difficulty: 30 },
         skills: [
-            { name: '圣光守护', description: '亚瑟获得圣光守护，每2秒回复2%的最大生命值' },
-            { name: '誓约之盾', description: '亚瑟增加移动速度，下一次普通攻击变更为跳斩' },
-            { name: '回旋打击', description: '亚瑟召唤圣盾围绕自身旋转，对周围敌人造成物理伤害' },
-            { name: '圣剑裁决', description: '亚瑟向目标跳跃，造成法术伤害并击飞目标' }
+            { name: '圣光守护', description: '亚瑟获得圣光守护，每2秒恢复2%的最大生命值' },
+            { name: '誓约之盾', description: '亚瑟短时间内提高移动速度，下一次普攻造成额外伤害' },
+            { name: '回旋打击', description: '亚瑟在身边召唤圣盾，持续对周围敌人造成伤害' },
+            { name: '圣剑裁决', description: '亚瑟向敌方英雄跳跃，造成目标最大生命值百分比伤害' }
         ]
     },
     {
@@ -89,14 +89,14 @@ export const heroesData = [
         name: '后羿',
         role: 'marksman',
         roleText: '射手',
-        image: '/imgs/heroes/houyi/houyi.webp',
+        image: './imgs/heroes/houyi/houyi.webp',
         description: '半神之弓，拥有强大的持续输出能力和全图支援能力',
         stats: { attack: 92, defense: 40, magic: 20, difficulty: 50 },
         skills: [
             { name: '惩戒射击', description: '后羿的普攻命中敌人后增加自身攻击速度，可叠加3层' },
-            { name: '炙日之矢', description: '后羿向前方射出火焰箭，击中敌方英雄时造成物理伤害' },
-            { name: '燎原箭雨', description: '后羿向前方扇形区域射出箭矢，每支箭矢造成物理伤害' },
-            { name: '火鸟之翼', description: '后羿向前方射出火焰鸟，对路径上的敌人造成物理伤害' }
+            { name: '多重箭矢', description: '后羿强化普攻，单目标高额伤，另两敌半伤。 ' },
+            { name: '落日余晖', description: '显敌视野，范围法伤，减速边缘减半' },
+            { name: '灼日之矢', description: '远距晕眩，爆炸范围伤敌减速' }
         ]
     },
     {
@@ -104,7 +104,7 @@ export const heroesData = [
         name: '蔡文姬',
         role: ['support','mage'],
         roleText: '辅助/法师',
-        image: '/imgs/heroes/caiwenji/caiwenji.png',
+        image: './imgs/heroes/caiwenji/caiwenji.png',
         description: '天籁弦音，拥有强大的治疗能力和控制技能',
         stats: { attack: 35, defense: 55, magic: 80, difficulty: 40 },
         skills: [
@@ -119,7 +119,7 @@ export const heroesData = [
         name: '韩信',
         role: 'assassin',
         roleText: '刺客',
-        image: '/imgs/heroes/hanxin/hanxin.webp',
+        image: './imgs/heroes/hanxin/hanxin.webp',
         description: '国士无双，拥有多段位移和高爆发能力',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -134,7 +134,7 @@ export const heroesData = [
         name: '张飞',
         role: ['tank','support'],
         roleText: '坦克/辅助',
-        image: '/imgs/heroes/zhangfei/zhangfei.png',
+        image: './imgs/heroes/zhangfei/zhangfei.png',
         description: '强力坦克，开团硬控，大招变身护盾保护队友',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -149,7 +149,7 @@ export const heroesData = [
         name: '刘禅',
         role: ['tank','support'],
         roleText: '坦克/辅助',
-        image: '/imgs/heroes/liushan/liushan.png',
+        image: './imgs/heroes/liushan/liushan.png',
         description: '机关干扰者，连续控制开团，旋转大招群伤。',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -164,7 +164,7 @@ export const heroesData = [
         name: '庄周',
         role: ['tank','support'],
         roleText: '坦克/辅助',
-        image: '/imgs/heroes/zhuangzhou/zhuangzhou.png',
+        image: './imgs/heroes/zhuangzhou/zhuangzhou.png',
         description: '解控辅助，群体免控，大招守护队友安危',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -179,7 +179,7 @@ export const heroesData = [
         name: '牛魔',
         role: ['tank','support'],
         roleText: '坦克/辅助',
-        image: '/imgs/heroes/niumo/niumo.png',
+        image: './imgs/heroes/niumo/niumo.png',
         description: '坚盾战神，抗伤控场，为团队冲锋陷阵',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -194,7 +194,7 @@ export const heroesData = [
         name: '钟馗',
         role: ['tank','support'],
         roleText: '坦克/辅助',
-        image: '/imgs/heroes/zhongkui/zhongkui.jpg',
+        image: './imgs/heroes/zhongkui/zhongkui.jpg',
         description: '勾锁拉敌，大招强控，威慑力十足守团战',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -209,7 +209,7 @@ export const heroesData = [
         name: '瑶',
         role: ['mage','support'],
         roleText: '法师/辅助',
-        image: '/imgs/heroes/yao/yao.png',
+        image: './imgs/heroes/yao/yao.png',
         description: '灵鹿附体,可附身加盾，解控变鹿减速敌人',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -224,7 +224,7 @@ export const heroesData = [
         name: '王昭君',
         role: 'mage',
         roleText: '法师',
-        image: '/imgs/heroes/wangzhaojun/wangzhaojun.png',
+        image: './imgs/heroes/wangzhaojun/wangzhaojun.png',
         description: '冰盾控场法师，冰冻减速联动，大招暴风雪。',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -239,7 +239,7 @@ export const heroesData = [
         name: '西施',
         role: 'mage',
         roleText: '法师',
-        image: '/imgs/heroes/xishi/xishi.png',
+        image: './imgs/heroes/xishi/xishi.png',
         description: '灵动西施，妙舞操幻纱，以智控敌乱战场 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -254,7 +254,7 @@ export const heroesData = [
         name: '鲁班七号',
         role: 'marksman',
         roleText: '射手',
-        image: '/imgs/heroes/luban/luban.png',
+        image: './imgs/heroes/luban/luban.png',
         description: '火力射手，火力倾泻战场，收割实力强劲 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -269,7 +269,7 @@ export const heroesData = [
         name: '艾琳',
         role: 'marksman',
         roleText: '射手',
-        image: '/imgs/heroes/ailin/ailin.png',
+        image: './imgs/heroes/ailin/ailin.png',
         description: '法伤射手，技能穿梭，持续输出战场强控 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -284,7 +284,7 @@ export const heroesData = [
         name: '公孙离',
         role: 'marksman',
         roleText: '射手',
-        image: '/imgs/heroes/gongsunli/gongsunli.jpeg',
+        image: './imgs/heroes/gongsunli/gongsunli.jpeg',
         description: '伞舞灵动，多段位移，高爆发射手典范 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -299,7 +299,7 @@ export const heroesData = [
         name: '百里守约',
         role: ['marksman','assassin'],
         roleText: '射手/刺客',
-        image: '/imgs/heroes/bailishouyue/bailishouyue.jpg',
+        image: './imgs/heroes/bailishouyue/bailishouyue.jpg',
         description: '超远狙击破防，陷阱控场，偷袭收割能手 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -314,7 +314,7 @@ export const heroesData = [
         name: '孙尚香',
         role: 'marksman',
         roleText: '射手',
-        image: '/imgs/heroes/sunshangxiang/sunshangxiang.webp',
+        image: './imgs/heroes/sunshangxiang/sunshangxiang.webp',
         description: '翻滚强化炮击，高爆输出，灵活射手典范 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -329,7 +329,7 @@ export const heroesData = [
         name: '宫本武藏',
         role: ['warrior','assassin'],
         roleText: '战士/刺客',
-        image: '/imgs/heroes/gongbenwuzang/gongbenwuzang.png',
+        image: './imgs/heroes/gongbenwuzang/gongbenwuzang.png',
         description: '无双突进强控，技能衔接，高爆发战士 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -344,7 +344,7 @@ export const heroesData = [
         name: '嫦娥',
         role: ['warrior','mage'],
         roleText: '战士/法师',
-        image: '/imgs/heroes/change/change.jpg',
+        image: './imgs/heroes/change/change.jpg',
         description: '蓝量换血伤，技能爆发强，清线守塔佳 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -359,7 +359,7 @@ export const heroesData = [
         name: '盘古',
         role: 'warrior',
         roleText: '战士',
-        image: '/imgs/heroes/pangu/pangu.png',
+        image: './imgs/heroes/pangu/pangu.png',
         description: '斧刃撕裂减甲，枪形态突进，近战强控 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -374,7 +374,7 @@ export const heroesData = [
         name: '铠',
         role: ['warrior','tank'],
         roleText: '战士/坦克',
-        image: '/imgs/heroes/kai/kai.jpg',
+        image: './imgs/heroes/kai/kai.jpg',
         description: '一刀流战士，大招增伤霸体，近战收割强手 ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -389,7 +389,7 @@ export const heroesData = [
         name: '澜',
         role: ['warrior','assassin'],
         roleText: '战士/刺客',
-        image: '/imgs/heroes/lan/lan.jpg',
+        image: './imgs/heroes/lan/lan.jpg',
         description: '潜水突袭收割，多段位移，高爆发刺客  ',
         stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
         skills: [
@@ -400,7 +400,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 26,
+        id: 27,
         name: '海月',
         role: 'mage',
         roleText: '法师',
@@ -415,7 +415,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 27,
+        id: 28,
         name: '少司缘',
         role: ['mage','support'],
         roleText: '法师/辅助',
@@ -430,7 +430,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 28,
+        id: 29,
         name: '海诺',
         role: 'mage',
         roleText: '法师',
@@ -446,7 +446,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 29,
+        id: 30,
         name: '朵莉亚',
         role:  ['mage','support'],
         roleText: '法师/辅助',
@@ -462,7 +462,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 30,
+        id: 31,
         name: '桑启',
         role:  ['mage','support'],
         roleText: '法师/辅助',
@@ -478,7 +478,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 31,
+        id: 32,
         name: '上官婉儿',
         role:  'mage',
         roleText: '法师',
@@ -494,7 +494,7 @@ export const heroesData = [
         ]
     },
     {
-        id: 32,
+        id: 33,
         name: '米莱狄',
         role:  'mage',
         roleText: '法师',
@@ -507,6 +507,175 @@ export const heroesData = [
             { name: '强制入侵', description: '米莱狄区域召仆伤敌，技能冷却可储三组     ' },
             { name: '浩劫磁场', description: '米莱狄大招标记眩晕，增仆速，死敌召三仆 ' }
            
+        ]
+    },
+    {
+        id: 34,
+        name: '张良',
+        role:  'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/zhangliang/zhangliang.png',
+        description: '张良乃法师谋士，控场强，善用法阵制敌取胜  ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '言灵·咒令', description: '被动：1.5秒内连伤，1.2秒满叠，真伤随级增 ' },
+            { name: '言灵·壁垒', description:'召唤壁垒，触之伤晕减速，再触衰减' },
+            { name: '言灵·命数', description: '召唤侵蚀法阵，多存持续伤敌，阵中提移速供视野' },
+            { name: '言灵·操纵', description: '大招抓敌压制2.2秒，结束生区伤敌晕眩  ' }
+           
+        ]
+    },
+    {
+        id: 35,
+        name: '杨玉环',
+        role:  'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/yangyuhuan/yangyuhuan.png',
+        description: '音波法师，治疗/输出双形态，团队增益核心',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '惊鸿调', description: '切换曲调，破阵伤敌，清平为友军及自身回血 ' },
+            { name: '霓裳曲', description:'音波伤敌减速，普攻强化，兵野额外伤 ' },
+            { name: '胡旋乐', description: '提速后范围晕眩，附可观法术伤害' },
+            { name: '长恨歌', description: '无敌解控，群体治疗并对敌造成伤害' }
+           
+        ]
+    },
+    {
+        id: 36,
+        name: '明世隐',
+        role:   ['mage','support'],
+        roleText: '法师/辅助',
+        image: '/imgs/heroes/mingshiyin/mingshiyin.png',
+        description: '明世隐牵人增伤或承伤，团队辅助利器 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '大吉大利', description: '被动：普攻强化伤敌，回血，非英雄回复减半' },
+            { name: '临卦·无忧', description:'连友增益，触链伤敌，自身属性提升 ' },
+            { name: '师卦·飞翼', description: '链敌减防伤敌，自增防，暴露视野' },
+            { name: '泰卦·长生', description: '链敌伤真，链友回生，双连抽取，死返冷却' }
+           
+        ]
+    },
+    {
+        id: 37,
+        name: '女娲',
+        role: 'mage',
+        roleText: '法师',
+        image: '/imgs/heroes/nvwa/nvwa.png',
+        description: '多维度施法，远程消耗与控场兼备法师 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '寰宇神识', description: '女娲提升10~20%视野、普攻与技能释放范围' },
+            { name: '神晖：缔造', description:'能量击退，十字阵伤，触壁爆炸增伤 ' },
+            { name: '神晖：融聚', description: '造矩阵阻敌，合成爆炸，多存多控' },
+            { name: '神晖：降临', description: '裂地传送，护己伤敌，法强提速' },
+            { name: '神晖：诛灭', description: '能量直伤，遇矩阵空间触发爆炸' }
+        ]
+    },
+    {
+        id: 38,
+        name: '狂铁',
+        role:  ['warrior','tank'],
+        roleText: '战士/坦克',
+        image: '/imgs/heroes/kuangtie/kuangtie.png',
+        description: '狂铁战士，能量战斗，近敌输出控制强推 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '无畏战车', description: '普攻技能充能，满能强化，附带回复' },
+            { name: '碎裂之刃', description:'双挥回血，充能伤害与回复倍增 ' },
+            { name: '强袭风暴', description: '冲锋强化普攻，充能击晕减速' },
+            { name: '力场压制', description: '砸地减速生盾，充能增伤，电弧窃速' }
+        ]
+    },
+    {
+        id: 39,
+        name: '梦奇',
+        role:  ['mage','tank'],
+        roleText: '法师/坦克',
+        image: '/imgs/heroes/mengqi/mengqi.jpg',
+        description: '梦奇体型可变，近战远程切换，能抗能打 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '食梦', description: '技获质量增攻防，战斗非战耗有别' },
+            { name: '梦境萦绕', description:'护盾伤敌增质量，普攻减CD ' },
+            { name: '梦力泡泡', description: '泡泡减速回收增质，久飞爆弹高伤' },
+            { name: '梦境环游', description: '环游获质伤敌，停环击飞，霸体可控' }
+        ]
+    },
+    {
+        id: 40,
+        name: '廉颇',
+        role: 'tank',
+        roleText: '坦克',
+        image: '/imgs/heroes/lianpo/lianpo.webp',
+        description: '廉颇，肉盾坦克，强控开团，抗伤搅乱战局 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '勇士之魂', description: '战斗提战意减伤增攻速，脱战回血' },
+            { name: '爆裂冲撞', description:'冲锋击飞，普攻三击附加高额伤 ' },
+            { name: '熔岩重击', description: '护盾减伤崩地伤敌，拉怪刷新一技能' },
+            { name: '天崩地裂', description: '三技能跳砸连击，伤害递增且带控，可接一技能' }
+        ]
+    },
+    {
+        id: 41,
+        name: '白起',
+        role: 'tank',
+        roleText: '坦克',
+        image: '/imgs/heroes/baiqi/baiqi.png',
+        description: '坦克战神，嘲讽强控，团战搅局能手 ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '反击之镰', description: '受创增暗影之力，提移速与治疗效果' },
+            { name: '血之回响', description:'蓄力旋镰伤敌回血，被动受伤概率触发，蓄满三倍收益' },
+            { name: '死神之镰', description: '唤镰拉敌，造成法伤减速，被动对残血目标额外增伤30%' },
+            { name: '傲慢嘲讽', description: '满能跳砸，高额法术伤害，依血量增时嘲讽' }
+        ]
+    },
+    {
+        id: 42,
+        name: '鲁班大师',
+        role: ['tank','support'],
+        roleText: '坦克/辅助',
+        image: '/imgs/heroes/lubandashi/lubandashi.jpg',
+        description: '鲁班大师，机械操控，牵引队友，强控开团能手  ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '稷下科技', description: '施法叠盾四层，五秒强击附带法伤' },
+            { name: '助推跳跃', description:'跳跃落地展力场，击飞敌人并造成法伤' },
+            { name: '助手驰援', description: '施盾连队友，队友交互位移伤敌，未用返30%冷却' },
+            { name: '强力收纳', description: '扇形连敌，扯回爆炸，多目标伤害递减' }
+        ]
+    },
+    {
+        id: 43,
+        name: '猪八戒',
+        role:'tank',
+        roleText: '坦克',
+        image: '/imgs/heroes/zhubajie/zhubajie.jpg',
+        description: '肉坦能抗，耙击回血，控制拉扯搅乱战局   ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '毫发无伤', description: '损血暂存，伤敌40%残血转真血，普攻附额外物理伤' },
+            { name: '肉弹蹦床', description:'两段跳砸伤敌击飞，霸体免控，多敌衰减小兵增伤' },
+            { name: '倒打一耙', description: '耙击减速，嵌墙撞敌晕眩，普攻可拉回目标' },
+            { name: '圈养时刻', description: '筑墙拦敌，施法霸体，起墙瞬间高额伤' }
+        ]
+    },
+    {
+        id: 44,
+        name: '孙权',
+        role:'marksman',
+        roleText: '射手',
+        image: '/imgs/heroes/sunquan/sunquan.webp',
+        description: '双刀突进，强化连击，破甲续航团战强   ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '坐断东南', description: '普攻技能施印记降敌伤，攻速提施法，满层解锁大招。' },
+            { name: '麾召千锋', description:'军旗掷地减速伤敌，破阵箭雨高频打击' },
+            { name: '疾弦骤羽', description: '常规疾弦加速锁敌，破阵近距减攻间隔，能耗有别。' },
+            { name: '麾旌破阵', description: '孙权执旗追敌挥旗攻击，末击倍伤后退，进入破阵状态' }
         ]
     },
 ];
