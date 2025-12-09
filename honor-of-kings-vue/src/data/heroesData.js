@@ -678,5 +678,110 @@ export const heroesData = [
             { name: '麾旌破阵', description: '孙权执旗追敌挥旗攻击，末击倍伤后退，进入破阵状态' }
         ]
     },
+    {
+        id: 45,
+        name: '苍',
+        role:'marksman',
+        roleText: '射手',
+        image: '/imgs/heroes/cang/cang.jpg',
+        description: '苍化双形，狼啸冰锋破敌，箭影猎光灼霄    ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '追猎', description: '苍在草丛移速增10% - 20%、积累潜伏值，普攻强化，伤野怪增25% ' },
+            { name: '翔跃为号', description:'苍翔跃空中加速穿地形，普攻强箭伤敌或落地储强普 ' },
+            { name: '狼魂陷阱', description: '苍投狼魂陷阱，踩中致伤召狼魂，隐身可叠4个，狼魂减速' },
+            { name: '领袖姿态', description: '苍激发领袖姿态，召唤狼魂冲锋，激活陷阱，获骑射及属性增益 ' }
+        ]
+    },
+    {
+        id: 46,
+        name: '戈娅',
+        role:'marksman',
+        roleText: '射手',
+        image: '/imgs/heroes/geya/geya.jpeg',
+        description: '戈娅驭沙驰风，沙暴弩箭纵横，射手破敌无双     ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '漂移疾射', description: '戈娅驾舟战沙海，蓄力起步，连弩漂移，攻速有别 ' },
+            { name: '弹射起步', description:'戈娅沙舟爆发加速，普攻转向溅黑砂，速快伤高减速敌  ' },
+            { name: '逆转射击', description: '戈娅激引擎反冲伤敌，顺势速射三次再添输出 ' },
+            { name: '黑砂爆弹', description: '戈娅射矢引沙暴，爆炸减速牵引，强普再炸伤敌  ' }
+        ]
+    },
+    {
+        id: 47,
+        name: '阿古朵',
+        role:'marksman',
+        roleText: '射手',
+        image: '/imgs/heroes/aguduo/aguduo.jpg',
+        description: '阿古朵驭熊为伴，野区称王，技能控场强援      ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '山林奇缘', description: '阿古朵结缘野怪，普攻落雷种，自拾增益敌触伤  ' },
+            { name: '野蛮生长', description:'阿古朵播园唤兽，速攻皆升，伙伴随技共战强敌   ' },
+            { name: '翻滚吧球球', description: '阿古朵骑球翻滚撞敌，免疫硬控伤敌眩晕，撞墙弹射增效；分离翻滚强普射雷。  ' },
+            { name: '峡谷总动员', description: '骑乘时阿古朵驱球砸地，伤敌晕眩，球继承属性作战；分离球可复活召回' }
+        ]
+    },
+    {
+        id: 48,
+        name: '蒙犽',
+        role:'marksman',
+        roleText: '射手',
+        image: '/imgs/heroes/mengya/mengya.png',
+        description: '蒙犽炮火轰鸣，携热矢冲锋，火力压制破敌阵',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '炽热浑天', description: '蒙犽攻速转冷却，攒炽怒入兴奋，溢出回血衰减快   ' },
+            { name: '狂轰火线', description:'蒙犽“浑天”扫射，子弹伤敌，兴奋贯穿，攻速提施放速    ' },
+            { name: '爆裂重炮', description: '蒙犽怒发重炮破敌阵，星弹裂空，兴奋霰增势猛。' },
+            { name: '飞弹援袭', description: '蒙犽索敌导弹轰，兴奋速射，再点即停冷却减 ' }
+        ]
+    },
+    {
+        id: 49,
+        name: '空空儿',
+        role:['warrior','support'],
+        roleText: '战士/辅助',
+        image: '/imgs/heroes/kongkonger/kongkonger.webp',
+        description: '空空儿灵巧多变，战场游走，辅助战士双修',
+        stats: { attack: 70, defense: 60, magic: 40, difficulty: 80 },
+        skills: [
+            { name: '盗亦有道', description: '空空儿移速攒能瞬移，诡手夺装伤敌，非英雄目标命中获金币    ' },
+            { name: '瞒天', description:'空空放分身落处伤己回血，换位再伤，分身仿形伤害有别     ' },
+            { name: '过海', description: '空空留影前冲伤敌回血，再用换位，分身仿行承伤高' },
+            { name: '三洞藏仙', description: '空空旋偶破敌阵，三洞引分呈三角，换位攒能战犹酣。  ' }
+        ]
+    },
+    {
+        id: 50,
+        name: '孙膑',
+        role:['mage','support'],
+        roleText: '法师/辅助',
+        image: '/imgs/heroes/sunbin/sunbin.jpg',
+        description: '孙膑善辅助，时光回溯增益，大招沉默控场 ',
+        stats: { attack: 70, defense: 60, magic: 40, difficulty: 80 },
+        skills: [
+            { name: '时间沙漏', description: '孙膑释放技能会增加15%~30%移动速度，持续2秒' },
+            { name: '时空爆弹', description:'孙膑投弹附敌身，三秒炸圈伤敌减速，解弹即爆威力显      ' },
+            { name: '时之波动', description: '孙膑引时空增友速，倒流返伤还能回蓝，自带冷却减益。' },
+            { name: '时光流逝', description: '孙膑掷强弹展力场，初伤减速沉默，后炸高额再制敌   ' }
+        ]
+    },
+    {
+        id: 51,
+        name: '云中君',
+        role:'assassin',
+        roleText: '刺客',
+        image: '/imgs/heroes/yunzhongjun/yunzhongjun.webp',
+        description: '云中君可无视地形飞行，近战猛击附带流血效果  ',
+        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        skills: [
+            { name: '云神·展翼', description: '云中君4级飞穿地形，普攻攒速，命中叠伤，移损野全触发    ' },
+            { name: '聊翱游兮', description:'云中君蓄力俯冲提速获盾，控敌眩晕，命中英雄可后跳，取消返冷却     ' },
+            { name: '飒风飞羽', description: '云中君挥风刃两击减速，4秒提攻速，羽刃远攻多段伤' },
+            { name: '猋远举兮云中', description: '云中君大招免伤卷敌升空，撕裂增伤落地击飞破敌阵  ' }
+        ]
+    },
 ];
  
