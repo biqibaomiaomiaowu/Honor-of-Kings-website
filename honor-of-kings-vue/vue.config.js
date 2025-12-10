@@ -4,6 +4,10 @@ module.exports = defineConfig({
 })
 module.exports = {
   devServer: {
-    disableHostCheck: true,
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      '1jz1al7459604.vicp.fun'
+    ]
   }
 };
