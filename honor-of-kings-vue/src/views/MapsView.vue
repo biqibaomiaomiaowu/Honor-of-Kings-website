@@ -56,9 +56,6 @@ import ParticleText from '../components/home/ParticleText.vue';
     z-index: 1;
 }
 
-.intro-section {
-}
-
 .page-header {
     text-align: center;
     margin-bottom: 2rem;

@@ -28,8 +28,8 @@ class Particle {
     this.targetX = targetX;
     this.targetY = targetY;
     // 初始位置
-    this.x = Math.random() * canvasRef.value.width;
-    this.y = Math.random() * canvasRef.value.height;
+    // this.x = Math.random() * canvasRef.value.width;
+    // this.y = Math.random() * canvasRef.value.height;
     
     this.size = Math.random() * 1 + 0.5; // 粒子更小 (1.5+1 -> 1+0.5)
     this.color = props.color;
@@ -41,6 +41,10 @@ class Particle {
     this.orbitSpeed = (Math.random() * 0.02 + 0.01) * (Math.random() < 0.5 ? 1 : -1); 
     
     this.ease = 0.025; // 缓动速度也减半
+
+    // 初始位置：直接设置在轨道上，避免出现矩形分布的视觉效果
+    this.x = this.targetX + Math.cos(this.angle) * this.currentRadius;
+    this.y = this.targetY + Math.sin(this.angle) * this.currentRadius;
   }
 
   draw() {
@@ -200,6 +204,9 @@ watch(() => props.text, init);
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  /* 添加遮罩，使上下边缘的粒子淡出，避免硬切割导致的矩形感 */
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
 }
 
 canvas {
