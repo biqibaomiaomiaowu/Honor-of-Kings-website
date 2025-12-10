@@ -16,7 +16,7 @@ export const heroesData = [
         roleText: '法师/刺客',
         image:'./imgs/heroes/luna/luna.jpg',
         description: '月光之女，拥有强大的突进能力和持续输出能力',
-        stats: { attack: 85, defense: 60, magic: 70, difficulty: 80 },
+        stats: { attack: 40, defense: 50, magic: 70, difficulty: 90 },
         skills: [
             { name: '月光之舞', description: '露娜的普攻和技能会标记敌人，标记达到3层时会触发月光之舞效果' },
             { name: '弦月斩', description: '露娜向指定方向挥出剑气，对路径上的敌人造成伤害并标记' },
@@ -31,7 +31,7 @@ export const heroesData = [
         roleText: '刺客',
         image: './imgs/heroes/libai/libai.jpeg',
         description: '青莲剑仙，以华丽的剑法和灵活的位移著称',
-        stats: { attack: 90, defense: 45, magic: 30, difficulty: 85 },
+        stats: { attack: 90, defense: 30, magic: 20, difficulty: 80 },
         skills: [
             { name: '侠客行', description: '李白的普攻会减少技能冷却时间' },
             { name: '将进酒', description: '李白向指定方向突进，对路径上的敌人造成伤害' },
@@ -46,7 +46,7 @@ export const heroesData = [
         roleText: '法师',
         image: './imgs/heroes/diaochan/diaochan.jpg',
         description: '闭月羞花，拥有美丽的舞姿和强大的法术伤害',
-        stats: { attack: 40, defense: 50, magic: 95, difficulty: 75 },
+        stats: { attack: 30, defense: 20, magic: 90, difficulty: 80 },
         skills: [
             { name: '语·花印', description: '貂蝉的技能命中会为目标叠加花之印记，持续8秒' },
             { name: '落·红雨', description: '貂蝉向前挥出花球并收回，每段造成法术伤害' },
@@ -61,7 +61,7 @@ export const heroesData = [
         roleText: '刺客',
         image: './imgs/heroes/sunwukong/sunwukong.jpg',
         description: '齐天大圣，拥有超强的爆发力和生存能力',
-        stats: { attack: 88, defense: 70, magic: 25, difficulty: 60 },
+        stats: { attack: 88, defense: 30, magic: 25, difficulty: 70 },
         skills: [
             { name: '大圣神威', description: '孙悟空的普攻和技能命中敌人会强化下一次普攻' },
             { name: '护身咒法', description: '孙悟空念起护身咒，护身咒可为孙悟空抵挡一次敌方技能' },
@@ -76,7 +76,7 @@ export const heroesData = [
         roleText: '坦克/战士',
         image: './imgs/heroes/yase/yase.png',
         description: '圣骑之力，新手友好的坦克英雄，拥有稳定的控制能力',
-        stats: { attack: 65, defense: 85, magic: 30, difficulty: 30 },
+        stats: { attack: 65, defense: 85, magic: 20, difficulty: 30 },
         skills: [
             { name: '圣光守护', description: '亚瑟获得圣光守护，每2秒恢复2%的最大生命值' },
             { name: '誓约之盾', description: '亚瑟短时间内提高移动速度，下一次普攻造成额外伤害' },
@@ -91,7 +91,7 @@ export const heroesData = [
         roleText: '射手',
         image: './imgs/heroes/houyi/houyi.webp',
         description: '半神之弓，拥有强大的持续输出能力和全图支援能力',
-        stats: { attack: 92, defense: 40, magic: 20, difficulty: 50 },
+        stats: { attack: 92, defense: 20, magic: 20, difficulty: 30 },
         skills: [
             { name: '惩戒射击', description: '后羿的普攻命中敌人后增加自身攻击速度，可叠加3层' },
             { name: '多重箭矢', description: '后羿强化普攻，单目标高额伤，另两敌半伤。 ' },
@@ -106,7 +106,7 @@ export const heroesData = [
         roleText: '辅助/法师',
         image: './imgs/heroes/caiwenji/caiwenji.png',
         description: '天籁弦音，拥有强大的治疗能力和控制技能',
-        stats: { attack: 35, defense: 55, magic: 80, difficulty: 40 },
+        stats: { attack: 10, defense: 60, magic: 90, difficulty: 70 },
         skills: [
             { name: '长歌行', description: '蔡文姬受到伤害后短暂提高移动速度' },
             { name: '思无邪', description: '蔡文姬演奏乐曲，为自身和周围的友方英雄恢复生命值' },
@@ -121,7 +121,7 @@ export const heroesData = [
         roleText: '刺客',
         image: './imgs/heroes/hanxin/hanxin.webp',
         description: '国士无双，拥有多段位移和高爆发能力',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack:70, defense: 20, magic: 10, difficulty: 80 },
         skills: [
             { name: '杀意之枪', description: '韩信的第四次普攻会击飞目标' },
             { name: '无情冲锋', description: '韩信持枪冲锋后挑飞目标，对其造成物理伤害' },
@@ -136,7 +136,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: './imgs/heroes/zhangfei/zhangfei.png',
         description: '强力坦克，开团硬控，大招变身护盾保护队友',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 40, defense: 100, magic: 0, difficulty: 60 },
         skills: [
             { name: '黑暗潜能', description: '张飞变身前，每次普攻会增加3点狂意。张飞变身后，施放技能会使得周围的地面震动，附近的敌人将会减少25~50%移速，持续2秒。' },
             { name: '画地为牢', description: '张飞挥扫蛇矛对敌人造成580/696/812/928/1044/1160(+145%物理攻击)物理伤害，命中敌方英雄时会将其击退。命中敌方单位会增加3点狂意。' },
@@ -151,7 +151,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: './imgs/heroes/liushan/liushan.png',
         description: '机关干扰者，连续控制开团，旋转大招群伤。',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 80, magic: 20, difficulty: 30 },
         skills: [
             { name: '磁力屏障', description: '刘禅被动：技能对机关造成伤害并干扰1.2秒，掠夺零件回复生命（随等级成长）。' },
             { name: '小霸王护盾', description: '刘禅开盾冲锋获护盾加速，强化普攻击飞敌人。' },
@@ -166,7 +166,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: './imgs/heroes/zhuangzhou/zhuangzhou.png',
         description: '解控辅助，群体免控，大招守护队友安危',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 80, magic: 40, difficulty: 20 },
         skills: [
             { name: '自然意志', description: '庄周被动：免控解控+15%减伤移速，6秒自动回血（随额外生命成长）。' },
             { name: '化蝶', description: '庄周化蝶飞行，路径敌人受法术伤害与高额减速。' },
@@ -181,7 +181,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: './imgs/heroes/niumo/niumo.png',
         description: '坚盾战神，抗伤控场，为团队冲锋陷阵',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 90, magic: 10, difficulty: 40 },
         skills: [
             { name: '强力援护', description: '当800范围内有友方英雄时，为自身和范围内生命值最低的友方英雄提供110点双抗加成。' },
             { name: '咆哮之斧', description: '牛魔横劈大斧伤敌标记，印记叠层增额外伤害' },
@@ -196,7 +196,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: './imgs/heroes/zhongkui/zhongkui.jpg',
         description: '勾锁拉敌，大招强控，威慑力十足守团战',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 40, defense: 60, magic: 80, difficulty: 80 },
         skills: [
             { name: '制裁仪式', description: '伤逾十成爆敌身，亡后三秒再燃幽冥威' },
             { name: '虚空清道者', description: '钟馗锤地伤敌减速，内圈高伤加印锁敌' },
@@ -211,7 +211,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: './imgs/heroes/yao/yao.png',
         description: '灵鹿附体,可附身加盾，解控变鹿减速敌人',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 10, defense: 50, magic: 75, difficulty: 50 },
         skills: [
             { name: '山鬼·白鹿', description: '瑶受硬控化鹿灵，免控减速，技能冷却刷新' },
             { name: '若有人兮', description: '举杖击退，跟踪打击带击飞显形，多态有增益' },
@@ -226,7 +226,7 @@ export const heroesData = [
         roleText: '法师',
         image: './imgs/heroes/wangzhaojun/wangzhaojun.png',
         description: '冰盾控场法师，冰冻减速联动，大招暴风雪。',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 50, defense: 40, magic: 90, difficulty: 80 },
         skills: [
             { name: '冰封之心', description: '脱战获冰盾，普攻化锥，技能附减速效果' },
             { name: '凋零冰晶', description: '冰晶绽放高伤加冰冷，施法获视野2秒。' },
@@ -241,7 +241,7 @@ export const heroesData = [
         roleText: '法师',
         image: './imgs/heroes/xishi/xishi.png',
         description: '灵动西施，妙舞操幻纱，以智控敌乱战场 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 50, defense: 40, magic: 90, difficulty: 80 },
         skills: [
             { name: '少女的把戏', description: '西施技能伤害随距增，每100增5%，至多提40% ' },
             { name: '纱缚之印', description: '西施扔法器伤敌聚拢，纱缚印控敌，非英雄双倍 ' },
@@ -256,7 +256,7 @@ export const heroesData = [
         roleText: '射手',
         image: './imgs/heroes/luban/luban.png',
         description: '火力射手，火力倾泻战场，收割实力强劲 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 30, magic: 20, difficulty: 50 },
         skills: [
             { name: '火力压制', description: '鲁班七号五普或技能后扫射，三次伤害分敌增减' },
             { name: '河豚手雷', description: '鲁班手雷：高额物理伤，减速控敌并获视野 ' },
@@ -271,7 +271,7 @@ export const heroesData = [
         roleText: '射手',
         image: './imgs/heroes/ailin/ailin.png',
         description: '法伤射手，技能穿梭，持续输出战场强控 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 50, defense: 40, magic: 90, difficulty: 70 },
         skills: [
             { name: '精灵舞步', description: '艾琳：普攻获能飞行，强普双伤，取优穿透吸血' },
             { name: '叶舞·致意', description: '艾琳月桂叶：命中叠加印记，环伤减速，法攻减冷却  ' },
@@ -286,7 +286,7 @@ export const heroesData = [
         roleText: '射手',
         image: './imgs/heroes/gongsunli/gongsunli.jpeg',
         description: '伞舞灵动，多段位移，高爆发射手典范 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 88, defense: 20, magic: 30, difficulty: 70 },
         skills: [
             { name: '晚云落', description: '公孙离：印记群伤，伞位回返，移速攻速追伤可存。' },
             { name: '岑中归月', description: '阿离向指定方向瞬步，并将纸伞留在原地（如果纸伞在阿离手中）  ' },
@@ -301,7 +301,7 @@ export const heroesData = [
         roleText: '射手/刺客',
         image: './imgs/heroes/bailishouyue/bailishouyue.jpg',
         description: '超远狙击破防，陷阱控场，偷袭收割能手 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 70, defense: 20, magic: 10, difficulty: 70 },
         skills: [
             { name: '瞄准', description: '百里守约：伏击增伤穿甲，暴击提升技能伤害' },
             { name: '静谧之眼', description: '守约布视野装置，300秒探测，多敌占速失；非战隐匿提攻速移速 。  ' },
@@ -316,7 +316,7 @@ export const heroesData = [
         roleText: '射手',
         image: './imgs/heroes/sunshangxiang/sunshangxiang.webp',
         description: '翻滚强化炮击，高爆输出，灵活射手典范 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 30, magic: 0, difficulty: 70 },
         skills: [
             { name: '活力迸发', description: '被动：孙尚香每次普通攻击命中敌人都会减少0.5秒翻滚突袭的冷却时间。' },
             { name: '翻滚突袭', description: '孙尚香翻滚强化射击，近敌提速，普攻重置增距  ' },
@@ -331,7 +331,7 @@ export const heroesData = [
         roleText: '战士/刺客',
         image: './imgs/heroes/gongbenwuzang/gongbenwuzang.png',
         description: '无双突进强控，技能衔接，高爆发战士 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 80, defense: 60, magic: 10, difficulty: 60 },
         skills: [
             { name: '二天一流', description: '技能蓄势，普攻强化，多伤减CD破敌 。' },
             { name: '空明斩', description: '空明斩剑气伤敌减速，释放霸体抗控。  ' },
@@ -346,7 +346,7 @@ export const heroesData = [
         roleText: '战士/法师',
         image: './imgs/heroes/change/change.jpg',
         description: '蓝量换血伤，技能爆发强，清线守塔佳 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 40, magic: 90, difficulty: 60 },
         skills: [
             { name: '月盈', description: '移动普攻攒强化，减速回蓝，满蓝转回血。' },
             { name: '月辰', description: '推球定身英雄，穿插减时，获普攻移速。  ' },
@@ -361,7 +361,7 @@ export const heroesData = [
         roleText: '战士',
         image: './imgs/heroes/pangu/pangu.png',
         description: '斧刃撕裂减甲，枪形态突进，近战强控 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 70, defense: 50, magic: 0, difficulty: 30 },
         skills: [
             { name: '盘古斧', description: '斧碎化臂，斧伤流血，臂击范围高额伤' },
             { name: '狂怒突袭', description: '跃地强普冲锋，斧臂双态攻速增，冷却减半  ' },
@@ -376,7 +376,7 @@ export const heroesData = [
         roleText: '战士/坦克',
         image: './imgs/heroes/kai/kai.jpg',
         description: '一刀流战士，大招增伤霸体，近战收割强手 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 70, magic: 0, difficulty: 50 },
         skills: [
             { name: '修罗之魂', description: '铠的普攻和【极刃风暴】只命中一个目标时将会额外造成50%伤害。' },
             { name: '回旋之刃', description: '掷刃弹射减速，回血减CD，攻速移速双增。  ' },
@@ -391,7 +391,7 @@ export const heroesData = [
         roleText: '战士/刺客',
         image: './imgs/heroes/lan/lan.jpg',
         description: '潜水突袭收割，多段位移，高爆发刺客  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 40, magic: 0, difficulty: 80 },
         skills: [
             { name: '狩猎', description: '当敌人的生命值低于30%，会被澜视作“猎物”。澜的技能和普攻对“猎物”额外造成7.5%~15%真实伤害' },
             { name: '破浪', description: '下潜加速，河道常驻，猎物近则爆发追击   ' },
@@ -406,7 +406,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/haiyue/haiyue.webp',
         description: '幻境法师，操纵月华，大招致命  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 50, magic: 90, difficulty: 30 },
         skills: [
             { name: '别月', description: '海月耗月盘放技能，命中叠印触发效果 ' },
             { name: '瞬华', description: '海月释放月光，造成法术伤害，印记触发额外真伤' },
@@ -421,7 +421,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: '/imgs/heroes/shaosiyuan/shaosiyuan.png',
         description: '辅助法师，牵线搭桥，掌控姻缘之线  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 30, magic: 90, difficulty: 90 },
         skills: [
              { name: '吟行', description: '7.5 - 6秒强化普攻，达成业绩奖金币减CD  ' },
             { name: '两同心', description: '祝友“良缘”回血，触发赐福再回并加速 ' },
@@ -436,7 +436,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/hainuo/hainuo.png',
         description: '海诺输出极高，可远程近战，大招回溯战场   ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack:90, defense: 60, magic: 76, difficulty: 60 },
         skills: [
             { name: '命运洞察', description: '海诺双态战斗，命中叠印，远近伤害各异' },
             { name: '命刃·追芒/旋击', description: '海诺命中减冷，远掷杖伤近挥刃，回血减速  ' },
@@ -452,7 +452,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: '/imgs/heroes/duoliya/duoliya.jpg',
         description: '人鱼公主朵莉亚，辅助能续航还可重置技能    ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 40, magic: 80, difficulty: 20 },
         skills: [
             { name: '人鱼之赐', description: '水域化人鱼，减控回血，赐契约助队友 ' },
             { name: '欢歌', description: '朵莉亚声波扩散伤敌减速，水域释放有击退晕   ' },
@@ -468,7 +468,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: '/imgs/heroes/sangqi/sangqi.jpg',
         description: '萌趣桑启，治愈队友，种树助力战场    ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 60, magic: 80, difficulty: 20 },
         skills: [
             { name: '萤火庇护', description: '桑启普攻召萤伤敌显形，无敌蓄力自回血  ' },
             { name: '桑木为引', description: '桑启引萤火伤敌击飞，有友则治疗队友    ' },
@@ -484,7 +484,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/shangguanwaner/shangguanwaner.png',
         description: '婉儿墨舞长空，笔力惊鸿，大招收割战场',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 40, defense: 30, magic: 90, difficulty: 90 },
         skills: [
             { name: '笔阵', description: '婉儿普攻强化，笔力碰撞伤敌，触之回血   ' },
             { name: '篆法·疾势', description:'婉儿挥笔伤敌，远距爆炸再添一次伤害 ' },
@@ -500,7 +500,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/milaidi/milaidi.png',
         description: '米莱狄召唤机械，远程消耗，推塔能力超强 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 40, magic: 90, difficulty: 70 },
         skills: [
             { name: '机械仆从', description: '米莱狄召仆从，合体升级，攻敌爆塔有伤害' },
             { name: '空中力量', description:'米莱狄指挥飞行器伤敌，分身可减速目标' },
@@ -516,7 +516,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/zhangliang/zhangliang.png',
         description: '张良乃法师谋士，控场强，善用法阵制敌取胜  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 30, magic: 90, difficulty: 70 },
         skills: [
             { name: '言灵·咒令', description: '被动：1.5秒内连伤，1.2秒满叠，真伤随级增 ' },
             { name: '言灵·壁垒', description:'召唤壁垒，触之伤晕减速，再触衰减' },
@@ -532,7 +532,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/yangyuhuan/yangyuhuan.png',
         description: '音波法师，治疗/输出双形态，团队增益核心',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 30, magic: 90, difficulty: 50 },
         skills: [
             { name: '惊鸿调', description: '切换曲调，破阵伤敌，清平为友军及自身回血 ' },
             { name: '霓裳曲', description:'音波伤敌减速，普攻强化，兵野额外伤 ' },
@@ -548,7 +548,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: '/imgs/heroes/mingshiyin/mingshiyin.png',
         description: '明世隐牵人增伤或承伤，团队辅助利器 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 40, defense: 40, magic: 70, difficulty: 30 },
         skills: [
             { name: '大吉大利', description: '被动：普攻强化伤敌，回血，非英雄回复减半' },
             { name: '临卦·无忧', description:'连友增益，触链伤敌，自身属性提升 ' },
@@ -564,7 +564,7 @@ export const heroesData = [
         roleText: '法师',
         image: '/imgs/heroes/nvwa/nvwa.png',
         description: '多维度施法，远程消耗与控场兼备法师 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 30, magic: 90, difficulty: 70 },
         skills: [
             { name: '寰宇神识', description: '女娲提升10~20%视野、普攻与技能释放范围' },
             { name: '神晖：缔造', description:'能量击退，十字阵伤，触壁爆炸增伤 ' },
@@ -580,7 +580,7 @@ export const heroesData = [
         roleText: '战士/坦克',
         image: '/imgs/heroes/kuangtie/kuangtie.png',
         description: '狂铁战士，能量战斗，近敌输出控制强推 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 80, defense: 70, magic: 0, difficulty: 60 },
         skills: [
             { name: '无畏战车', description: '普攻技能充能，满能强化，附带回复' },
             { name: '碎裂之刃', description:'双挥回血，充能伤害与回复倍增 ' },
@@ -595,7 +595,7 @@ export const heroesData = [
         roleText: '法师/坦克',
         image: '/imgs/heroes/mengqi/mengqi.jpg',
         description: '梦奇体型可变，近战远程切换，能抗能打 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 70, defense: 80, magic: 0, difficulty: 60 },
         skills: [
             { name: '食梦', description: '技获质量增攻防，战斗非战耗有别' },
             { name: '梦境萦绕', description:'护盾伤敌增质量，普攻减CD ' },
@@ -610,7 +610,7 @@ export const heroesData = [
         roleText: '坦克',
         image: '/imgs/heroes/lianpo/lianpo.webp',
         description: '廉颇，肉盾坦克，强控开团，抗伤搅乱战局 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 60, defense: 90, magic: 0, difficulty: 60 },
         skills: [
             { name: '勇士之魂', description: '战斗提战意减伤增攻速，脱战回血' },
             { name: '爆裂冲撞', description:'冲锋击飞，普攻三击附加高额伤 ' },
@@ -625,7 +625,7 @@ export const heroesData = [
         roleText: '坦克',
         image: '/imgs/heroes/baiqi/baiqi.png',
         description: '坦克战神，嘲讽强控，团战搅局能手 ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 70, defense: 90, magic: 25, difficulty: 60 },
         skills: [
             { name: '反击之镰', description: '受创增暗影之力，提移速与治疗效果' },
             { name: '血之回响', description:'蓄力旋镰伤敌回血，被动受伤概率触发，蓄满三倍收益' },
@@ -640,7 +640,7 @@ export const heroesData = [
         roleText: '坦克/辅助',
         image: '/imgs/heroes/lubandashi/lubandashi.jpg',
         description: '鲁班大师，机械操控，牵引队友，强控开团能手  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 20, defense: 70, magic: 50, difficulty: 70 },
         skills: [
             { name: '稷下科技', description: '施法叠盾四层，五秒强击附带法伤' },
             { name: '助推跳跃', description:'跳跃落地展力场，击飞敌人并造成法伤' },
@@ -655,7 +655,7 @@ export const heroesData = [
         roleText: '坦克',
         image: '/imgs/heroes/zhubajie/zhubajie.jpg',
         description: '肉坦能抗，耙击回血，控制拉扯搅乱战局   ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 60, defense: 90, magic: 0, difficulty: 60 },
         skills: [
             { name: '毫发无伤', description: '损血暂存，伤敌40%残血转真血，普攻附额外物理伤' },
             { name: '肉弹蹦床', description:'两段跳砸伤敌击飞，霸体免控，多敌衰减小兵增伤' },
@@ -670,7 +670,7 @@ export const heroesData = [
         roleText: '射手',
         image: '/imgs/heroes/sunquan/sunquan.webp',
         description: '双刀突进，强化连击，破甲续航团战强   ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 80, defense: 40, magic: 0, difficulty: 80 },
         skills: [
             { name: '坐断东南', description: '普攻技能施印记降敌伤，攻速提施法，满层解锁大招。' },
             { name: '麾召千锋', description:'军旗掷地减速伤敌，破阵箭雨高频打击' },
@@ -685,7 +685,7 @@ export const heroesData = [
         roleText: '射手',
         image: '/imgs/heroes/cang/cang.jpg',
         description: '苍化双形，狼啸冰锋破敌，箭影猎光灼霄    ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 80, defense: 30, magic: 0, difficulty: 50 },
         skills: [
             { name: '追猎', description: '苍在草丛移速增10% - 20%、积累潜伏值，普攻强化，伤野怪增25% ' },
             { name: '翔跃为号', description:'苍翔跃空中加速穿地形，普攻强箭伤敌或落地储强普 ' },
@@ -700,7 +700,7 @@ export const heroesData = [
         roleText: '射手',
         image: '/imgs/heroes/geya/geya.jpeg',
         description: '戈娅驭沙驰风，沙暴弩箭纵横，射手破敌无双     ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 70, defense: 40, magic: 0, difficulty: 50 },
         skills: [
             { name: '漂移疾射', description: '戈娅驾舟战沙海，蓄力起步，连弩漂移，攻速有别 ' },
             { name: '弹射起步', description:'戈娅沙舟爆发加速，普攻转向溅黑砂，速快伤高减速敌  ' },
@@ -715,7 +715,7 @@ export const heroesData = [
         roleText: '射手',
         image: '/imgs/heroes/aguduo/aguduo.jpg',
         description: '阿古朵驭熊为伴，野区称王，技能控场强援      ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 30, defense: 90, magic: 0, difficulty: 40 },
         skills: [
             { name: '山林奇缘', description: '阿古朵结缘野怪，普攻落雷种，自拾增益敌触伤  ' },
             { name: '野蛮生长', description:'阿古朵播园唤兽，速攻皆升，伙伴随技共战强敌   ' },
@@ -730,7 +730,7 @@ export const heroesData = [
         roleText: '射手',
         image: '/imgs/heroes/mengya/mengya.png',
         description: '蒙犽炮火轰鸣，携热矢冲锋，火力压制破敌阵',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 30, magic: 0, difficulty: 70 },
         skills: [
             { name: '炽热浑天', description: '蒙犽攻速转冷却，攒炽怒入兴奋，溢出回血衰减快   ' },
             { name: '狂轰火线', description:'蒙犽“浑天”扫射，子弹伤敌，兴奋贯穿，攻速提施放速    ' },
@@ -745,7 +745,7 @@ export const heroesData = [
         roleText: '战士/辅助',
         image: '/imgs/heroes/kongkonger/kongkonger.webp',
         description: '空空儿灵巧多变，战场游走，辅助战士双修',
-        stats: { attack: 70, defense: 60, magic: 40, difficulty: 80 },
+        stats: { attack: 30, defense: 60, magic: 0, difficulty: 50 },
         skills: [
             { name: '盗亦有道', description: '空空儿移速攒能瞬移，诡手夺装伤敌，非英雄目标命中获金币    ' },
             { name: '瞒天', description:'空空放分身落处伤己回血，换位再伤，分身仿形伤害有别     ' },
@@ -760,7 +760,7 @@ export const heroesData = [
         roleText: '法师/辅助',
         image: '/imgs/heroes/sunbin/sunbin.jpg',
         description: '孙膑善辅助，时光回溯增益，大招沉默控场 ',
-        stats: { attack: 70, defense: 60, magic: 40, difficulty: 80 },
+        stats: { attack: 10, defense: 30, magic: 60, difficulty: 50 },
         skills: [
             { name: '时间沙漏', description: '孙膑释放技能会增加15%~30%移动速度，持续2秒' },
             { name: '时空爆弹', description:'孙膑投弹附敌身，三秒炸圈伤敌减速，解弹即爆威力显      ' },
@@ -775,12 +775,27 @@ export const heroesData = [
         roleText: '刺客',
         image: '/imgs/heroes/yunzhongjun/yunzhongjun.webp',
         description: '云中君可无视地形飞行，近战猛击附带流血效果  ',
-        stats: { attack: 88, defense: 50, magic: 25, difficulty: 90 },
+        stats: { attack: 90, defense: 40, magic: 0, difficulty: 40 },
         skills: [
             { name: '云神·展翼', description: '云中君4级飞穿地形，普攻攒速，命中叠伤，移损野全触发    ' },
             { name: '聊翱游兮', description:'云中君蓄力俯冲提速获盾，控敌眩晕，命中英雄可后跳，取消返冷却     ' },
             { name: '飒风飞羽', description: '云中君挥风刃两击减速，4秒提攻速，羽刃远攻多段伤' },
             { name: '猋远举兮云中', description: '云中君大招免伤卷敌升空，撕裂增伤落地击飞破敌阵  ' }
+        ]
+    },
+    {
+        id: 52,
+        name: '云缨',
+        role:['assassin','warrior'], 
+        roleText: '刺客/战士',
+        image: '/imgs/heroes/yunying/yunying.png',
+        description: '云缨枪术刚猛，英姿飒爽，冲锋陷阵战四方   ',
+        stats: { attack: 90, defense: 30, magic: 0, difficulty: 80 },
+        skills: [
+            { name: '枪意·掠火', description: '云缨与掠火相通，技能获枪意，普攻耗意放技减冷却，技可暴击受攻速影响     ' },
+            { name: '断月', description:'云缨举枪前挑后劈，前挑0.5秒击飞，每段造成物理伤害及额外加成' },
+            { name: '追云', description: '云缨提枪蓄力冲锋增速，结束突进横扫，蓄力越久伤害、距离、减速越强。 ' },
+            { name: '逐星', description: '云缨【逐星】突击多段伤且击飞，二段横扫留火径，释放霸体减伤' }
         ]
     },
 ];
