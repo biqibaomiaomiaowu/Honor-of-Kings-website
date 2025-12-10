@@ -1,5 +1,164 @@
+<template>
+  <Transition name="modal-fade">
+    <div v-if="show" class="modal" @click.self="handleClose">
+      <div class="modal-content">
+        <button class="modal-close-btn" @click="handleClose">
+          <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-global-title">地图介绍</div>
+
+        <div class="modal-textarea">
+          <div class="modal-textarea-header">
+            <div class="modal-hotspot-title">
+              {{ hotspot.subItems && hotspot.subItems.length > 1 ? processedHotspot.title : hotspot.title }}
+              <span class="modal-type-tag">
+                {{ hotspot.subItems && hotspot.subItems.length > 1 ? processedHotspot.tag1 : (hotspot.type || '') }}
+              </span>
+              <span v-if="processedHotspot.tag2" class="modal-type-tag">
+                {{ processedHotspot.tag2 }}
+              </span>
+            </div>
+
+            <div class="modal-tabs">
+              <div 
+                v-for="tab in tabs" 
+                :key="tab.key"
+                class="modal-tab"
+                :class="{ active: activeTab === tab.key }"
+                @click="activeTab = tab.key"
+              >
+                {{ tab.label }}
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-textarea-body">
+            <div class="modal-tab-content">
+              <div v-if="activeTab === 'brief'">
+                <div v-if="processedHotspot?.brief?.description && processedHotspot.brief.description.length" class="content-section">
+                  <div class="content-section-label">说明</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.brief.description" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.brief?.defeatBenefits && processedHotspot.brief.defeatBenefits.length" class="content-section">
+                  <div class="content-section-label">击败收益</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.brief.defeatBenefits" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="!processedHotspot?.brief?.description.length && !processedHotspot?.brief?.defeatBenefits.length" class="content-empty">
+                  暂无简略说明信息
+                </div>
+              </div>
+
+              <div v-if="activeTab === 'detail'">
+                <div v-if="processedHotspot?.detail?.description && processedHotspot.detail.description.length" class="content-section">
+                  <div class="content-section-label">说明</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.description" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.generalFeatures && processedHotspot.detail.generalFeatures.length" class="content-section">
+                  <div class="content-section-label">通用特性</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.generalFeatures" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.dynamicAttributes && processedHotspot.detail.dynamicAttributes.length" class="content-section">
+                  <div class="content-section-label">动态属性</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.dynamicAttributes" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.defeatBenefits && processedHotspot.detail.defeatBenefits.length" class="content-section">
+                  <div class="content-section-label">击败收益</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.defeatBenefits" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.shadowPioneerEffects && processedHotspot.detail.shadowPioneerEffects.length" class="content-section">
+                  <div class="content-section-label">暗影先锋效果</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.shadowPioneerEffects" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.otherBenefits && processedHotspot.detail.otherBenefits.length" class="content-section">
+                  <div class="content-section-label">其他收益</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.otherBenefits" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="processedHotspot?.detail?.detrimentalEffects && processedHotspot.detail.detrimentalEffects.length" class="content-section">
+                  <div class="content-section-label">减益效果</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.detail.detrimentalEffects" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div v-if="activeTab === 'scenery'">
+                <div v-if="processedHotspot?.scenery?.canyonScenery && processedHotspot.scenery.canyonScenery.length" class="content-section">
+                  <div class="content-section-label">峡谷风物志</div>
+                  <ul class="content-list">
+                    <li v-for="(item, index) in processedHotspot.scenery.canyonScenery" :key="index" class="content-list-item">
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-else class="content-empty">暂无峡谷风物志信息</div>
+              </div>
+            </div>
+
+            <div v-if="hotspot.subItems && hotspot.subItems.length > 1" class="sub-switch">
+              <button 
+                v-for="(item, idx) in hotspot.subItems" 
+                :key="idx"
+                :class="{ active: currentSubIdx === idx }"
+                @click="switchSubItem(idx)"
+              >
+                {{ item.title }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-image-container">
+          <img ref="detailImage" :src="processedHotspot.detailImage" :alt="processedHotspot.title" class="modal-detail-img">
+          
+          <div class="nav-arrow prev-arrow" @click="handlePrev">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="nav-arrow next-arrow" @click="handleNext">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Transition>
+</template>
+
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import anime from 'animejs';
 
 const props = defineProps({
@@ -11,11 +170,123 @@ const emit = defineEmits(['close', 'prev', 'next']);
 
 const activeTab = ref('brief');
 const detailImage = ref(null);
+const currentSubIdx = ref(0);
 
-// 当热点改变时重置标签页
+const currentSubItem = computed(() => {
+  if (props.hotspot?.subItems && props.hotspot.subItems.length) {
+    return props.hotspot.subItems[currentSubIdx.value] || {};
+  } else {
+    return props.hotspot || {};
+  }
+});
+
+const switchSubItem = (idx) => {
+  currentSubIdx.value = idx;
+  if (detailImage.value) {
+    anime({
+      targets: detailImage.value,
+      opacity: [0, 1],
+      duration: 300,
+      easing: 'easeOutQuad'
+    });
+  }
+};
+
+const processedHotspot = computed(() => {
+  const base = { ...currentSubItem.value };
+  
+  base.tag1 = base.type || '';
+  base.tag2 = base.tag2 || '';
+
+  if (base?.brief?.description) {
+    base.brief.description = typeof base.brief.description === 'string' 
+      ? [base.brief.description] 
+      : (Array.isArray(base.brief.description) ? base.brief.description : []);
+  } else {
+    base.brief = { ...base.brief, description: [] };
+  }
+
+  if (base?.brief?.defeatBenefits) {
+    base.brief.defeatBenefits = typeof base.brief.defeatBenefits === 'string' 
+      ? [base.brief.defeatBenefits] 
+      : (Array.isArray(base.brief.defeatBenefits) ? base.brief.defeatBenefits : []);
+  } else {
+    base.brief = { ...base.brief, defeatBenefits: [] };
+  }
+
+  if (base?.detail?.description) {
+    base.detail.description = typeof base.detail.description === 'string' 
+      ? [base.detail.description] 
+      : (Array.isArray(base.detail.description) ? base.detail.description : []);
+  } else {
+    base.detail = { ...base.detail, description: [] };
+  }
+
+  if (base?.detail?.generalFeatures) {
+    base.detail.generalFeatures = Array.isArray(base.detail.generalFeatures) 
+      ? base.detail.generalFeatures 
+      : [];
+  } else {
+    base.detail = { ...base.detail, generalFeatures: [] };
+  }
+
+  if (base?.detail?.dynamicAttributes) {
+    base.detail.dynamicAttributes = typeof base.detail.dynamicAttributes === 'string' 
+      ? [base.detail.dynamicAttributes] 
+      : (Array.isArray(base.detail.dynamicAttributes) ? base.detail.dynamicAttributes : []);
+  } else {
+    base.detail = { ...base.detail, dynamicAttributes: [] };
+  }
+
+  if (base?.detail?.defeatBenefits) {
+    base.detail.defeatBenefits = Array.isArray(base.detail.defeatBenefits) 
+      ? base.detail.defeatBenefits 
+      : [];
+  } else {
+    base.detail = { ...base.detail, defeatBenefits: [] };
+  }
+
+  if (base?.detail?.shadowPioneerEffects) {
+    base.detail.shadowPioneerEffects = typeof base.detail.shadowPioneerEffects === 'string' 
+      ? [base.detail.shadowPioneerEffects] 
+      : (Array.isArray(base.detail.shadowPioneerEffects) ? base.detail.shadowPioneerEffects : []);
+  } else {
+    base.detail = { ...base.detail, shadowPioneerEffects: [] };
+  }
+
+  if (base?.detail?.otherBenefits) {
+    base.detail.otherBenefits = Array.isArray(base.detail.otherBenefits) 
+      ? base.detail.otherBenefits 
+      : [];
+  } else {
+    base.detail = { ...base.detail, otherBenefits: [] };
+  }
+
+  if (base?.detail?.detrimentalEffects) {
+    base.detail.detrimentalEffects = typeof base.detail.detrimentalEffects === 'string' 
+      ? [base.detail.detrimentalEffects] 
+      : (Array.isArray(base.detail.detrimentalEffects) ? base.detail.detrimentalEffects : []);
+  } else {
+    base.detail = { ...base.detail, detrimentalEffects: [] };
+  }
+
+  if (base?.scenery?.canyonScenery) {
+    base.scenery.canyonScenery = typeof base.scenery.canyonScenery === 'string' 
+      ? [base.scenery.canyonScenery] 
+      : (Array.isArray(base.scenery.canyonScenery) ? base.scenery.canyonScenery : []);
+  } else {
+    base.scenery = { ...base.scenery, canyonScenery: [] };
+  }
+
+  base.title = base.title || '';
+  base.detailImage = base.detailImage || '';
+
+  return base;
+});
+
 watch(() => props.hotspot, () => {
   activeTab.value = 'brief';
-  // 图片切换的简单动画
+  currentSubIdx.value = 0;
   if (detailImage.value) {
     anime({
       targets: detailImage.value,
@@ -27,10 +298,9 @@ watch(() => props.hotspot, () => {
 });
 
 const tabs = [
-  { key: 'brief', label: '简介' },
-  { key: 'detail', label: '详细信息' },
-  { key: 'generalFeatures', label: '通用特性' },
-  { key: 'legend', label: '传说' }
+  { key: 'brief', label: '简略' },
+  { key: 'detail', label: '详细' },
+  { key: 'scenery', label: '风物志' }
 ];
 
 const handleClose = () => {
@@ -45,84 +315,6 @@ const handleNext = () => {
   emit('next');
 };
 </script>
-
-<template>
-  <Transition name="modal-fade">
-    <div v-if="show" class="modal" @click.self="handleClose">
-      <div class="modal-content">
-        <button class="modal-close-btn" @click="handleClose">
-          <i class="fas fa-times"></i>
-        </button>
-        
-        <div class="modal-global-title">王者峡谷区域详情</div>
-
-        <div class="modal-textarea">
-          <div class="modal-hotspot-title">
-            {{ hotspot.title }}
-            <span class="modal-type-tag">{{ hotspot.type }}</span>
-          </div>
-
-          <div class="modal-tabs">
-            <div 
-              v-for="tab in tabs" 
-              :key="tab.key"
-              class="modal-tab"
-              :class="{ active: activeTab === tab.key }"
-              @click="activeTab = tab.key"
-            >
-              {{ tab.label }}
-            </div>
-          </div>
-
-          <div class="modal-tab-content">
-            <!-- 简介 -->
-            <div v-if="activeTab === 'brief'">
-              <div class="content-section-label">区域简介</div>
-              <p class="content-text">{{ hotspot.brief }}</p>
-            </div>
-
-            <!-- 详细信息 -->
-            <div v-if="activeTab === 'detail'">
-              <div class="content-section-label">详细数据</div>
-              <ul class="content-list">
-                <li v-for="(item, index) in hotspot.detail" :key="index" class="content-list-item">
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-
-            <!-- 通用特性 -->
-            <div v-if="activeTab === 'generalFeatures'">
-              <div class="content-section-label">通用特性</div>
-              <ul class="content-list">
-                <li v-for="(item, index) in hotspot.generalFeatures" :key="index" class="content-list-item">
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-
-            <!-- 传说 -->
-            <div v-if="activeTab === 'legend'">
-              <div class="content-section-label">背景传说</div>
-              <p class="content-text">{{ hotspot.legend }}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-image-container">
-          <img ref="detailImage" :src="hotspot.detailImage" :alt="hotspot.title" class="modal-detail-img">
-          
-          <div class="nav-arrow prev-arrow" @click="handlePrev">
-            <i class="fas fa-chevron-left"></i>
-          </div>
-          <div class="nav-arrow next-arrow" @click="handleNext">
-            <i class="fas fa-chevron-right"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Transition>
-</template>
 
 <style scoped>
 .modal {
@@ -175,10 +367,49 @@ const handleNext = () => {
 
 .modal-textarea {
     width: 42%;
-    padding: 2.8rem 2rem 2rem;
-    overflow-y: auto;
+    padding: 0 2rem;
     position: relative;
     background: rgba(15, 23, 42, 0.8);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-textarea-header {
+    padding-top: 2.8rem;
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.8);
+    z-index: 1;
+}
+
+.modal-textarea-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+}
+
+.sub-switch {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+}
+.sub-switch button {
+    padding: 0.4rem 0.8rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 4px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.sub-switch button.active {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
 }
 
 .modal-hotspot-title {
@@ -199,6 +430,7 @@ const handleNext = () => {
     border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 500;
+    margin-left: 0.5rem;
 }
 
 .modal-tabs {
@@ -232,7 +464,9 @@ const handleNext = () => {
     border-radius: 2px;
 }
 
-/* 内容区域 */
+.content-section {
+    margin-bottom: 1.5rem;
+}
 .content-section-label {
     font-size: 0.9rem;
     color: #94a3b8;
@@ -247,7 +481,8 @@ const handleNext = () => {
 }
 
 .content-list {
-    padding-left: 1.2rem;
+    padding-left: 0;
+    list-style: none;
     color: #e2e8f0;
     line-height: 1.7;
     font-size: 0.9rem;
@@ -255,6 +490,13 @@ const handleNext = () => {
 
 .content-list-item {
     margin-bottom: 0.7rem;
+}
+
+.content-empty {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 2rem 0;
 }
 
 .modal-image-container {
@@ -325,7 +567,6 @@ const handleNext = () => {
     background: #1e293b;
 }
 
-/* 响应式适配 */
 @media (max-width: 900px) {
     .modal-content {
         flex-direction: column;
@@ -340,7 +581,15 @@ const handleNext = () => {
 
     .modal-textarea {
         max-height: 45vh;
-        padding: 2.5rem 1.5rem 1.5rem;
+        padding: 0 1.5rem;
+    }
+
+    .modal-textarea-header {
+        padding-top: 2.5rem;
+    }
+
+    .modal-textarea-body {
+        padding-bottom: 1.5rem;
     }
 
     .modal-image-container {

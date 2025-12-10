@@ -10,7 +10,7 @@
           <li><i class="fas fa-shield-alt"></i>基地是胜利的关键，摧毁敌方基地即可获得胜利</li>
           <li><i class="fas fa-cog"></i>水晶会不断产生小兵推进战线</li>
           <li><i class="fas fa-home"></i>在基地范围内可以快速回复生命值和法力值</li>
-          <li><i class="fas fa-shopping-cart"></i>商店位于基地内，可购买装备强化英雄</li>
+          <li><i class="fas fa-shopping-cart"></i>商店可购买装备强化英雄</li>
         </ul>
       </div>
     </div>
