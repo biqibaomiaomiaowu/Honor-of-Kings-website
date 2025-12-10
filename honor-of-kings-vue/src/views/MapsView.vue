@@ -5,10 +5,12 @@ import MapModes from '../components/maps/MapModes.vue';
 import MapInteractive from '../components/maps/MapInteractive.vue';
 import AppFooter from '../components/AppFooter.vue';
 import ScrollToTop from '../components/ScrollToTop.vue';
+import ParticleBackground from '../components/home/ParticleBackground.vue';
 </script>
 
 <template>
   <div class="maps-page">
+    <ParticleBackground />
     <main class="main-content">
       <section class="intro-section">
         <div class="page-header">
@@ -29,14 +31,16 @@ import ScrollToTop from '../components/ScrollToTop.vue';
     
     <AppFooter />
     <ScrollToTop />
+    
   </div>
 </template>
 
 <style scoped>
 .maps-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+    background: transparent;
     color: #ffffff;
+    position: relative;
 }
 
 .main-content {
@@ -45,6 +49,8 @@ import ScrollToTop from '../components/ScrollToTop.vue';
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .intro-section {
