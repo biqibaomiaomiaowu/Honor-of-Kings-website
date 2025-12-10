@@ -398,7 +398,7 @@ const handleNext = () => {
     border-top: 1px solid rgba(59, 130, 246, 0.2);
 }
 .sub-switch button {
-    padding: 0.4rem 0.8rem;
+    padding: 0.4rem 0.7rem;
     background: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 4px;
