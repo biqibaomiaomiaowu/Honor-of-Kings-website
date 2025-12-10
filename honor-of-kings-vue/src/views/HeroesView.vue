@@ -4,7 +4,7 @@ import HeroesFilter from '../components/heroes/HeroesFilter.vue';
 import HeroesList from '../components/heroes/HeroesList.vue';
 import HeroDetailModal from '../components/heroes/HeroDetailModal.vue';
 import { roles as rolesRaw, heroesData as heroesDataRaw } from '../data/heroesData';
-
+import ScrollToTop from '../components/ScrollToTop.vue';
 // 响应式数据
 const searchQuery = ref('');
 const currentFilter = ref('all');
@@ -82,6 +82,7 @@ const closeModal = () => {
             :hero="selectedHero"
             @close="closeModal"
         />
+        <ScrollToTop />
     </div>
 </template>
 
