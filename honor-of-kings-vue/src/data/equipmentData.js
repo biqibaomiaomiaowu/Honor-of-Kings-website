@@ -3,70 +3,66 @@ export const equipmentData = {
         {
             id: 1,
             name: '铁剑',
-            price: 250,
+            price: 275,
             icon: 'imgs/equipment/tiejian.webp',
             stats: { '物理攻击': 20 }
         },
         {
             id: 2,
             name: '匕首',
-            price: 290,
+            price: 300,
             icon: 'imgs/equipment/bishou.webp',
             stats: { '攻击速度': '10%' }
         },
         {
             id: 3,
             name: '搏击拳套',
-            price: 320,
+            price: 300,
             icon: 'imgs/equipment/bojiquantao.webp',
             stats: { '暴击率': '8%' }
         },
         {
             id: 4,
             name: '吸血之镰',
-            price: 290,
+            price: 300,
             icon: 'imgs/equipment/xixuezhilian.webp',
-            stats: { '物理吸血': '8%' },
-            materials: [
-                'imgs/equipment/tiejian.webp'
-            ]
+            stats: { '物理吸血': '8%' }
         },
         {
             id: 5,
-            name: '鸣刃',
-            price: 450,
-            icon: 'imgs/equipment/mingren.webp',
-            stats: { '物理攻击': 40, '冷却缩减': '5%' },
-            materials: [
-                'imgs/equipment/tiejian.webp'
-            ]
+            name: '附魔之羽',
+            price: 300,
+            icon: 'imgs/equipment/fumozhiyu.webp',
+            stats: { '移速': '5%' }
         },
         {
             id: 6,
-            name: '冲能拳套',
-            price: 550,
-            icon: 'imgs/equipment/chongnengquantao.webp',
-            stats: { '暴击率': '15%' },
+            name: '迅捷长矛',
+            price: 760,
+            icon: 'imgs/equipment/xunjiechangmao.webp',
+            stats: { '物理攻击': 35, '移速': '7.5%' },
             materials: [
-                'imgs/equipment/bojiquantao.webp'
+                'imgs/equipment/tiejian.webp',
+                'imgs/equipment/fumozhiyu.webp'
             ]
         },
         {
             id: 7,
             name: '雷鸣刃',
-            price: 450,
+            price: 820,
             icon: 'imgs/equipment/leimingren.webp',
-            stats: { '物理攻击': 40 },
+            stats: { '物理攻击': 35, '暴击率': '12%' },
             materials: [
-                'imgs/equipment/tiejian.webp'
+                'imgs/equipment/tiejian.webp',
+                'imgs/equipment/bojiquantao.webp'
             ]
         },
         {
             id: 8,
             name: '风暴巨剑',
-            price: 910,
+            price: 850,
             icon: 'imgs/equipment/fengbaojujian.webp',
-            stats: { '物理攻击': 80 },
+            stats: { '物理攻击': 75 },
             materials: [
                 'imgs/equipment/tiejian.webp',
                 'imgs/equipment/tiejian.webp'
@@ -75,346 +71,302 @@ export const equipmentData = {
         {
             id: 9,
             name: '日冕',
-            price: 790,
+            price: 760,
             icon: 'imgs/equipment/rimian.webp',
-            stats: { '物理攻击': 40, '最大生命': 300 },
+            stats: { '物理攻击': 35, '最大生命': 450 },
             materials: [
                 'imgs/equipment/tiejian.webp',
                 'imgs/equipment/hongmanao.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-残废',
-                    description: '技能对首个命中的敌方英雄造成10%减速，并使其对自己的伤害降低10%，持续3秒（冷却时间：8秒）'
-                }
             ]
         },
         {
             id: 10,
             name: '狂暴双刃',
-            price: 890,
+            price: 760,
             icon: 'imgs/equipment/kuangbaoshuangren.webp',
-            stats: { '攻击速度': '15%', '暴击率': '10%', '移速': '5%' },
+            stats: { '攻击速度': '15%', '移速': '7.5%' },
+            materials: [
+                'imgs/equipment/bishou.webp',
+                'imgs/equipment/fumozhiyu.webp'
+            ]
+        },
+        {
+            id: 11,
+            name: '陨星',
+            price: 760,
+            icon: 'imgs/equipment/yunxing.webp',
+            stats: { '物理攻击': 35, '冷却缩减': '7.5%' },
+            materials: [
+                'imgs/equipment/tiejian.webp',
+                'imgs/equipment/yuanliujiejing.webp'
+            ]
+        },
+        {
+            id: 12,
+            name: '速击之枪',
+            price: 800,
+            icon: 'imgs/equipment/sujizhiqiang.webp',
+            stats: { '物理攻击': 35, '攻击速度': '15%' },
+            materials: [
+                'imgs/equipment/bishou.webp',
+                'imgs/equipment/tiejian.webp'
+            ]
+        },
+        {
+            id: 13,
+            name: '精钢锻刀',
+            price: 850,
+            icon: 'imgs/equipment/jinggangduandao.webp',
+            stats: { '攻击速度': '15%', '最大生命': 450 },
+            materials: [
+                'imgs/equipment/bishou.webp',
+                'imgs/equipment/hongmanao.webp'
+            ]
+        },
+        {
+            id: 14,
+            name: '血魂刃',
+            price: 800,
+            icon: 'imgs/equipment/xuehunren.webp',
+            stats: { '物理攻击': 35, '物理吸血': '12%' },
+            materials: [
+                'imgs/equipment/xixuezhilian.webp',
+                'imgs/equipment/tiejian.webp'
+            ]
+        },
+        {
+            id: 15,
+            name: '穿云弓',
+            price: 800,
+            icon: 'imgs/equipment/chuanyungong.webp',
+            stats: { '攻击速度': '15%', '暴击率': '12%' },
             materials: [
                 'imgs/equipment/bishou.webp',
                 'imgs/equipment/bojiquantao.webp'
             ]
         },
         {
-            id: 11,
-            name: '陨星',
-            price: 1080,
-            icon: 'imgs/equipment/yunxing.webp',
-            stats: { '物理攻击': 45, '冷却缩减': '10%' },
-            materials: [
-                'imgs/equipment/tiejian.webp',
-                'imgs/equipment/tiejian.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-切割',
-                    description: '增加60点物理穿透'
-                }
-            ]
-        },
-        {
-            id: 12,
-            name: '穿云弓',
-            price: 1100,
-            icon: 'imgs/equipment/chuanyungong.webp',
-            stats: { '物理攻击': 40, '攻击速度': '10%' },
-            materials: [
-                'imgs/equipment/tiejian.webp',
-                'imgs/equipment/bishou.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-破甲',
-                    description: '增加10%物理穿透（远程英雄使用时效果翻倍）'
-                }
-            ]
-        },
-        {
-            id: 13,
-            name: '速击之枪',
-            price: 890,
-            icon: 'imgs/equipment/sujizhiqiang.webp',
-            stats: { '攻击速度': '25%' },
-            materials: [
-                'imgs/equipment/bishou.webp',
-                'imgs/equipment/tiejian.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-精准',
-                    description: '普攻伤害提升20点（远程英雄使用时该效果翻倍）'
-                }
-            ]
-        },
-        {
-            id: 14,
-            name: '制裁之刃',
-            price: 1860,
-            icon: 'imgs/equipment/zhicaizhiren.webp',
-            stats: { '物理攻击': 100, '物理吸血': '15%', '冷却缩减': '5%' },
-            materials: [
-                'imgs/equipment/xixuezhilian.webp',
-                'imgs/equipment/leimingren.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-重伤',
-                    description: '造成伤害后降低目标35%生命回复和吸血效果，持续3秒'
-                }
-            ]
-        },
-        {
-            id: 15,
-            name: '泣血之刃',
-            price: 1740,
-            icon: 'imgs/equipment/qixuezhiren.webp',
-            stats: { '物理攻击': 100, '物理吸血': '25%', '最大生命': 500 },
-            materials: [
-                'imgs/equipment/xixuezhilian.webp',
-                'imgs/equipment/fengbaojujian.webp'
-            ],
-            passives: [
-                {
-                    type: '被动-回魂',
-                    description: '自身生命低于30%时，5秒内累计回复400~800点生命（冷却时间：20秒）'
-                }
-            ]
-        },
-        {
             id: 16,
-            name: '无尽战刃',
-            price: 2140,
-            icon: 'imgs/equipment/wujinzhanren.webp',
-            stats: { '物理攻击': 110, '暴击率': '20%' },
+            name: '名刀·司命',
+            price: 2060,
+            icon: 'imgs/equipment/mingdaosiming.webp',
+            stats: { '物理攻击': 75, '攻击速度': '15%', '最大生命': 500 },
             materials: [
                 'imgs/equipment/fengbaojujian.webp',
-                'imgs/equipment/chongnengquantao.webp'
+                'imgs/equipment/jinggangduandao.webp'
             ],
             passives: [
                 {
-                    type: '被动-暴君',
-                    description: '获得20%暴击效果，每2%暴击率增加1%暴击效果，最多不超过50%'
+                    type: '被动-暗幕',
+                    description: '受到致命伤害时不会立刻死亡，获得短暂无敌并增加15%攻速和移速，持续1秒（远程英雄为0.75秒），该效果购买携带后每5秒增加0.01秒持续时长，最多提升0.5秒（冷却时间：120秒）'
                 }
             ]
         },
         {
             id: 17,
-            name: '宗师之力',
-            price: 2100,
-            icon: 'imgs/equipment/zongshizhili.webp',
-            stats: { '物理攻击': 80, '暴击率': '20%', '最大法力': 500, '最大生命': 500 },
+            name: '碎星锤',
+            price: 2080,
+            icon: 'imgs/equipment/suixingchui.webp',
+            stats: { '物理攻击': 90, '最大生命': 700, '移速': '7.5%' },
             materials: [
                 'imgs/equipment/rimian.webp',
-                'imgs/equipment/chongnengquantao.webp'
+                'imgs/equipment/xunjiechangmao.webp'
             ],
             passives: [
                 {
-                    type: '被动-强击',
-                    description: '使用技能后，5秒内下次普攻额外造成80%物理攻击的物理伤害，并增加12%移速，持续2秒（冷却时间：3秒）'
+                    type: '被动-破甲',
+                    description: '增加30%物理穿透'
                 }
             ]
         },
         {
             id: 18,
-            name: '闪电匕首',
-            price: 1840,
-            icon: 'imgs/equipment/shandianbishou.webp',
-            stats: { '攻击速度': '35%', '移速': '8%' },
+            name: '破魔刀',
+            price: 2060,
+            icon: 'imgs/equipment/pomodao.webp',
+            stats: { '物理攻击': 90, '法术防御': 150, '最大生命': 600 },
             materials: [
-                'imgs/equipment/sujizhiqiang.webp',
-                'imgs/equipment/bishou.webp'
+                'imgs/equipment/fengbaojujian.webp',
+                'imgs/equipment/shenyindoupeng.webp'
             ],
             passives: [
                 {
-                    type: '被动-电弧',
-                    description: '普攻额外造成40+3*英雄等级法术伤害，每3次普攻会释放一次连锁闪电，造成140+15*英雄等级法术伤害（远程英雄伤害翻倍）'
+                    type: '被动-破魔',
+                    description: '获得(50%Ad)法术防御，最多不超过250点'
                 }
             ]
         },
         {
             id: 19,
-            name: '影刃',
-            price: 1950,
-            icon: 'imgs/equipment/yingren.webp',
-            stats: { '攻击速度': '35%', '暴击率': '25%', '移速': '5%' },
+            name: '寒霜侵袭',
+            price: 2040,
+            icon: 'imgs/equipment/hanshuangqinxi.webp',
+            stats: { '物理攻击': 70, '攻击速度': '25%', '最大生命': 750 },
             materials: [
-                'imgs/equipment/kuangbaoshuangren.webp',
-                'imgs/equipment/bishou.webp'
+                'imgs/equipment/rimian.webp',
+                'imgs/equipment/sujizhiqiang.webp'
             ],
             passives: [
                 {
-                    type: '被动-暴风',
-                    description: '暴击后增加20%攻速和5%移速，持续3秒'
+                    type: '被动-寒霜',
+                    description: '普攻和技能减少5%~10%移速，持续1.5秒，可叠加2层'
+                },
+                {
+                    type: '被动-冻伤',
+                    description: '普攻和技能对目标额外造成135~270（+45%额外Ad）物理伤害（冷却时间：3秒）'
                 }
             ]
         },
         {
             id: 20,
-            name: '暗影战斧',
-            price: 2090,
-            icon: 'imgs/equipment/anyingzhanfu.webp',
-            stats: { '物理攻击': 85, '冷却缩减': '15%', '最大生命': 500 },
+            name: '制裁之刃',
+            price: 2080,
+            icon: 'imgs/equipment/zhicaizhiren.webp',
+            stats: { '物理攻击': 100, '攻击速度': '20%', '物理吸血': '20% ' },
             materials: [
-                'imgs/equipment/yunxing.webp',
-                'imgs/equipment/rimian.webp'
+                'imgs/equipment/xuehunren.webp',
+                'imgs/equipment/sujizhiqiang.webp'
             ],
             passives: [
                 {
-                    type: '被动-切割',
-                    description: '增加50~170物理穿透'
+                    type: '被动-回魂',
+                    description: '自身生命低于30%时，5秒内累计回复375~750点生命（冷却时间：20秒）'
                 },
                 {
-                    type: '被动-残废',
-                    description: '技能对首个命中的敌方英雄造成10%减速，并使其对自己的伤害降低10%，持续3秒（冷却时间：8秒）'
+                    type: '被动-重伤',
+                    description: '普攻/技能命中敌人后降低其35%生命回复和吸血效果，持续2.5秒'
                 }
             ]
         },
         {
             id: 21,
-            name: '破魔刀',
-            price: 2000,
-            icon: 'imgs/equipment/pomodao.webp',
-            stats: { '物理攻击': 90, '法术防御': 100, '最大生命': 500 },
+            name: '纯净苍穹',
+            price: 2140,
+            icon: 'imgs/equipment/chunjingcangqiong.webp',
+            stats: { '物理攻击': 80, '冷却缩减': '10%', '物理防御': 150 },
             materials: [
-                'imgs/equipment/fengbaojujian.webp',
-                'imgs/equipment/kangmopifeng.webp'
+                'imgs/equipment/yunxing.webp',
+                'imgs/equipment/jingjihushou.webp'
             ],
             passives: [
                 {
-                    type: '被动-破魔',
-                    description: '获得额外物理攻击*0.6的法术防御，最多不超过300'
+                    type: '被动-残废',
+                    description: '技能对首个命中的敌方英雄造成10%~20%减速，并使其对自己的伤害降低20%，持续3秒（冷却时间：8秒）'
+                },
+                {
+                    type: '主动-驱散',
+                    description: '获得30%减伤，持续3秒（冷却时间：75秒）'
                 }
             ]
         },
         {
             id: 22,
-            name: '纯净苍穹',
-            price: 2120,
-            icon: 'imgs/equipment/chunjingcangqiong.webp',
-            stats: { '物理攻击': 100, '冷却缩减': '10%', '最大生命': 500 },
+            name: '末世',
+            price: 2100,
+            icon: 'imgs/equipment/moshi.webp',
+            stats: { '物理攻击': 40, '攻击速度': '20%', '物理吸血': '20%', '最大生命': 500 },
             materials: [
-                'imgs/equipment/rimian.webp',
-                'imgs/equipment/tiejian.webp'
+                'imgs/equipment/xuehunren.webp',
+                'imgs/equipment/jinggangduandao.webp'
             ],
             passives: [
                 {
-                    type: '被动-残废',
-                    description: '技能对首个命中的敌方英雄造成10%减速，并使其对自己的伤害降低20%，持续3秒（冷却时间：8秒）'
-                },
-                {
-                    type: '主动-驱散',
-                    description: '获得35%减伤，持续3秒，可以在被控制时使用（冷却时间：90秒）'
+                    type: '被动-破败',
+                    description: '普攻额外造成目标80~160（+7%目标额外Hp）的物理伤害'
                 }
             ]
         },
         {
             id: 23,
-            name: '末世',
-            price: 2160,
-            icon: 'imgs/equipment/moshi.webp',
-            stats: { '物理攻击': 60, '攻击速度': '30%', '物理吸血': '10%' },
+            name: '泣血之刃',
+            price: 2020,
+            icon: 'imgs/equipment/qixuezhiren.webp',
+            stats: { '物理攻击': 85, '物理吸血': '25%', '最大生命': 500 },
             materials: [
-                'imgs/equipment/sujizhiqiang.webp',
-                'imgs/equipment/xixuezhilian.webp'
+                'imgs/equipment/xuehunren.webp',
+                'imgs/equipment/rimian.webp'
             ],
             passives: [
                 {
-                    type: '被动-破败',
-                    description: '普攻额外造成目标8%当前生命的物理伤害（对野怪最多造成80点伤害）'
+                    type: '被动-养战',
+                    description: '增加25%物理技能吸血'
                 }
             ]
         },
         {
             id: 24,
-            name: '名刀·司命',
-            price: 1900,
-            icon: 'imgs/equipment/mingdaosiming.webp',
-            stats: { '物理攻击': 60, '冷却缩减': '5%' },
+            name: '无尽战刃',
+            price: 2110,
+            icon: 'imgs/equipment/wujinzhanren.webp',
+            stats: { '物理攻击': 120, '暴击率': '20%' },
             materials: [
-                'imgs/equipment/leimingren.webp',
-                'imgs/equipment/tiejian.webp'
+                'imgs/equipment/fengbaojujian.webp',
+                'imgs/equipment/leimingren.webp'
             ],
             passives: [
                 {
-                    type: '被动-暗幕',
-                    description: '受到致命伤害时，进入短暂无敌状态并增加30%移动速度，持续1秒（远程英雄使用时持续时间缩短为0.5秒）（冷却时间：120秒）'
+                    type: '被动-无尽',
+                    description: '获得20%暴击效果，每2%暴击增加1%暴击效果，最多不超过50%'
                 }
             ]
         },
         {
             id: 25,
-            name: '冰霜长矛',
-            price: 1980,
-            icon: 'imgs/equipment/bingshuangchangmao.webp',
-            stats: { '物理攻击': 80, '攻击速度': '15%', '最大生命': 600 },
+            name: '宗师之力',
+            price: 2100,
+            icon: 'imgs/equipment/zongshizhili.webp',
+            stats: { '物理攻击': 55, '攻击速度': '15%', '暴击率': '20% ', '最大生命': 600 },
             materials: [
-                'imgs/equipment/rimian.webp',
-                'imgs/equipment/bishou.webp'
+                'imgs/equipment/leimingren.webp',
+                'imgs/equipment/jinggangduandao.webp'
             ],
             passives: [
                 {
-                    type: '被动-寒霜',
-                    description: '普攻会减少目标30%攻速，持续2秒，该效果可叠加3层。叠满3层后，普攻对目标额外造成25%法术伤害，该伤害可暴击，持续5秒（冷却时间：0.2秒）'
-                },
-                {
-                    type: '被动-精准',
-                    description: '普攻伤害提升60点'
+                    type: '被动-强击',
+                    description: '使用技能后增加12%移速，持续2秒，并使5秒内的下次普攻额外造成（80%Ad)物理伤害（冷却时间：3秒）'
                 }
             ]
         },
         {
             id: 26,
-            name: '破空',
-            price: 2130,
-            icon: 'imgs/equipment/pokong.webp',
-            stats: { '物理攻击': 100, '冷却缩减': '10%', '最大生命': 500 },
+            name: '闪电匕首',
+            price: 2040,
+            icon: 'imgs/equipment/shandianbishou.webp',
+            stats: { '物理攻击': 40, '攻击速度': '35%', '移速': '7.5% ' },
             materials: [
-                'imgs/equipment/rimian.webp',
-                'imgs/equipment/leimingren.webp'
+                'imgs/equipment/sujizhiqiang.webp',
+                'imgs/equipment/kuangbaoshuangren.webp'
             ],
             passives: [
                 {
-                    type: '被动-碎甲',
-                    description: '普攻会降低目标10%物理防御，持续2秒'
-                },
-                {
-                    type: '主动-破空',
-                    description: '强化下一次普攻，击退目标并额外造成（50%物理攻击）物理伤害，同时自身向后位移（冷却时间：60秒）'
+                    type: '被动-电弧',
+                    description: '普攻额外造成40~80法术伤害，每3次普攻会释放一次连锁闪电，造成160~400法术伤害'
                 }
             ]
         },
         {
             id: 27,
-            name: '铸梦·破空',
-            price: 3350,
-            icon: 'imgs/equipment/zhumengpokong.webp',
-            stats: { '物理攻击': 100, '冷却缩减': '10%', '最大生命': 500, '物理防御': 200 },
+            name: '影刃',
+            price: 2040,
+            icon: 'imgs/equipment/yingren.webp',
+            stats: { '物理攻击': 45, '攻击速度': '35%', '暴击率': '20% ', '移速': '7.5%' },
             materials: [
-                'imgs/equipment/pokong.webp',
-                'imgs/equipment/yuanchuyizhu.webp'
+                'imgs/equipment/leimingren.webp',
+                'imgs/equipment/kuangbaoshuangren.webp'
             ],
             passives: [
                 {
-                    type: '被动-碎甲',
-                    description: '普攻会降低目标15%物理防御，持续2秒'
-                },
-                {
-                    type: '主动-破空',
-                    description: '强化下一次普攻，击退目标并额外造成（60%物理攻击）物理伤害，同时自身向后位移，被击退的目标晕眩0.5秒（冷却时间：60秒）'
+                    type: '被动-暴风',
+                    description: '暴击后增加20%攻速和5%移速，持续3.5秒'
                 }
             ]
         },
         {
             id: 28,
-            name: '碎星锤',
-            price: 2100,
-            icon: 'imgs/equipment/suixingchui.webp',
-            stats: { '物理攻击': 80, '冷却缩减': '10%' },
+            name: '暗影战斧',
+            price: 2090,
+            icon: 'imgs/equipment/anyingzhanfu.webp',
+            stats: { '物理攻击': 80, '冷却缩减': '10%', '最大生命': 500 },
             materials: [
                 'imgs/equipment/yunxing.webp',
                 'imgs/equipment/rimian.webp'
@@ -2039,28 +1991,28 @@ export const equipmentData = {
 export const recommendedBuilds = [
     {
         hero: '后羿',
-        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/111f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+        heroAvatar: './imgs/heroes/houyi/houyi.webp',
         items: [
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/625f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 急速战靴
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/20e3e3e8f8e4f33f5655d06a0b0d2f86755d38c8.png', // 闪电匕首
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/932e82a0e25d677e542f8491f5a0a585f25e72c.png', // 破晓
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/8e8fe0acc2ad4916f20f7dc66bbd21248f3d1612.png', // 无尽战刃
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/333f632a25d64cf62754271beac6df84f54c358a.png', // 不祥征兆
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'  // 魔女斗篷
+            'imgs/equipment/jisuzhanxue.webp', 
+            'imgs/equipment/yingren.webp', 
+            'imgs/equipment/wujinzhanren.webp', 
+            'imgs/equipment/renzhepoxiao.webp', 
+            'imgs/equipment/zhurizhigong.webp', 
+            'imgs/equipment/moshi.webp'
         ],
-        description: '后羿的经典出装，兼顾输出和生存，后期可根据敌方阵容调整防御装备'
+        description: '后羿的经典出装，拉满攻速与暴击伤害，后期可根据敌方阵容调整防御装备'
     },
     {
-        hero: '安琪拉',
-        heroAvatar: 'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/222f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png',
+        hero: '海月',
+        heroAvatar: './imgs/heroes/haiyue/haiyue.webp',
         items: [
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/925f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 秘法之靴
-            'https://kimi-web-img.moonshot.cn/img/imgo.hackhome.com/fb581f0b7fe38ade942999385fce5ee89d91a885.jpg', // 回响之杖
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/125f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 博学者之怒
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/225f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 虚无法杖
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/425f8e3e8e5d677e545d06e8234f5c6996e0c8f5.png', // 辉月
-            'https://kimi-web-img.moonshot.cn/img/so1.360tres.com/d3c04ed314415c48c0414f08d8b128420f4ebfa3.png'  // 魔女斗篷
+            'imgs/equipment/mifazhixue.webp', 
+            'imgs/equipment/mengyanzhiya.webp', 
+            'imgs/equipment/boxuezhezhinu.webp', 
+            'imgs/equipment/xianzhetianshu.webp', 
+            'imgs/equipment/rimuzhiliu.webp', 
+            'imgs/equipment/shishenzhishu.webp'
         ],
-        description: '安琪拉的爆发流出装，高额法术强度配合穿透，瞬间秒杀敌方脆皮'
+        description: '海月的爆发流出装，高额法术强度配合穿透，瞬间秒杀敌方脆皮'
     }
 ];

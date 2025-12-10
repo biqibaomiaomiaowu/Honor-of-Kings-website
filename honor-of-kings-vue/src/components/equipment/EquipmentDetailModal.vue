@@ -41,7 +41,7 @@
             <div class="materials-list">
               <div class="material-item" v-for="(material, index) in equipment.materials" :key="index">
                 <img :src="getImageUrl(material)" alt="material" class="material-icon">
-                <div class="material-arrow" v-if="index < equipment.materials.length - 1">→</div>
+                <div class="material-arrow" v-if="index < equipment.materials.length - 1">+</div>
               </div>
             </div>
           </div>
