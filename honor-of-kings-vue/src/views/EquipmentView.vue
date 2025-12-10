@@ -3,7 +3,9 @@
     <ParticleBackground />
     <div class="equipment-container">
       <div class="page-header">
-        <h1 class="page-title">装备图鉴</h1>
+        <div class="page-title-wrapper">
+            <ParticleText text="装备图鉴" :fontSize="60" color="#ffd700" />
+        </div>
         <p class="page-subtitle">全装备属性详解与合成路径</p>
       </div>
 
@@ -43,6 +45,7 @@ import RecommendedBuilds from '@/components/equipment/RecommendedBuilds.vue';
 import { equipmentData, recommendedBuilds } from '@/data/equipmentData.js';
 import ScrollToTop from '../components/ScrollToTop.vue';
 import ParticleBackground from '../components/home/ParticleBackground.vue';
+import ParticleText from '../components/home/ParticleText.vue';
 const currentCategory = ref('attack');
 const showModal = ref(false);
 const selectedEquipment = ref({});
@@ -77,6 +80,8 @@ const closeModal = () => {
   margin: 0 auto;
   padding: 100px 20px 50px;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .page-header {
@@ -85,14 +90,15 @@ const closeModal = () => {
   animation: fadeInDown 0.8s ease-out;
 }
 
-.page-title {
-  font-size: 48px;
-  color: #d4af37;
-  margin-bottom: 10px;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-  font-weight: bold;
-  letter-spacing: 2px;
+.page-title-wrapper {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
+
+/* .page-title removed */
 
 .page-subtitle {
   font-size: 18px;

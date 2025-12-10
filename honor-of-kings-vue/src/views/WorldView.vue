@@ -7,6 +7,7 @@ import WorldRelationships from '../components/world/WorldRelationships.vue';
 import AppFooter from '../components/AppFooter.vue';
 import ScrollToTop from '../components/ScrollToTop.vue';
 import ParticleBackground from '../components/home/ParticleBackground.vue';
+import ParticleText from '../components/home/ParticleText.vue';
 </script>
 
 <template>
@@ -14,7 +15,9 @@ import ParticleBackground from '../components/home/ParticleBackground.vue';
     <ParticleBackground />
     <main class="main-content">
       <div class="page-header">
-        <h1 class="page-title">世界观</h1>
+        <div class="page-title-wrapper">
+            <ParticleText text="世界观" :fontSize="60" color="#ffd700" />
+        </div>
         <p class="page-subtitle">探索王者大陆的神秘历史与英雄传说</p>
       </div>
 
@@ -53,12 +56,15 @@ import ParticleBackground from '../components/home/ParticleBackground.vue';
     margin-bottom: 3rem;
 }
 
-.page-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ffd700;
+.page-title-wrapper {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
 }
+
+/* .page-title removed */
 
 .page-subtitle {
     font-size: 1.2rem;

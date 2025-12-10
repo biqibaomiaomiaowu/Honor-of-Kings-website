@@ -6,6 +6,7 @@ import MapInteractive from '../components/maps/MapInteractive.vue';
 import AppFooter from '../components/AppFooter.vue';
 import ScrollToTop from '../components/ScrollToTop.vue';
 import ParticleBackground from '../components/home/ParticleBackground.vue';
+import ParticleText from '../components/home/ParticleText.vue';
 </script>
 
 <template>
@@ -14,7 +15,9 @@ import ParticleBackground from '../components/home/ParticleBackground.vue';
     <main class="main-content">
       <section class="intro-section">
         <div class="page-header">
-          <h1 class="page-title">王者峡谷</h1>
+          <div class="page-title-wrapper">
+            <ParticleText text="王者峡谷" :fontSize="60" color="#ffd700" />
+          </div>
           <p class="page-subtitle">
             王者荣耀最经典的5V5对战地图，对称的地形设计、丰富的资源分布和策略性的路线规划，
             是考验团队配合与个人操作的核心战场。地图分为红蓝双方阵营，通过推塔、击杀野怪、争夺中立资源，
@@ -54,7 +57,6 @@ import ParticleBackground from '../components/home/ParticleBackground.vue';
 }
 
 .intro-section {
-    margin-bottom: 2rem;
 }
 
 .page-header {
@@ -62,12 +64,15 @@ import ParticleBackground from '../components/home/ParticleBackground.vue';
     margin-bottom: 2rem;
 }
 
-.page-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ffd700;
+.page-title-wrapper {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
 }
+
+/* .page-title removed */
 
 .page-subtitle {
     font-size: 1.2rem;

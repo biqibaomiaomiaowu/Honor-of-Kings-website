@@ -6,6 +6,7 @@ import HeroDetailModal from '../components/heroes/HeroDetailModal.vue';
 import { roles as rolesRaw, heroesData as heroesDataRaw } from '../data/heroesData';
 import ScrollToTop from '../components/ScrollToTop.vue';
 import ParticleBackground from '../components/home/ParticleBackground.vue';
+import ParticleText from '../components/home/ParticleText.vue';
 // 响应式数据
 const searchQuery = ref('');
 const currentFilter = ref('all');
@@ -59,9 +60,10 @@ const closeModal = () => {
     <div class="heroes-page">
         <ParticleBackground />
         <main class="main-content">
-            
             <div class="page-header">
-                <h1 class="page-title">英雄介绍</h1>
+                <div class="page-title-wrapper">
+                    <ParticleText text="英雄介绍" :fontSize="60" color="#ffd700" />
+                </div>
                 <p class="page-subtitle">探索王者峡谷中的每一位英雄，了解他们的故事与技能</p>
             </div>
 
@@ -109,15 +111,18 @@ const closeModal = () => {
 
 .page-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
-.page-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ffd700;
+.page-title-wrapper {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
 }
+
+/* .page-title removed */
 
 .page-subtitle {
     font-size: 1.2rem;

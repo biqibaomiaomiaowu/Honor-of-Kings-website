@@ -1,11 +1,14 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import ParticleText from './ParticleText.vue';
 </script>
 
 <template>
     <section class="hero-section" :style="{ backgroundImage: 'url(/imgs/index/bg-index.webp)' }">
         <div class="hero-content">
-            <h1 class="hero-title">王者荣耀</h1>
+            <div class="hero-title-wrapper">
+                <ParticleText text="王者荣耀" :fontSize="100" color="#ffd700" />
+            </div>
             <p class="hero-subtitle">5v5英雄公平对战手游</p>
             <RouterLink to="/heroes" class="cta-button">探索英雄世界</RouterLink>
         </div>
@@ -39,23 +42,18 @@ import { RouterLink } from 'vue-router';
     z-index: 2;
     max-width: 800px;
     padding: 0 2rem;
+    width: 100%; /* Ensure full width for canvas scaling */
 }
 
-.hero-title {
-    font-size: 4rem;
-    font-weight: bold;
+.hero-title-wrapper {
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: glow 2s ease-in-out infinite alternate;
+    height: 200px; /* Match ParticleText height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes glow {
-    from { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
-    to { filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8)); }
-}
+/* Removed .hero-title styles as it is replaced by ParticleText */
 
 .hero-subtitle {
     font-size: 1.5rem;
