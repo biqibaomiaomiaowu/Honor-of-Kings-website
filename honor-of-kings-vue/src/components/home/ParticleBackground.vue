@@ -1,73 +1,102 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import * as PIXI from 'pixi.js';
-
-const particlesContainer = ref(null);
-
-const initParticles = async () => {
-    if (!particlesContainer.value) return;
-
-    const pixiApp = new PIXI.Application();
-    
-    await pixiApp.init({
-        width: window.innerWidth,
-        height: window.innerHeight,
-        backgroundColor: 0x000000,
-        backgroundAlpha: 0,
-        resizeTo: window
-    });
-    
-    particlesContainer.value.appendChild(pixiApp.canvas);
-    
-    const particleContainer = new PIXI.Container();
-    pixiApp.stage.addChild(particleContainer);
-    
-    const particles = [];
-    for (let i = 0; i < 50; i++) {
-        const particle = new PIXI.Graphics();
-        particle.beginFill(0xffd700, 0.3);
-        particle.drawCircle(0, 0, Math.random() * 3 + 1);
-        particle.endFill();
-        
-        particle.x = Math.random() * pixiApp.screen.width;
-        particle.y = Math.random() * pixiApp.screen.height;
-        particle.vx = (Math.random() - 0.5) * 2;
-        particle.vy = (Math.random() - 0.5) * 2;
-        
-        particles.push(particle);
-        particleContainer.addChild(particle);
+const particlesOptions = {
+  background: {
+    color: {
+      value: 'transparent'
     }
-    
-    pixiApp.ticker.add(() => {
-        particles.forEach(particle => {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            
-            if (particle.x < 0) particle.x = pixiApp.screen.width;
-            if (particle.x > pixiApp.screen.width) particle.x = 0;
-            if (particle.y < 0) particle.y = pixiApp.screen.height;
-            if (particle.y > pixiApp.screen.height) particle.y = 0;
-        });
-    });
+  },
+  fpsLimit: 120,
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: 'push'
+      },
+      onHover: {
+        enable: true,
+        mode: 'grab'
+      },
+      resize: true
+    },
+    modes: {
+      bubble: {
+        distance: 400,
+        duration: 2,
+        opacity: 0.8,
+        size: 40
+      },
+      push: {
+        quantity: 4
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4
+      },
+      grab: {
+        distance: 140,
+        links: {
+            opacity: 1
+        }
+      }
+    }
+  },
+  particles: {
+    color: {
+      value: '#ffd700'
+    },
+    links: {
+      color: '#ffd700',
+      distance: 150,
+      enable: true,
+      opacity: 0.5,
+      width: 1
+    },
+    move: {
+      direction: 'none',
+      enable: true,
+      outModes: {
+        default: 'bounce'
+      },
+      random: false,
+      speed: 2,
+      straight: false
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 800
+      },
+      value: 80
+    },
+    opacity: {
+      value: 0.5
+    },
+    shape: {
+      type: 'circle'
+    },
+    size: {
+      value: { min: 1, max: 5 }
+    }
+  },
+  detectRetina: true
 };
-
-onMounted(() => {
-    initParticles().catch(err => console.error('Pixi init failed:', err));
-});
 </script>
 
 <template>
-    <div ref="particlesContainer" id="particles-container"></div>
+    <vue-particles
+        id="tsparticles"
+        :options="particlesOptions"
+    />
 </template>
 
 <style scoped>
-#particles-container {
+#tsparticles {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    pointer-events: none; /* 防止遮挡点击 */
+    z-index: 0;
+    pointer-events: auto;
 }
 </style>

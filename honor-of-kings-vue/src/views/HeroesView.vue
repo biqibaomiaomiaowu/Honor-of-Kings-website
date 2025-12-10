@@ -4,7 +4,8 @@ import HeroesFilter from '../components/heroes/HeroesFilter.vue';
 import HeroesList from '../components/heroes/HeroesList.vue';
 import HeroDetailModal from '../components/heroes/HeroDetailModal.vue';
 import { roles as rolesRaw, heroesData as heroesDataRaw } from '../data/heroesData';
-
+import ScrollToTop from '../components/ScrollToTop.vue';
+import ParticleBackground from '../components/home/ParticleBackground.vue';
 // 响应式数据
 const searchQuery = ref('');
 const currentFilter = ref('all');
@@ -56,7 +57,9 @@ const closeModal = () => {
 
 <template>
     <div class="heroes-page">
+        <ParticleBackground />
         <main class="main-content">
+            
             <div class="page-header">
                 <h1 class="page-title">英雄介绍</h1>
                 <p class="page-subtitle">探索王者峡谷中的每一位英雄，了解他们的故事与技能</p>
@@ -82,15 +85,17 @@ const closeModal = () => {
             :hero="selectedHero"
             @close="closeModal"
         />
+        <ScrollToTop />
     </div>
 </template>
 
 <style scoped>
 .heroes-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+    background: transparent;
     color: #ffffff;
     padding-top: 80px; /* Add padding for fixed navbar */
+    position: relative;
 }
 
 .main-content {
@@ -98,6 +103,8 @@ const closeModal = () => {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .page-header {

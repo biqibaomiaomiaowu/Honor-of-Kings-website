@@ -10,6 +10,8 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
     "@splidejs/vue-splide": "^0.6.12",
+    "@tsparticles/slim": "^3.9.1",
+    "@tsparticles/vue3": "^3.0.1",
     "animejs": "^3.2.1",
     "core-js": "^3.8.3",
     "echarts": "^6.0.0",

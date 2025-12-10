@@ -6,10 +6,12 @@ import WorldStories from '../components/world/WorldStories.vue';
 import WorldRelationships from '../components/world/WorldRelationships.vue';
 import AppFooter from '../components/AppFooter.vue';
 import ScrollToTop from '../components/ScrollToTop.vue';
+import ParticleBackground from '../components/home/ParticleBackground.vue';
 </script>
 
 <template>
   <div class="world-page">
+    <ParticleBackground />
     <main class="main-content">
       <div class="page-header">
         <h1 class="page-title">世界观</h1>
@@ -31,8 +33,9 @@ import ScrollToTop from '../components/ScrollToTop.vue';
 <style scoped>
 .world-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+    background: transparent;
     color: #ffffff;
+    position: relative;
 }
 
 .main-content {
@@ -41,6 +44,8 @@ import ScrollToTop from '../components/ScrollToTop.vue';
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .page-header {

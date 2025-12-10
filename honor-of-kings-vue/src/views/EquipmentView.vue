@@ -1,6 +1,6 @@
 <template>
   <div class="equipment-view">
-    
+    <ParticleBackground />
     <div class="equipment-container">
       <div class="page-header">
         <h1 class="page-title">装备图鉴</h1>
@@ -29,6 +29,7 @@
     />
 
     <AppFooter />
+    <ScrollToTop />
   </div>
 </template>
 
@@ -40,7 +41,8 @@ import EquipmentList from '@/components/equipment/EquipmentList.vue';
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue';
 import RecommendedBuilds from '@/components/equipment/RecommendedBuilds.vue';
 import { equipmentData, recommendedBuilds } from '@/data/equipmentData.js';
-
+import ScrollToTop from '../components/ScrollToTop.vue';
+import ParticleBackground from '../components/home/ParticleBackground.vue';
 const currentCategory = ref('attack');
 const showModal = ref(false);
 const selectedEquipment = ref({});
