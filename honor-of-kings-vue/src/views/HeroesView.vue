@@ -5,6 +5,7 @@ import HeroesList from '../components/heroes/HeroesList.vue';
 import HeroDetailModal from '../components/heroes/HeroDetailModal.vue';
 import { roles as rolesRaw, heroesData as heroesDataRaw } from '../data/heroesData';
 import ScrollToTop from '../components/ScrollToTop.vue';
+import AppFooter from '../components/AppFooter.vue';
 import ParticleBackground from '../components/home/ParticleBackground.vue';
 import ParticleText from '../components/home/ParticleText.vue';
 // 响应式数据
@@ -87,6 +88,7 @@ const closeModal = () => {
             :hero="selectedHero"
             @close="closeModal"
         />
+        <AppFooter />
         <ScrollToTop />
     </div>
 </template>
