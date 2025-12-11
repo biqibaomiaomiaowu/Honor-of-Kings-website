@@ -798,5 +798,127 @@ export const heroesData = [
             { name: '逐星', description: '云缨【逐星】突击多段伤且击飞，二段横扫留火径，释放霸体减伤' }
         ]
     },
+    {
+        id: 53,
+        name: '镜',
+        role:'assassin', 
+        roleText: '刺客',
+        image: '/imgs/heroes/jing/jing.png',
+        description: '镜为刺客英雄，技能灵活，爆发高切C强    ',
+        stats: { attack: 75, defense: 50, magic: 10, difficulty: 80 },
+        skills: [
+            { name: '铸镜', description: '本体与镜像留双印记触发碎裂，伤50~100+3%额外生命，镜技能冷却刷新；镜像伤害随距提，对塔仅10%      ' },
+            { name: '开锋', description:'镜突进，对路径敌人造成190~380(+65%额外物攻)伤害、15~30%减速，普攻增伤 ' },
+            { name: '裂空', description: '镜对周围敌人造成伤害（成长+55%额外AD），获1秒50%加速，命中回血（成长+2%额外生命）  ' },
+            { name: '移形', description: '镜本体与镜像冲向彼此的位置。每10秒储存一次【移形】，最多储存4次' },
+            { name:'见影', description: '镜大招拉敌定身1秒开10秒空间，回血减伤，伤敌充能，碎片追击 '}
+        ]
+    },
+    {
+        id: 54,
+        name: '赵怀真',
+        role:'warrior', 
+        roleText: '战士',
+        image: '/imgs/heroes/zhaohuaizhen/zhaohuaizhen.webp',
+        description: '赵怀真为辅助战士，能控能抗，太极战斗出色 ',
+        stats: { attack: 70, defense: 60, magic: 20, difficulty: 60 },
+        skills: [
+            { name: '气随心动', description: '赵怀真四种普攻“掌拳肘靠”，有各自伤害与回血，每击耗1精力0.7秒回1' },
+            { name: '拨云见明', description:'怀真提气出拳，风卷敌人移动造成伤害（成长+80%额外AD）并改朝向，后冲拳再伤（成长+55%额外AD） ' },
+            { name: '气定神凝', description: '怀真2技能进入最长2秒招架姿态，1.5秒获最大护盾和蓄力伤害。招架首控反击，结束时对周围造成成长伤害与减速 ' },
+            { name: '阴阳逆转', description: '怀真大招：云手霸体，气旋伤敌(成长+60%额外AD)、吸伤(上限成长)，再聚气击敌(成长+200%额外AD) ' }
+        ]
+    },
+    {
+        id: 55,
+        name: '周瑜',
+        role:'warrior', 
+        roleText: '战士',
+        image: '/imgs/heroes/zhouyu/zhouyu.png',
+        description: '远程法师，灼烧+范围控制，风火联动核心 ',
+        stats: { attack: 30, defense: 20, magic: 90, difficulty: 60 },
+        skills: [
+            { name: '引燃', description: '周瑜普攻和技能火焰叠加引燃印记，4层引燃，4秒伤（+17%法攻）减移速。 ' },
+            { name: '东风浩荡', description:'周瑜1技能：风区己方加速、敌方减速，吹风击退伤敌（+30%AP），风覆火区蔓延，火伤+25%AP。  ' },
+            { name: '流火之矢', description: '周瑜2技能：火矢轰击（250~500+40%AP）留火区6.5秒，超6个清旧区，火矢7~9秒储备3次。火区每秒回血（35~70+7%AP+2%额外生命） ' },
+            { name: '烽火赤壁', description: '周瑜向指定范围方向召唤一片火焰，造成200/300/400（+40%法术加成）点法术伤害，火焰掠过火区会激起一道火风，火风会造成额外200/300/400（+40%法术加成）点法术伤害并将敌人晕眩1秒' }
+        ]
+    },
+    {
+        id: 56,
+        name: '哪吒',
+        role:['warrior', 'tank'],
+        roleText: '战士/坦克',
+        image: '/imgs/heroes/nezha/nezha.png',
+        description: '突进战士，可强抓后排，控制输出兼备 ',
+        stats: { attack: 70, defense: 60, magic: 20, difficulty: 40 },
+        skills: [
+            { name: '炙炼火种', description: '哪吒技能伤敌获70 - 150(+1.5%额外生命)护盾，上限成长+30%，触发风火轮，普攻减半  ' },
+            { name: '火焰三尖枪', description:'哪吒1技能：范围物理伤害(+105%额外AD)，留火种真伤(+20%额外AD)，可叠加3层   ' },
+            { name: '混天绫·束', description: '哪吒2技能：翻滚至目标身后造成伤害(+75%额外AD)，获护盾(+0.5%额外生命)，短时间内不连放。 ' },
+            { name: '乾坤·天降', description: '飞敌造成伤害(450~900+200%额外AD)并击退，获减伤、韧性，冷却与距离有关。若敌不可选，至多等0.5秒。' },
+            { name: '乾坤圈', description: '哪吒放乾坤圈全图伤(140~280+45%额外AD)获视野，5秒内大招全图，露视野英雄禁回城  ' }
+        ]
+    },
+    {
+        id: 57,
+        name: '花木兰',
+        role:'warrior', 
+        roleText: '战士',
+        image: '/imgs/heroes/huamulan/huamulan.png',
+        description: '双形态战士，高机动高爆发，切C能手 ',
+        stats: { attack: 80, defense: 60, magic: 10, difficulty: 90 },
+        skills: [
+            { name: '长城巡守者', description: '轻剑：普攻技能叠5层印记触发沉默减速回血，重剑：技能霸体减伤，普攻增伤但间隔长。' },
+            { name: '空裂斩', description:'花木兰轻剑1技能：冲锋挥砍，命中造成60~110（+40%物理加成）伤害，可5秒内二连斩。   ' },
+            { name: '旋舞之华', description: '花木兰轻剑2技能：投剑路径伤+终点旋3秒，每0.5秒伤+减速，拾剑减大招5秒CD ' },
+            { name: '绽放刀锋', description: '横扫附近敌人(200~360+110%物伤)，获90物攻5秒，切换重剑技能。' }
+        ]
+    },
+    {
+        id: 58,
+        name: '小乔',
+        role:'mage', 
+        roleText: '法师',
+        image: '/imgs/heroes/xiaoqiao/xiaoqiao.png',
+        description: '高爆发远程法师，控制足且团伤强 ',
+        stats: { attack: 20, defense: 20, magic: 90, difficulty: 60 },
+        skills: [
+            { name: '治愈微笑', description: '被动：小乔释放技能命中敌人时，会增加25％移动速度，持续2秒' },
+            { name: '绽放之舞', description: '扔回旋扇，首敌伤585~835（+80%AP），每命中衰减20%，最低至50%'},
+            { name: '甜蜜恋风', description: '指定区域召唤旋风，造成300~500(+50%法术加成)伤害，击飞1.5秒。' },
+            { name: '星华缭乱', description: '小乔3技能：召唤流星6秒，单目标最多4次伤(400~600+100%AP)，次颗起50%伤，获加速。 '}
+        ]
+    },
+    {
+        id: 59,
+        name: '橘右京',
+        role:['warrior', 'assassin'], 
+        roleText: '战士/刺客',
+        image: '/imgs/heroes/juyoujing/juyoujing.jpg',
+        description: '近战刺客，高爆发、灵活突进，收割能手 ',
+        stats: { attack: 80, defense: 30, magic: 10, difficulty: 80 },
+        skills: [
+            { name: '秘剑胧刀', description: '橘右京被动：拔刀斩长射程伤害、减速，边缘额外伤，回血，CD5~4秒，技能减0.5秒' },
+            { name: '燕返', description: '后跳斩击(330~660+150%额外AD)，二段命中返起点强化，按敌损血增伤，减2技能CD'},
+            { name: '居合', description: '拔刀斩路径伤(580~1160+190%AD)，路径末端敌人晕眩0.75秒' },
+            { name: '细雪', description: '四次拔刀，每次130 - 230(+55%物攻)，命中英雄回血(300 - 600+4.5%额外生命)减半'}
+        ]
+    },
+    {
+        id: 60,
+        name: '不知火舞',
+        role:['mage', 'assassin'], 
+        roleText: '法师/刺客',
+        image: '/imgs/heroes/buzhihuowu/buzhihuowu.jpg',
+        description: '高爆发刺客法师，多段位移强突进 ',
+        stats: { attack: 30, defense: 30, magic:90, difficulty: 90 },
+        skills: [
+            { name: '忍蜂', description: '不知火舞普攻5秒一强化，额外伤(100+100%AP)+击退+回能10，技能后翻滚加速' },
+            { name: '飞翔龙炎阵', description: '飞踢命中目标造成550~900(+73%AP)法伤，击飞0.75秒，回能25点'},
+            { name: '花蝶扇', description: '扔扇首目标伤(450~900+90%AP)、90%减速0.5秒、减防3秒，回能10点。身后单位等量伤害，英雄减半' },
+            { name: '必杀·忍蜂', description: '不知火舞大招冲刺，对命中目标造成800 - 1200(+110%法强)伤害、击退，回能，减物攻'}
+        ]
+    },
 ];
- 
+  
