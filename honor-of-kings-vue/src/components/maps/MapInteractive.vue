@@ -1,32 +1,18 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { mapsData } from '../../data/mapsData';
 import MapDetailModal from './MapDetailModal.vue';
 
 const currentMap = ref(mapsData[0]);
-const mapViewer = ref(null);
+const mapImage = ref(null);
+const mapAspectRatio = ref('');
 const showModal = ref(false);
 const selectedHotspot = ref({});
-const lightEffectVisible = ref(false);
-const lightEffectStyle = reactive({
-    left: '0px',
-    top: '0px'
-});
 
-const handleMapMouseMove = (e) => {
-    if (!mapViewer.value) return;
-
-    const rect = mapViewer.value.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    lightEffectStyle.left = `${x - 60}px`;
-    lightEffectStyle.top = `${y - 60}px`;
-    lightEffectVisible.value = true;
-};
-
-const removeLightEffect = () => {
-    lightEffectVisible.value = false;
+const handleMapImageLoad = () => {
+    const img = mapImage.value;
+    if (!img || !img.naturalWidth || !img.naturalHeight) return;
+    mapAspectRatio.value = String(img.naturalWidth / img.naturalHeight);
 };
 
 const showHotspotDetail = (hotspot) => {
@@ -43,30 +29,23 @@ const navigateHotspot = (direction) => {
     if (!hotspots.length || !selectedHotspot.value.id) return;
 
     const currentIndex = hotspots.findIndex(h => h.id === selectedHotspot.value.id);
-    // 计算新索引（循环）
     let newIndex = (currentIndex + direction + hotspots.length) % hotspots.length;
     selectedHotspot.value = hotspots[newIndex];
 };
 </script>
 
 <template>
-  <section class="full-map-section">
-    <div 
-      class="map-viewer" 
-      ref="mapViewer"
-      @mousemove="handleMapMouseMove"
-      @mouseleave="removeLightEffect"
-    >
-      <img :src="currentMap.image" :alt="currentMap.name" class="map-image">
+        <section class="full-map-section">
+                <div class="map-viewer" :style="mapAspectRatio ? { aspectRatio: mapAspectRatio } : null">
+            <img
+                ref="mapImage"
+                :src="currentMap.image"
+                :alt="currentMap.name"
+                class="map-image"
+                @load="handleMapImageLoad"
+            >
       
       <div class="map-overlay"></div>
-      
-      <!-- 光效 -->
-      <div 
-        v-show="lightEffectVisible" 
-        class="light-effect"
-        :style="lightEffectStyle"
-      ></div>
 
       <!-- 热点 -->
       <div 
@@ -92,12 +71,10 @@ const navigateHotspot = (direction) => {
 
 <style scoped>
 .full-map-section {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 95vh;
+    width: 100%;
+    height: auto;
     background: rgba(15, 20, 25, 0.8);
-    border-radius: 20px;
+    border-radius: 14px;
     overflow: hidden;
     position: relative;
     margin-bottom: 3rem;
@@ -106,16 +83,16 @@ const navigateHotspot = (direction) => {
 
 .map-viewer {
     width: 100%;
-    height: 100%;
+    height: auto;
     position: relative;
-    cursor: crosshair;
+    cursor: default;
 }
 
 .map-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    background: transparent;
+    object-fit: contain;
+    background: rgba(0, 0, 0, 0.25);
     object-position: center;
 }
 
@@ -131,8 +108,8 @@ const navigateHotspot = (direction) => {
 
 .map-hotspot {
     position: absolute;
-    width: 45px;
-    height: 45px;
+    width: 36px;
+    height: 36px;
     background: rgba(15, 23, 42, 0.7);
     border-radius: 50%;
     cursor: pointer;
@@ -172,14 +149,4 @@ const navigateHotspot = (direction) => {
     background: rgba(15, 23, 42, 0.7);
 }
 
-.light-effect {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transition: opacity 0.1s ease; /* Only transition opacity, position updates instantly */
-    z-index: 5;
-}
 </style>
